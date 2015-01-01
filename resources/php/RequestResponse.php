@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of RequestResponse
- *
- * @author ayme
- */
 class RequestResponse {
 
     public $sucess;
