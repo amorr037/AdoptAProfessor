@@ -24,6 +24,11 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/home.html";
             }
+        }).when('/contactUs',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/contactUs.html";
+            }
         }).otherwise({
             redirectTo: (function() {
                 return function(){
