@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class Professor{
+class Professor implements JsonSerializable{
     private $title;
     private $name;
     private $lastname;
@@ -18,5 +18,16 @@ class Professor{
         $lastname = "yamin";
         $website = "www.dr.com";
     }
+
+    public function jsonSerialize() {
+        return array(
+          'title' => $this->title,  
+          'name' => $this->name,  
+          'lastname' => $this->lastname,  
+          'website' => $this->website,  
+        );
+        
+    }
+
 }
 
