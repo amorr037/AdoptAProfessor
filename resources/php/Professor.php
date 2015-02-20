@@ -17,6 +17,7 @@ class Professor implements JsonSerializable{
         $name = "Dayan";
         $lastname = "yamin";
         $website = "www.dr.com";
+
     }
 
     public function jsonSerialize() {

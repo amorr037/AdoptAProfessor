@@ -9,9 +9,9 @@
 class FindProfessor {
 
     function __construct() {
-        $a = new Professor();
-        $b = object_to_array($a);
-        $c = json_encode($b);
+        $b = new Professor();
+        echo $b->jsonSerialize();
+        echo "a";
     }
 
     function object_to_array($data) {
