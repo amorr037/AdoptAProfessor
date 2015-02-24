@@ -10,9 +10,13 @@ if ($conn->connect_error)
     die("Connection failed: " . $conn->connect_error);
 
 
-if ($result = $conn->query("SELECT username, firstname, lastname, title, website, email FROM users LIMIT 10")) {
+if ($result = $conn->query("
+SELECT username, firstname, lastname, title, website, email, path FROM users
+LEFT JOIN pictures
+ON users.user_id=pictures.user_id")
+) {
     $i = 0;
-    while($row = $result->fetch_array(MYSQL_ASSOC)){
+    while ($row = $result->fetch_array(MYSQL_ASSOC)) {
         $res[$i] = $row;
         $i++;
     }
