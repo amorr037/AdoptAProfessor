@@ -37,7 +37,7 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         }).otherwise({
             redirectTo: (function() {
                 return function(){
-                    return "/";
+                    return "/home";
                 };
             })()
         });

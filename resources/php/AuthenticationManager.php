@@ -16,7 +16,7 @@ class AuthenticationManager {
     private $dbCnx;
 
     function __construct() {
-        $contents = file_get_contents("../dbCredentials");
+        $contents = file_get_contents("../../../dbCredentials");
         $config = json_decode($contents);
         $uname = $config->username;
         $pw = $config->password;
