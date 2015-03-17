@@ -5,4 +5,11 @@ function User(){
     var self = this;
     self.username = "";
     self.apiKey = null;
+    this.isLoggedIn = function(){
+    	return self.username === "";
+    }
 }
+
+aap.controller('NavCtrl', [function() {
+	this.user = aap.user;
+}]);

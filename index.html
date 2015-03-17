@@ -29,13 +29,14 @@
 
 
         <!-- Navigation & Logo-->
-        <div class="mainmenu-wrapper">
+        <div ng-controller="NavCtrl as ctrl" class="mainmenu-wrapper">
             <div class="container">
                 <div class="menuextras">
                     <div class="extras">
                         <ul>
-                            <li><a href="#/login">Login</a></li>
-                            <li><a href="#/register">Register</a></li>
+                            <li ng-show="ctrl.user.isLoggedIn()"><a href="#/login">Login</a></li>
+                            <li ng-show="ctrl.user.isLoggedIn()"><a href="#/register">Register</a></li>
+                            <li ng-show="!ctrl.user.isLoggedIn()"><a href="">Logout</a></li>
                         </ul>
                     </div>
                 </div>
