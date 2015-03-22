@@ -38,7 +38,7 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         .when('/profile',//Redirect if root
         {
             templateUrl: function(){
-                return "./resources/pages/profile.html";
+                return "./resources/pages/"+(aap.user.isProfessor?"professorProfile.html":"profile.html");
             }
         }).otherwise({
             redirectTo: (function() {
