@@ -109,13 +109,14 @@ class AuthenticationManager {
         return null;
     }
     function getProfileInfo($username) {
-        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null];
-        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email FROM users WHERE username = '$username'")) {
+        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null,'usertype' => 'STUDENT'];
+        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
             $row = $result->fetch_assoc();
             if($row){
                 $res['firstname']= $row['firstname'];
                 $res['lastname']= $row['lastname']; 
                 $res['email']= $row['email']; 
+                $res['usertype'] = $row['usertype'];
                 return $res;             
             }
             $result->close();
