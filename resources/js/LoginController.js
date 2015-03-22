@@ -1,4 +1,4 @@
-aap.controller('LoginCtrl', ['DataRequest','$location', function(DataRequest,$location) {
+aap.controller('LoginCtrl', ['DataRequest','$location','$localStorage', function(DataRequest,$location,$localStorage) {
     var self = this;
     this.user = aap.user;
     self.username = "";
@@ -13,9 +13,11 @@ aap.controller('LoginCtrl', ['DataRequest','$location', function(DataRequest,$lo
             }
             aap.user.apiKey = data.apiKey;
             aap.user.username = self.username;
+            $localStorage.username = aap.user.username;
+            $localStorage.apiKey = aap.user.apiKey;
             console.log(aap.user);
             //redirect to some page
-            $location.path("/");
+            $location.path("/profile");
         });
     };
 }]);
