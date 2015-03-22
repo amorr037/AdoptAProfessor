@@ -108,5 +108,22 @@ class AuthenticationManager {
             return "User already exists";             
         return null;
     }
+    function getProfileInfo($username) {
+        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null];
+        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email FROM users WHERE username = '$username'")) {
+            $row = $result->fetch_assoc();
+            if($row){
+                $res['firstname']= $row['firstname'];
+                $res['lastname']= $row['lastname']; 
+                $res['email']= $row['email']; 
+                return $res;             
+            }
+            $result->close();
+            $res['errMsg']="Username not found";
+            // return $res;
+        }
+        $res['errMsg'] = $result;
+        return $res; 
+    }
 
 }
