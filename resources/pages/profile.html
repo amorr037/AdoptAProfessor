@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="container">
-		<h2>Adopted Professors</h2>
+		<h2>Recently Adopted Professors</h2>
 		<div class="row">
 			<!-- Testimonial -->
 			<div class="testimonial col-md-4 col-sm-6">
@@ -66,59 +66,102 @@
 	            	<div class="sprite arrow-speech-bubble"></div>
 	            </div>
 	        </div>
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Jason_liu.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Greg_Shaw.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Mark_Weiss.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
 		</div>
 	</div>
 	<div class="row">
     	<div class="col-sm-offset-5 col-sm-2 text-center">
-			<a href="#" class="btn">View History</a>
+			<a href="" class="btn" ng-click = "ctrl.toggleShowHistory()" ng-bind="ctrl.historyBtnName"></a>
+		</div>
+	</div>
+
+
+	<div class="container" ng-show = "ctrl.showingHistory">
+		<br>
+		<div class="row">
+			<div class = "col-sm-12 col-md-8 col-md-offset-2">
+				<h2></h2>
+			</div>
+		</div>
+		<div class="row " >
+			<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">
+				<br>
+				<div class="row">
+					<div class="author-photo col-md-3">
+						<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Jason_liu.jpg)'></div>
+					</div>
+					<div class = "col-sm-12 col-md-9">
+						<p class="quote">
+			                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+			            </p>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						21 Oct 2014
+					</div>
+					<div class = "col-sm-3 col-md-9">
+						<div class="author-photo">
+							<img src="resources/img/uploaded/uploaded1.jpg" alt="Author 1">
+						</div>
+					</div>	
+				</div>
+				<br>
+			</div>
+		</div>
+		<div class="row">
+			<div class = "col-sm-12 col-md-8 col-md-offset-2">
+				<h2></h2>
+			</div>
+		</div>
+		<div class="row " >
+			<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">
+				<br>
+				<div class="row">
+					<div class="author-photo col-md-3">
+						<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Mark_Weiss.jpg)'></div>
+					</div>
+					<div class = "col-sm-12 col-md-9">
+						<p class="quote">
+			                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+			            </p>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						21 Oct 2014
+					</div>
+				</div>
+			</div>
+		</div>
+				<div class="row">
+			<div class = "col-sm-12 col-md-8 col-md-offset-2">
+				<h2></h2>
+			</div>
+		</div>
+		<div class="row " >
+			<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">
+				<br>
+				<div class="row">
+					<div class="author-photo col-md-3">
+						<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Greg_Shaw.jpg)'></div>
+					</div>
+					<div class = "col-sm-12 col-md-9">
+						<p class="quote">
+			                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+			            </p>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						21 Oct 2014
+					</div>
+					<div class = "col-sm-3 col-md-9">
+						<div class="author-photo">
+							<img src="resources/img/homepage-slider/slide1.png" alt="Author 1">
+						</div>
+					</div>	
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
