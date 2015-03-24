@@ -2,6 +2,8 @@ aap.controller('RegisterCtrl', ['DataRequest','$location','$timeout', function(D
     var self = this;
     this.user = aap.user;
     self.username = "";
+    self.fname = "";
+    self.lname = "";
     self.password = "";
     self.repassword="";
     self.email = "";
