@@ -27,13 +27,13 @@ class AuthenticationManager {
             die("Unable to connect to database[" . $this->dbCnx->connect_error . "]");
     }
 
-    function registerUser($username, $userPwd, $email) {
+    function registerUser($username, $userPwd, $email, $fname, $lname) {
         $pwdHash = password_hash($userPwd, PASSWORD_DEFAULT);
         $stmt = $this->dbCnx->prepare("INSERT INTO users (username, password,email) VALUES (?, ?, ?)");
         if (!$stmt) {
             return "Unable to prepare insertion query";
         }
-        $stmt->bind_param("sss", $username, $pwdHash, $email);
+        $stmt->bind_param("sss", $username, $pwdHash, $email, $fname, $lname);
         $res = $stmt->execute();
         $stmt->close();
         if (!$res)
