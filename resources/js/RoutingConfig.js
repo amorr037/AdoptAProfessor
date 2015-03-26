@@ -56,6 +56,11 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/administratorPage.html";
             }
+        }).when('/editProfile',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/editProfile.html";
+            }
         })
         .when('/profile',//Redirect if root
         {
