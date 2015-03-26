@@ -67,3 +67,8 @@
 .checkboxFive input[type=checkbox]:checked + label:after {
 	opacity: 1;
 }
+
+.app-blue{
+    color: #FFF;
+    background: none repeat scroll 0 0 #4F8DB3;
+}
