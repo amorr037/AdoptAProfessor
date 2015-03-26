@@ -11,3 +11,11 @@ class RequestResponse {
     }
 
 }
+
+class GetProfileInfoResponse extends RequestResponse{
+    public $info;
+    public function __construct($success,$msg,$info){
+        parent::__construct($success, $msg);
+        $this->info = $info;
+    }
+}

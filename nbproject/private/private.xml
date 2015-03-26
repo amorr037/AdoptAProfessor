@@ -3,8 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/var/www/AdoptAProfessor/resources/php/AuthenticationManager.php</file>
             <file>file:/var/www/AdoptAProfessor/resources/js/DataRequestFactory.js</file>
+=======
+            <file>file:/home/ayme/LAMP%20Root/AdoptAProfessor/resources/pages/contactUs.html</file>
+            <file>file:/home/ayme/LAMP%20Root/AdoptAProfessor/resources/js/RegisterController.js</file>
+            <file>file:/home/ayme/LAMP%20Root/AdoptAProfessor/index.html</file>
+            <file>file:/home/ayme/LAMP%20Root/AdoptAProfessor/resources/pages/home.html</file>
+            <file>file:/home/ayme/LAMP%20Root/AdoptAProfessor/resources/php/checkUsername.php</file>
+>>>>>>> ab6c7a206449d05648a4cf6738532a7eded686fd
         </group>
     </open-files>
 </project-private>
