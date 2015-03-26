@@ -1,0 +1,78 @@
+<!-- Page Title -->
+<div class="section section-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Edit Profile</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section" ng-controller="EditProfileCtrl as ctrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="basic-login">
+                    <form name="edit_form" role="form" novalidate ng-submit="ctrl.edit()">
+                        <div class="form-group">
+                                <div class = "circular center-block" style = 'background-image: url(resources/img/profile/user3.jpg)'></div>
+                            <div class="form-group">
+                                <label for="edit-fname"><i class="icon-user"></i> <b>First Name</b></label>
+                                <input class="form-control" name ="fname" id="edit-fname" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.fname" ng-maxlength=30 ng-minlength=1 type="text" required placeholder="Dayan">
+                                <!--<div class="error" style="color: red" -->
+                                     <!--ng-show="edit_form.fname.$dirty && edit_form.fname.$invalid">-->
+                                    <!--<small class="error" style="color: red" -->
+                                           <!--ng-show="edit_form.fname.$error.maxlength">-->
+                                        <!--Your name cannot be longer than 20 characters-->
+                                    <!--</small>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-lname"><i class="icon-user"></i> <b>Last Name</b></label>
+                                <input class="form-control" name ="lname" id="edit-lname" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.lname" ng-maxlength=30 ng-minlength=1 type="text" required placeholder="Yamin">
+                                <!--<div class="error" style="color: red"-->
+                                     <!--ng-show="edit_form.lname.$dirty && edit_form.lname.$invalid">-->
+                                    <!--<small class="error" style="color: red" -->
+                                           <!--ng-show="edit_form.lname.$error.maxlength">-->
+                                        <!--Your last name cannot be longer than 20 characters-->
+                                    <!--</small>-->
+                                <!--</div>-->
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-email"><i class="icon-user"></i> <b>Email</b></label>
+                                <input class="form-control" name="email" id="edit-email" ng-model="ctrl.email" ng-maxlength=20 ng-minlength=3 required type="email" placeholder="Dayan@AdoptAProf.com">
+                                <!--<div class="error-container" -->
+                                     <!--ng-show="edit_form.email.$dirty && edit_form.email.$invalid">-->
+                                    <!--<small class="error" style="color: red" -->
+                                           <!--ng-show="edit_form.email.$error.minlength">-->
+                                        <!--Your email is required to be at least 3 characters-->
+                                    <!--</small>-->
+                                    <!--<small class="error" style="color: red" -->
+                                           <!--ng-show="edit_form.email.$error.email">-->
+                                        <!--That is not a valid email. Please input a valid email.-->
+                                    <!--</small>-->
+                                    <!--<small class="error" style="color: red" -->
+                                           <!--ng-show="edit_form.email.$error.maxlength">-->
+                                        <!--Your email cannot be longer than 45 characters-->
+                                    <!--</small>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-password"><i class="icon-lock"></i> <b>Password</b></label>
+                                <input class="form-control" id="edit-password" ng-model="ctrl.password"  type="password" placeholder="**********">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-password2"><i class="icon-lock"></i> <b>Re-enter Password</b></label>
+                                <input class="form-control" id="edit-password2" ng-model="ctrl.repassword"  type="password"  placeholder="**********">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" ng-disabled="edit_form.$invalid" class="btn pull-right">Edit Profile!</button>
+                                <div class="clearfix"></div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
