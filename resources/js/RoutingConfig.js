@@ -29,6 +29,11 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/find.html";
             }
+        }).when('/inviteProfessor',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/inviteProfessor.html";
+            }
         }).when('/contactUs',//Redirect if root
         {
             templateUrl: function(){
@@ -41,7 +46,12 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
                 return "./resources/pages/faq.html";
             }
         })
-        .when('/admin',//Redirect if root
+        .when('/professorMonth',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/professorMonth.html";
+            }
+        }).when('/admin',//Redirect if root
         {
             templateUrl: function(){
                 return "./resources/pages/administratorPage.html";
