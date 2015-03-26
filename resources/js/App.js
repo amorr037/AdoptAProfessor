@@ -30,6 +30,7 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 	this.user.firstname = $localStorage.firstname;
 	this.user.lastname = $localStorage.lastname;
 	this.user.email = $localStorage.email;
+    this.user.isProfessor = $localStorage.isProfessor;
 	this.logout = function(){
 		self.user.clear();
 		delete $localStorage.username;
@@ -39,5 +40,10 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 		delete $localStorage.lastname;
 		delete $localStorage.email;
 		$location.path("/home");
-	}
+	};
+
+    this.getHomeAddress = function(){
+        return self.user.isLoggedIn()?'profile':'home';
+    };
+
 }]);
