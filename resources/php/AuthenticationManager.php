@@ -127,31 +127,32 @@ class AuthenticationManager {
         return $res; 
     }
     function getProfessors() {
-        $res = ["errMsg" => null, "username" => null, "title" => null, "website" => null,
-            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
-            "user_id" => null,'usertype' => 'STUDENT'];
+//        $res = ["errMsg" => null, "username" => null, "title" => null, "website" => null,
+//            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
+//            "user_id" => null ];
         if ($result = $this->dbCnx->query(
-            "SELECT username, firstname, lastname, users.user_id, title, website, email, path
+            "SELECT firstname, lastname, users.user_id, title, website, email, path
             FROM users
             LEFT JOIN pictures
             ON users.user_id=pictures.user_id")) {
-            $row = $result->fetch_assoc();
-            if($row){
-                $res['username']= $row['username'];
-                $res['title']= $row['title'];
-                $res['email']= $row['email'];
-                $res['website']= $row['website'];
-                $res['path']= $row['path'];
-                $res['lastname']= $row['lastname'];
-                $res['firstname']= $row['firstname'];
-                $res['user_id'] = $row['user_id'];
-                return $res;
+
+            $i = 0;
+
+            while ($row = $result->fetch_assoc()) {
+                $res[$i]['title']= $row['title'];
+                $res[$i]['email']= $row['email'];
+                $res[$i]['website']= $row['website'];
+                $res[$i]['path']= $row['path'];
+                $res[$i]['lastname']= $row['lastname'];
+                $res[$i]['firstname']= $row['firstname'];
+                $res[$i]['user_id'] = $row['user_id'];
+                $i++;
             }
             $result->close();
-            $res['errMsg']="Username not found";
+//            $res['errMsg']="Username not found";
             // return $res;
         }
-        $res['errMsg'] = $result;
+//        $res['errMsg'] = $result;
         return $res;
     }
 

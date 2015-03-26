@@ -67,3 +67,43 @@
 .checkboxFive input[type=checkbox]:checked + label:after {
 	opacity: 1;
 }
+
+.app-btn {
+    border: 1px solid #16a085;
+    -webkit-border-radius: 4px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 4px;
+    -moz-background-clip: padding;
+    border-radius: 4px;
+    background-clip: padding-box;
+    color: #FFFFFF;
+    display: inline-block;
+    text-transform: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    transition: all .25s ease;
+    text-align: center;
+    background: none repeat scroll 0 0 #16a085;
+    text-shadow: none;
+    box-shadow: none;
+    color: #FFF;
+    white-space: nowrap;
+}
+
+.app-blue{
+    border: 1px solid #3e7191;
+    color: #FFF;
+    background: none repeat scroll 0 0 #4F8DB3;
+}
+.app-green{
+    border: 1px solid #4c5818;
+    color: #FFF;
+    background: none repeat scroll 0 0 #5E8000;
+}
+.app-red{
+    border: 1px solid #ab0d0d;
+    color: #FFF;
+    background: none repeat scroll 0 0 #DA1111;
+}
