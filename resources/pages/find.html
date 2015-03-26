@@ -1,20 +1,39 @@
 <div class="section" ng-controller="FindCtrl as ctrl">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <input type="text" class="form-control" placeholder="Search Professor" ng-model="query">
                 <br>
 
-                <ul id="findprofessor" ng-repeat="prof in professors | filter:query">
-
+                <ul id="findprofessor" ng-repeat="prof in professors | filter:query | limitTo: 5| limitTo: -5">
                     <img ng-src={{prof.path}}>
-                    <li>Username: {{prof.username}}</li>
-                    <li>Name: {{prof.firstname}}</li>
-                    <li>Last Name: {{prof.lastname}}</li>
-                    <li>E-mail: {{prof.email}}</li>
-                    <li>Website: {{prof.website}}</li>
+                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Name: {{prof.firstname}}</a>
+                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Last Name: {{prof.lastname}}</a>
+                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">E-mail: {{prof.email}}</a>
+                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Website: {{prof.website}}</a>
+
                 </ul>
             </div>
+            <nav>
+                {{var counter = 1;}}
+                <ul class="pagination" ng-repeat="">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>

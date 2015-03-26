@@ -9,11 +9,11 @@ $conn = new mysqli($dbAddress, $uname, $pw, $dbname);
 if ($conn->connect_error)
     die("Connection failed: " . $conn->connect_error);
 
-
 if ($result = $conn->query("
-SELECT username, firstname, lastname, title, website, email, path FROM users
-LEFT JOIN pictures
-ON users.user_id=pictures.user_id")
+    SELECT username, firstname, lastname, users.user_id, title, website, email, path FROM users
+    LEFT JOIN pictures
+    ON users.user_id=pictures.user_id
+")
 ) {
     $i = 0;
     while ($row = $result->fetch_array(MYSQL_ASSOC)) {

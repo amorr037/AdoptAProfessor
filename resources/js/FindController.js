@@ -7,6 +7,6 @@ aap.controller('FindCtrl', ['$scope', '$http', function($scope, $http) {
 
         }).
         error(function(data) {
-            console.log(data+ "error");
+            console.log(data + "error");
         });
 }])
