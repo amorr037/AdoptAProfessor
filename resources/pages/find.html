@@ -4,14 +4,31 @@
             <div class="col-md-6 col-md-offset-3">
                 <input type="text" class="form-control" placeholder="Search Professor" ng-model="query">
                 <br>
-
                 <ul id="findprofessor" ng-repeat="prof in professors | filter:query | limitTo: 5| limitTo: -5">
-                    <img ng-src={{prof.path}}>
-                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Name: {{prof.firstname}}</a>
-                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Last Name: {{prof.lastname}}</a>
-                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">E-mail: {{prof.email}}</a>
-                    <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Website: {{prof.website}}</a>
-
+                    <div ng-show="(professors | filter:query).length > 0" class="container-fluid">
+                        <div class="row">
+                            <div class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}">
+                                <!--<img ng-src={{prof.path}}>-->
+                            </div>
+                            <div class="col-md-9 col-md-offset-1">
+                                <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Name: {{prof.firstname}}</a>
+                                <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Last Name: {{prof.lastname}}</a>
+                                <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">E-mail: {{prof.email}}</a>
+                                <a href="./profile/{{prof.user_id}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Website: {{prof.website}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+                    <div ng-show="(professors | filter:query).length === 0" class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 well">
+                                <div class="text-center">
+                                    <h3>Did not find your favorite professor?</h3>
+                                </div>
+                                    <p class="text-center"><a href="index.html#/contactUs">Click here</a>  to register your favorite professor!</p>
+                            </div>
+                        </div>
+                    </div>
                 </ul>
             </div>
             <nav>
@@ -22,6 +39,7 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
+
                     <li><a href="#">1</a></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
