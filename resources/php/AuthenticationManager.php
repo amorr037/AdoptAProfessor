@@ -126,5 +126,33 @@ class AuthenticationManager {
         $res['errMsg'] = $result;
         return $res; 
     }
+    function getProfessors() {
+        $res = ["errMsg" => null, "username" => null, "title" => null, "website" => null,
+            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
+            "user_id" => null,'usertype' => 'STUDENT'];
+        if ($result = $this->dbCnx->query(
+            "SELECT username, firstname, lastname, users.user_id, title, website, email, path
+            FROM users
+            LEFT JOIN pictures
+            ON users.user_id=pictures.user_id")) {
+            $row = $result->fetch_assoc();
+            if($row){
+                $res['username']= $row['username'];
+                $res['title']= $row['title'];
+                $res['email']= $row['email'];
+                $res['website']= $row['website'];
+                $res['path']= $row['path'];
+                $res['lastname']= $row['lastname'];
+                $res['firstname']= $row['firstname'];
+                $res['user_id'] = $row['user_id'];
+                return $res;
+            }
+            $result->close();
+            $res['errMsg']="Username not found";
+            // return $res;
+        }
+        $res['errMsg'] = $result;
+        return $res;
+    }
 
 }
