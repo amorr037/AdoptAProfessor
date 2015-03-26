@@ -34,10 +34,22 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/contactUs.html";
             }
+        })
+        .when('/faq',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/faq.html";
+            }
+        })
+        .when('/profile',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/"+(aap.user.isProfessor?"professorProfile.html":"profile.html");
+            }
         }).otherwise({
             redirectTo: (function() {
                 return function(){
-                    return "/";
+                    return "/home";
                 };
             })()
         });

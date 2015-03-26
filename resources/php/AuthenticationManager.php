@@ -16,7 +16,7 @@ class AuthenticationManager {
     private $dbCnx;
 
     function __construct() {
-        $contents = file_get_contents("../dbCredentials");
+        $contents = file_get_contents("../../../dbCredentials");
         $config = json_decode($contents);
         $uname = $config->username;
         $pw = $config->password;
@@ -27,13 +27,13 @@ class AuthenticationManager {
             die("Unable to connect to database[" . $this->dbCnx->connect_error . "]");
     }
 
-    function registerUser($username, $userPwd, $email) {
+    function registerUser($username, $userPwd, $email, $fname, $lname) {
         $pwdHash = password_hash($userPwd, PASSWORD_DEFAULT);
         $stmt = $this->dbCnx->prepare("INSERT INTO users (username, password,email) VALUES (?, ?, ?)");
         if (!$stmt) {
             return "Unable to prepare insertion query";
         }
-        $stmt->bind_param("sss", $username, $pwdHash, $email);
+        $stmt->bind_param("sss", $username, $pwdHash, $email, $fname, $lname);
         $res = $stmt->execute();
         $stmt->close();
         if (!$res)
@@ -107,6 +107,24 @@ class AuthenticationManager {
         if ($stmt->fetch()) 
             return "User already exists";             
         return null;
+    }
+    function getProfileInfo($username) {
+        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null,'usertype' => 'STUDENT'];
+        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
+            $row = $result->fetch_assoc();
+            if($row){
+                $res['firstname']= $row['firstname'];
+                $res['lastname']= $row['lastname']; 
+                $res['email']= $row['email']; 
+                $res['usertype'] = $row['usertype'];
+                return $res;             
+            }
+            $result->close();
+            $res['errMsg']="Username not found";
+            // return $res;
+        }
+        $res['errMsg'] = $result;
+        return $res; 
     }
 
 }

@@ -428,6 +428,26 @@ a:hover {
   box-shadow: inset 0 1px #fff,0 1px 2px #c8cfe6;
   color: inset 0 1px #fff,0 1px 2px #c8cfe6;
 }
+.testimonial .testimonial-bubble-toRight {
+  text-align: justify;
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+  padding: 0 20px 20px 20px;
+  margin: 35px 10px 20px 10px;
+  background: #FFF;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0 1px #fff,0 1px 2px #c8cfe6;
+  -moz-box-shadow: inset 0 1px #fff,0 1px 2px #c8cfe6;
+  box-shadow: inset 0 1px #fff,0 1px 2px #c8cfe6;
+  color: inset 0 1px #fff,0 1px 2px #c8cfe6;
+}
 .testimonial .testimonial-bubble::before {
   background-color: #FFF;
   content: "\00a0";
@@ -662,6 +682,20 @@ a:hover {
   border-radius: 3px;
   background-clip: padding-box;
 }
+.comment-wrapper-margin-left p {
+  margin: 0;
+  position: relative;
+  border: 1px solid #CCC;
+  padding: 10px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 3px;
+  -moz-background-clip: padding;
+  border-radius: 3px;
+  background-clip: padding-box;
+  margin-left: 30px;
+}
 .comment-author {
   font-size: 1.3em;
   font-weight: 600;
@@ -676,6 +710,22 @@ a:hover {
   border-radius: 25px;
   background-clip: padding-box;
   margin-right: 10px;
+}
+.comment-author-with-margin-left {
+  font-size: 1.3em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.comment-author-with-margin-left img {
+  max-width: 50px;
+  -webkit-border-radius: 25px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 25px;
+  -moz-background-clip: padding;
+  border-radius: 25px;
+  background-clip: padding-box;
+  margin-right: 10px;
+  margin-left: 30px;
 }
 .comment-date {
   font-size: 0.9em;

@@ -2,6 +2,8 @@ aap.controller('RegisterCtrl', ['DataRequest','$location','$timeout', function(D
     var self = this;
     this.user = aap.user;
     self.username = "";
+    self.fname = "";
+    self.lname = "";
     self.password = "";
     self.repassword="";
     self.email = "";
@@ -32,7 +34,7 @@ aap.controller('RegisterCtrl', ['DataRequest','$location','$timeout', function(D
     self.keyPressed = function(){
         if(promise!==null)
             $timeout.cancel(promise);
-        console.log("usrErrorMsg put to false");
+        console.log("Key pressed");
         self.usrErrorMsg=false;
         promise=$timeout(checkForUsername, 500);
     };
