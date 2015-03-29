@@ -6,6 +6,7 @@ function User(){
     self.username = "";
     self.apiKey = null;
     self.isProfessor = false;
+    self.usertype = "";
     self.firstname = "";
     self.lastname="";
     self.email = "";
@@ -16,6 +17,7 @@ function User(){
     	self.username = "";
     	self.apiKey = "";
     	self.isProfessor = false;
+        self.usertype = "";
     	self.firstname = "";
     	self.lastname = "";
     	self.email = "";
@@ -31,14 +33,18 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 	this.user.lastname = $localStorage.lastname;
 	this.user.email = $localStorage.email;
     this.user.isProfessor = $localStorage.isProfessor;
+    this.user.isAdmin = $localStorage.isAdmin;
+    this.user.usertype = $localStorage.usertype;
 	this.logout = function(){
 		self.user.clear();
 		delete $localStorage.username;
 		delete $localStorage.apiKey;
 		delete $localStorage.isProfessor;
+        delete $localStorage.isAdmin;
 		delete $localStorage.firstname;
 		delete $localStorage.lastname;
 		delete $localStorage.email;
+        delete $localStorage.usertype;
 		$location.path("/home");
 	};
 
