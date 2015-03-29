@@ -1,6 +1,7 @@
 aap.controller('ProfileCtrl', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
 	var self = this;
     this.user = aap.user;
+    this.usertype = this.user.isProfessor?"Professor":"Student";
     this.showingHistory = false;
     this.historyBtnName = "Show History"
     this.toggleShowHistory=function(){
