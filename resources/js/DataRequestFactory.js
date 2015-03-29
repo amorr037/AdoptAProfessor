@@ -58,9 +58,11 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/login.php", 
             "username="+username + "&password="+password);
         },
-        register: function(username,password, email, fname, lname) {
+        register: function(username,password, email, fname, lname, userType) {
+            var usertype = userType?"PROFESSOR":"STUDENT";
             return self.makeRequest("resources/php/register.php", 
-            "username="+username + "&password="+password + "&email="+email);
+            "username="+username + "&password="+password + "&email="+email + "&fname="+fname + "&lname="+lname +
+            "&usertype="+usertype);
         },
         getProfileInfo: function(username) {
             return self.makeRequest("resources/php/getProfileInfo.php", 

@@ -8,6 +8,7 @@ aap.controller('RegisterCtrl', ['DataRequest','$location','$timeout', function(D
     self.repassword="";
     self.email = "";
     self.usrErrorMsg=false;
+    self.userType =false;
     var promise = null;
     self.register = function(){
         if(self.password.length===0 || self.username.length===0 || self.email.length===0){
@@ -20,14 +21,14 @@ aap.controller('RegisterCtrl', ['DataRequest','$location','$timeout', function(D
             alert("Passwords mistmatch");
             return;
         }
-        DataRequest.register(self.username, self.password, self.email).then(function(data){
+        DataRequest.register(self.username, self.password, self.email, self.fname, self.lname, self.userType).then(function(data){
             console.log("Register Response");
             console.log(data);
             if(!data.sucess){
                 alert(data.msg);
                 return;
             }
-            alert("Successfully registered. You can login now");
+            //alert("Successfully registered. You can login now");
             $location.path("/login");
         });
     };
