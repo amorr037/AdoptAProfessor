@@ -1,0 +1,284 @@
+<div class="section" ng-controller="ProfileCtrl as ctrl">
+    <div  class="author-photo  container">
+        <div class="container col-md-4"></div>
+        <div class = "circular col-md-2" style = 'background-image: url("resources/img/user2.jpg")'></div>
+        <div class = "container col-md-4">
+            <h1>Reicher Green</h1>
+            <h3>green03@gmail.com</h3>
+            <h4>Administrator</h4>
+        </div>
+        <div class="container col-md-4"></div>
+    </div>
+    <div class="container col-lg-1"></div>
+    <h2 class="container col-lg-10">Manage Accounts</h2>
+    <div class="container">
+        <div class="container">
+            <br><br>
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    <h3>Get account by username</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="" class="form-control">
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="container col-lg-1"></div>
+            <h2 class="container col-lg-10">Account found!</h2>
+            <center><table class="section-white" width=75% margin-left=5%>
+                <tr class="app-blue" style="height: 40px">
+                    <td><center>Username</center></td>
+                    <td><center>First name</center></td>
+                    <td><center>Last name</center></td>
+                    <td><center>User type</center></td>
+                    <td><center>email</center></td>
+                    <td><center>website</center></td>
+                    <td><center>title</center></td>
+                    <td><center></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>adopt1</center></td>
+                    <td><center>Carlos</center></td>
+                    <td><center>Ruiz</center></td>
+                    <td><center>STUDENT</center></td>
+                    <td><center>cruiz084@fiu.edu</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Deactivate</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+            </table></center>
+        </div>
+
+        <div class="container"></div>
+        <br><br><br><br>
+    </div>
+    <div class="container col-lg-1"></div>
+    <h2 class="container col-lg-10">Manage Comments</h2>
+    <div>
+        <div class="container">
+            <br><br>
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-6">
+                    <h3>Find comment by id</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
+                    <input type="text" ng-model="" class="form-control">
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="container col-lg-1"></div>
+            <h2 class="container col-lg-10">Comment found!</h2>
+            <center><table class="section-white" width=75% margin-left=5%>
+                <tr class="app-blue" style="height: 40px">
+                    <td><center>Comment id</center></td>
+                    <td><center>Sender id</center></td>
+                    <td><center>Receiver id</center></td>
+                    <td><center>Comment data</center></td>
+                    <td><center>Image data</center></td>
+                    <td><center>date</center></td>
+                    <td><center></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>453498</center></td>
+                    <td><center>647323</center></td>
+                    <td><center>675383</center></td>
+                    <td width="300"><center>Hello little guy!</center></td>
+                    <td><center><img width="50" height="50" src="resources/img/user1.jpg"></center></td>
+                    <td><center>04/20/2015</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+            </table></center>
+        </div>
+
+        <br><br><br><br>
+        <div class="container"></div>
+    </div>
+
+    <br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-5 col-sm-2 text-center">
+                <a href="" class="btn">Reported comments</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="container col-lg-1"></div>
+            <h2 class="container col-lg-10">Comments (5)</h2>
+            <center><table class="section-white" width=75% margin-left=5%>
+                <tr class="app-blue" style="height: 40px">
+                    <td><center>Comment id</center></td>
+                    <td><center>Sender id</center></td>
+                    <td><center>Receiver id</center></td>
+                    <td><center>Comment data</center></td>
+                    <td><center>Image data</center></td>
+                    <td><center>date</center></td>
+                    <td><center></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>453498</center></td>
+                    <td><center>647323</center></td>
+                    <td><center>675383</center></td>
+                    <td width="300"><center>Hello little guy!</center></td>
+                    <td><center><img width="50" height="50" src="resources/img/user1.jpg"></center></td>
+                    <td><center>04/20/2015</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>432453</center></td>
+                    <td><center>234234</center></td>
+                    <td><center>534234</center></td>
+                    <td width="300"><center>I ain't doing no homework!</center></td>
+                    <td><center><img width="50" height="50" src="resources/img/portfolio5.jpg"></center></td>
+                    <td><center>03/10/2015</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>112345</center></td>
+                    <td><center>565475</center></td>
+                    <td><center>967564</center></td>
+                    <td width="300"><center></center></td>
+                    <td><center><img width="50" height="50" src="resources/img/portfolio2.jpg"></center></td>
+                    <td><center>02/25/2015</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>342256</center></td>
+                    <td><center>753424</center></td>
+                    <td><center>723853</center></td>
+                    <td width="300"><center>Tengo tremenda hambre. Me voy para la casa porque no tengo ganas de hacer nada man! hahahaha que clase de locol.</center></td>
+                    <td><center><img hidden="hidden" width="50" height="50" src=""></center></td>
+                    <td><center>04/20/2015</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>734522</center></td>
+                    <td><center>746573</center></td>
+                    <td><center>883663</center></td>
+                    <td width="300"><center>1 2 3 4 5 6 7 8 9 10 I hate this professor!</center></td>
+                    <td><center><img  hidden="hidden" width="50" height="50" src="resources/img/user1.jpg"></center></td>
+                    <td><center>04/20/2015</center></td>
+                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+            </table></center>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper ">
+                <ul class="pagination pagination-sm">
+                    <li class="disabled"><a href="#">Previous</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-5 col-sm-2 text-center">
+                <a href="" class="btn">Unverified professors</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="container col-lg-1"></div>
+            <h2 class="container col-lg-10"></h2>
+            <center><table class="section-white" width=75% margin-left=5%>
+                <tr class="app-blue" style="height: 40px">
+                    <td><center>Username</center></td>
+                    <td><center>First name</center></td>
+                    <td><center>Last name</center></td>
+                    <td><center>User type</center></td>
+                    <td><center>email</center></td>
+                    <td><center>website</center></td>
+                    <td><center>title</center></td>
+                    <td><center></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>adopt1</center></td>
+                    <td><center>Carlos</center></td>
+                    <td><center>Ruiz</center></td>
+                    <td><center>PROFESSOR</center></td>
+                    <td><center>cruiz084@fiu.edu</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center><div class=" btn btn-sm btn-green ">VERIFY</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>adopt1</center></td>
+                    <td><center>Carlos</center></td>
+                    <td><center>Ruiz</center></td>
+                    <td><center>PROFESSOR</center></td>
+                    <td><center>cruiz084@fiu.edu</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center><div class=" btn btn-sm btn-green ">VERIFY</div></center></td>
+                </tr>
+                <tr style="height: 15px"></tr>
+                <tr>
+                    <td><center>adopt1</center></td>
+                    <td><center>Carlos</center></td>
+                    <td><center>Ruiz</center></td>
+                    <td><center>PROFESSOR</center></td>
+                    <td><center>cruiz084@fiu.edu</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center>NULL</center></td>
+                    <td><center><div class=" btn btn-sm btn-green ">VERIFY</div></center></td>
+                </tr>
+            </table></center>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper ">
+                <ul class="pagination pagination-sm">
+                    <li class="disabled"><a href="#">Previous</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

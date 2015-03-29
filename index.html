@@ -46,13 +46,16 @@
                     <ul>
                         <li class="logo-wrapper"><a href="index.html"><img src="resources/img/logos/AdoptAProfessor.png" alt="Multipurpose Twitter Bootstrap Template" width="100" height="100"></a></li>
                         <li class="active">
-                            <a href="#/{{ctrl.user.isLoggedIn()?'profile':'home'}}">Home</a>
+                            <a href="#/{{ctrl.getHomeAddress()}}">Home</a>
                         </li>
                         <li>
                             <a href="index.html#/find">Find a professor</a>
                         </li>
                         <li>
                             <a href="index.html#/contactUs">Contact Us</a>
+                        </li>
+                        <li>
+                            <a href="index.html#/professorMonth">Professor of the Month</a>
                         </li>
                     </ul>
                 </nav>
@@ -68,38 +71,33 @@
                     <div class="col-footer col-md-3 col-xs-6">
                         <h3>Navigate</h3>
                         <ul class="no-list-style footer-navigate-section">
-                            <li><a href="page-blog-posts.html">Blog</a></li>
-                            <li><a href="page-portfolio-3-columns-2.html">Portfolio</a></li>
-                            <li><a href="page-products-3-columns.html">eShop</a></li>
-                            <li><a href="page-services-3-columns.html">Services</a></li>
-                            <li><a href="page-pricing.html">Pricing</a></li>
-                            <li><a href="page-faq.html">FAQ</a></li>
+                            <li><a href="index.html#/faq">FAQ</a></li>
                         </ul>
                     </div>
 
-                    <div class="col-footer col-md-4 col-xs-6">
-                        <h3>Contacts</h3>
+                    <div class="col-footer col-md-3 col-xs-6">
+                        <h3>Contact Details</h3>
                         <p class="contact-us-details">
-                            <b>Address:</b> 123 Fake Street, LN1 2ST, London, United Kingdom<br/>
-                            <b>Phone:</b> +44 123 654321<br/>
-                            <b>Fax:</b> +44 123 654321<br/>
-                            <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+                            <b>Address:</b> 11200 Southwest 8th Street, Miami, FL 33199<br/>
+                            <b>Phone:</b> (123)456-789<br/>
+                            <b>Fax:</b> (123)456-789<br/>
+                            <b>Email:</b> <a href="mailto:aap@gmail.com">aap@gmail.com</a>
                         </p>
                     </div>
-                    <div class="col-footer col-md-2 col-xs-6">
+<!--                     <div class="col-footer col-md-2 col-xs-6">
                         <h3>Stay Connected</h3>
                         <ul class="footer-stay-connected no-list-style">
                             <li><a href="#" class="facebook"></a></li>
                             <li><a href="#" class="twitter"></a></li>
                             <li><a href="#" class="googleplus"></a></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="footer-copyright">&copy; 2013 mPurpose. All rights reserved.</div>
-                    </div>
-                </div>
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<div class="footer-copyright">&copy; 2013 mPurpose. All rights reserved.</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
 
@@ -120,16 +118,16 @@
         <script src="resources/js/RoutingConfig.js" type="text/javascript"></script>
         <script src="resources/js/DataRequestFactory.js" type="text/javascript"></script>
         <script src="resources/js/LoginController.js" type="text/javascript"></script>
+        <script src="resources/js/FindController.js" type="text/javascript"></script>
         <script src="resources/js/RegisterController.js" type="text/javascript"></script>
-        <script src="resources/js/ProfileCtrl.js" type="text/javascript"></script>    
-        
+        <script src="resources/js/InviteProfessorController.js" type="text/javascript"></script>
+        <script src="resources/js/ProfileCtrl.js" type="text/javascript"></script>
         <script src="resources/js/plugins/bootstrap.min.js"></script>
         <script src="resources/js/plugins/jquery.fitvids.js"></script>
         <script src="resources/js/plugins/jquery.sequence-min.js"></script>
         <script src="resources/js/plugins/jquery.bxslider.js"></script>
         <script src="resources/js/plugins/main-menu.js"></script>
         <script src="resources/js/plugins/template.js"></script>
-        
         
     </body>
 </html>

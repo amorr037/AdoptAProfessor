@@ -58,7 +58,7 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/login.php", 
             "username="+username + "&password="+password);
         },
-        register: function(username,password, email) {
+        register: function(username,password, email, fname, lname) {
             return self.makeRequest("resources/php/register.php", 
             "username="+username + "&password="+password + "&email="+email);
         },

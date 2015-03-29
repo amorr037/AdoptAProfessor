@@ -5,3 +5,105 @@
     width: 100px;
     height: 100px;
 }
+.sample-show-hide {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+
+.sample-show-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.sample-show-hide.ng-hide {
+  opacity:0;
+}
+
+.checkboxFive {
+	width: 25px;
+	margin: 20px 100px;
+	position: relative;
+}
+.checkboxFive label {
+	cursor: pointer;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 0;
+  	left: 0;
+	background: #eee;
+	border:1px solid #ddd;
+}
+.checkboxFive label:after {
+	opacity: 0.2;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background: transparent;
+	top: 6px;
+	left: 7px;
+	border: 3px solid #333;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+/**
+ * Create the hover event of the tick
+ */
+.checkboxFive label:hover::after {
+	opacity: 0.5;
+}
+
+/**
+ * Create the checkbox state for the tick
+ */
+.checkboxFive input[type=checkbox]:checked + label:after {
+	opacity: 1;
+}
+
+.app-btn {
+    border: 1px solid #16a085;
+    -webkit-border-radius: 4px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 4px;
+    -moz-background-clip: padding;
+    border-radius: 4px;
+    background-clip: padding-box;
+    color: #FFFFFF;
+    display: inline-block;
+    text-transform: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    transition: all .25s ease;
+    text-align: center;
+    background: none repeat scroll 0 0 #16a085;
+    text-shadow: none;
+    box-shadow: none;
+    color: #FFF;
+    white-space: nowrap;
+}
+
+.app-blue{
+    border: 1px solid #3e7191;
+    color: #FFF;
+    background: none repeat scroll 0 0 #4F8DB3;
+}
+.app-green{
+    border: 1px solid #4c5818;
+    color: #FFF;
+    background: none repeat scroll 0 0 #5E8000;
+}
+.app-red{
+    border: 1px solid #ab0d0d;
+    color: #FFF;
+    background: none repeat scroll 0 0 #DA1111;
+}

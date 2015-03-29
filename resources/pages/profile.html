@@ -1,17 +1,16 @@
 <div class="section" ng-controller="ProfileCtrl as ctrl">
 	<div  class="author-photo  container">
-		<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/blank-profile.png)'></div>
-		<!-- <img class = "circular col-md-8" src="resources/img/profile/blank-profile.png" alt="Author 1"> -->
-		<!-- <div class = "col-md-2">ha</div> -->
-		<!-- <span ng-bind="ctrl.firstname"></span> -->
+		<div class="container col-md-4"></div>
+		<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/user3.jpg)'></div>
 		<div class = "container col-md-4">
-			<h1 ng-bind="ctrl.user.firstname">Javier Carmona</h1>
+			<h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
 			<h3 ng-bind="ctrl.user.email">javier03@gmail.com</h3>
-			<h4>student</h4>
+			<h4>Student</h4>
 		</div>
+		<div class="container col-md-4"></div>
 	</div>
 	<div class="container">
-		<h2>Adopted Professors</h2>
+		<h2>Recently Adopted Professors</h2>
 		<div class="row">
 			<!-- Testimonial -->
 			<div class="testimonial col-md-4 col-sm-6">
@@ -23,12 +22,8 @@
 					<blockquote>
 						<!-- Quote -->
 						<p class="quote">
-	                        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut."
+	                        "Excellent lecturer and very knowledgeable on the topics discussed. Extremely helpful and really cares about students learning. Assignments can be challenging, but very doable. Also, tests are challenging but if you did the assignments and study they are very manageable. Terrific professor, very respectful and encouraging!"
 	            		</p>
-	            		<!-- Author Info -->
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
 	            	</blockquote>
 	            	<div class="sprite arrow-speech-bubble"></div>
 	            </div>
@@ -41,11 +36,8 @@
 				<div class="testimonial-bubble">
 					<blockquote>
 						<p class="quote">
-	                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo."
+	                        "Amazing Professor!!! Wish they were all like this! Must go to class, but his lectures make it worth going. Tests are tough because he makes you really apply what you've learned, but he absolutely will not ask you things that he didn't go over in class as well as make sure to tell you to study. Must study and do assignments! Take him always!"
 	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
 	            	</blockquote>
 	            	<div class="sprite arrow-speech-bubble"></div>
 	            </div>
@@ -57,59 +49,8 @@
 				<div class="testimonial-bubble">
 					<blockquote>
 						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+	                        "He is a good instructor and puts things in perspectives. For a beginning class, it is refreshing to have an instructor that can explain at a level that makes it easy to understand."
 	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Jason_liu.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Greg_Shaw.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Mark_Weiss.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-	            		</p>
-	            		<cite class="author-info">
-	            			- Name Surname,<br>Managing Director at <a href="#">Some Company</a>
-	            		</cite>
 	            	</blockquote>
 	            	<div class="sprite arrow-speech-bubble"></div>
 	            </div>
@@ -118,7 +59,147 @@
 	</div>
 	<div class="row">
     	<div class="col-sm-offset-5 col-sm-2 text-center">
-			<a href="#" class="btn">View History</a>
+			<a href="" class="btn" ng-click = "ctrl.toggleShowHistory()" ng-bind="ctrl.historyBtnName"></a>
 		</div>
+	</div>
+
+
+	<div class="container" ng-show = "ctrl.showingHistory">
+		<br>
+        <div class="post-coments">
+            <ul class="post-comments">
+                <li>
+                    <div class="comment-wrapper">
+                        <div class="comment-author"><img src="resources/img/profile/Jason_liu.jpg" alt="User Name">Jason Liu</div>
+                        <p class="section-white text-center">
+                            "I was happy with his teaching approach. Although he aims for students above average. He gave 5 projects all after the midterm and they were iron hard. Still, you get the felling you learned a lot."
+                            <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
+                        </p>
+                        <!-- Comment Controls -->
+                        <div class="comment-actions">
+                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
+                            <button class="label label-danger">Delete</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="comment-wrapper">
+                        <div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg" alt="User Name">Mark Weiss</div>
+                        <p class="section-white text-center">
+                            " Dr Weiss is an expert on the subject and makes the time of this class worth it. "
+                            <br><img  width=225dpi height=250dpi src="resources/img/uploaded/dsBook.jpg"/>
+                        </p>
+                        <!-- Comment Controls -->
+                        <div class="comment-actions">
+                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
+                            <button class="label label-danger">Delete</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="comment-wrapper">
+                        <div class="comment-author"><img src="resources/img/profile/Greg_Shaw.jpg" alt="User Name">Greg Shaw</div>
+                        <p class="section-white text-center">
+                            "When it comes to good programming professors, this guy's the real deal. Behind his endless stream of dry jokes is a serious understanding of programming and an amazing ability to relay tough information in the best way possible. "
+                            <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
+                        </p>
+                        <!-- Comment Controls -->
+                        <div class="comment-actions">
+                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
+                            <button class="label label-danger">Delete</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+		<!--<div class="row">-->
+			<!--<div class = "col-sm-12 col-md-8 col-md-offset-2">-->
+				<!--<h2></h2>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="row " >-->
+			<!--<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">-->
+				<!--<br>-->
+				<!--<div class="row">-->
+					<!--<div class="author-photo col-md-3">-->
+						<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Jason_liu.jpg)'></div>-->
+					<!--</div>-->
+					<!--<div class = "col-sm-12 col-md-9">-->
+						<!--<p class="quote">-->
+			                <!--"I was happy with his teaching approach. Although he aims for students above average. He gave 5 projects all after the midterm and they were iron hard. Still, you get the felling you learned a lot."-->
+			            <!--</p>-->
+					<!--</div>	-->
+				<!--</div>-->
+				<!--<div class="row">-->
+					<!--<div class="col-md-3 ">-->
+						<!--<span>Jason Liu</span><br>-->
+						<!--<span>21 Oct 2014</span>-->
+					<!--</div>-->
+					<!--<div class = "col-sm-3 col-md-9">-->
+						<!--<div class="author-photo">-->
+							<!--<img src="resources/img/uploaded/uploaded1.jpg" alt="Author 1">-->
+						<!--</div>-->
+					<!--</div>	-->
+				<!--</div>-->
+				<!--<br>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="row">-->
+			<!--<div class = "col-sm-12 col-md-8 col-md-offset-2">-->
+				<!--<h2></h2>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="row " >-->
+			<!--<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">-->
+				<!--<br>-->
+				<!--<div class="row">-->
+					<!--<div class="author-photo col-md-3">-->
+						<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Mark_Weiss.jpg)'></div>-->
+					<!--</div>-->
+					<!--<div class = "col-sm-12 col-md-9">-->
+						<!--<p class="quote">-->
+			                <!--" Dr Weiss is an expert on the subject and makes the time of this class worth it. "-->
+			            <!--</p>-->
+					<!--</div>	-->
+				<!--</div>-->
+				<!--<div class="row">-->
+					<!--<div class="col-md-3">-->
+						<!--<span>Mark Weiss</span><br>-->
+						<!--<span>21 Oct 2014</span>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+				<!--<div class="row">-->
+			<!--<div class = "col-sm-12 col-md-8 col-md-offset-2">-->
+				<!--<h2></h2>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="row " >-->
+			<!--<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">-->
+				<!--<br>-->
+				<!--<div class="row">-->
+					<!--<div class="author-photo col-md-3">-->
+						<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Greg_Shaw.jpg)'></div>-->
+					<!--</div>-->
+					<!--<div class = "col-sm-12 col-md-9">-->
+						<!--<p class="quote">-->
+			                <!--"When it comes to good programming professors, this guy's the real deal. Behind his endless stream of dry jokes is a serious understanding of programming and an amazing ability to relay tough information in the best way possible. "-->
+			            <!--</p>-->
+					<!--</div>	-->
+				<!--</div>-->
+				<!--<div class="row">-->
+					<!--<div class="col-md-3">-->
+						<!--<span>Greg Shaw</span><br>-->
+						<!--<span>21 Oct 2014</span>-->
+					<!--</div>-->
+					<!--<div class = "col-sm-3 col-md-9">-->
+						<!--<div class="author-photo">-->
+							<!--<img src="resources/img/homepage-slider/slide1.png" alt="Author 1">-->
+						<!--</div>-->
+					<!--</div>	-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
 	</div>
 </div>
