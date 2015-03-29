@@ -107,3 +107,11 @@
     color: #FFF;
     background: none repeat scroll 0 0 #DA1111;
 }
+
+.smaller-text{
+    font-size: smaller;
+}
+
+ .small-text{
+     font-size: small;
+ }

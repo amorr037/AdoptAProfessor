@@ -1,43 +1,16 @@
-<div class="section" ng-controller="ProfileCtrl as ctrl">
+<div class="section" ng-controller="ProfessorProfileCtrl as ctrl">
 	<div  class="author-photo  container">
 		<div class="container col-md-4"></div>
 		<div class = "circular col-md-2" style = 'background-image: url("resources/img/profile/Masoud_milani.jpg")'></div>
 		<div class = "container col-md-4">
 			<h1 ng-bind="ctrl.user.firstname">Javier Carmona</h1>
 			<h3 ng-bind="ctrl.user.email">javier03@gmail.com</h3>
-			<h4>Professor</h4>
-			<a href="#" class="btn" width=2%>edit profile</a>
+			<h4>Professor <div class="app-btn app-{{ctrl.verified?'green':'red'}} small-text" style="text-align: center">{{ctrl.verified?'verified':'not-verified'}}</div></h4>
+			<a ng-click="ctrl.editProfile()" href="#" class="btn" width=2%>edit profile</a>
 		</div>
         <div class="col-lg-1"></div>
-        <div class="col-lg-1 app-btn app-green" style="text-align: center">verified</div>
 	</div>
 	<div class="container">
-		<!--<h2>Top five liked students</h2>-->
-		<!--&lt;!&ndash; <div class="container col-md-2" float="left">-->
-			<!--<div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div>-->
-		<!--</div>-->
-		<!--<div class="container col-md-2" float="left">-->
-			<!--<div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div>-->
-		<!--</div>-->
-		<!--<div class="container col-md-2" float="left">-->
-			<!--<div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div>-->
-		<!--</div>-->
-		<!--<div class="container col-md-2" float="left">-->
-			<!--<div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div>-->
-		<!--</div>-->
-		<!--<div class="container col-md-2" float="left">-->
-			<!--<div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div>-->
-		<!--</div> &ndash;&gt;-->
-		<!--<center><table width=75% margin-left=5%>-->
-		<!--<tr>-->
-			<!--<td><div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div></td>-->
-			<!--<td><div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div></td>-->
-			<!--<td><div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div></td>-->
-			<!--<td><div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div></td>-->
-			<!--<td><div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg"></div></td>-->
-		<!--</tr>-->
-		<!--</table></center>-->
-		<!--<div class="container"></div>-->
 		<h2>Comments (53)</h2>
 			<!-- Comments -->
 		<div class="post-coments">
