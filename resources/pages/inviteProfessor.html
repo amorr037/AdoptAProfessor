@@ -1,0 +1,52 @@
+<div class="section section-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Invite a Professor</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section" ng-controller="InviteProfessorCtrl as ctrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="basic-login">
+                    <form name="invite_form" role="form" novalidate ng-submit="ctrl.invite()">
+                        <div class="form-group">
+                            <label for="invite-email"><i class="icon-user"></i> <b>Professor's ".edu" Email</b></label>
+                            <input class="form-control" name="email" id="invite-email" ng-model="ctrl.email" ng-maxlength=20 ng-minlength=3 required type="email" placeholder="">
+                            <div class="error-container" ng-show = "invite_form.email.$dirty && invite_form.email.$invalid">
+                                <small class="error " style="color: red"
+                                       ng-show="invite_form.email.$error.required">
+                                    Your email is required.
+                                </small>
+                                <small class="error" style="color: red"
+                                       ng-show="invite_form.email.$error.minlength">
+                                    Your email is required to be at least 3 characters
+                                </small>
+                                <small class="error" style="color: red"
+                                       ng-show="invite_form.email.$error.email">
+                                    That is not a valid email. Please input a valid email.
+                                </small>
+                                <small class="error" style="color: red"
+                                       ng-show="invite_form.email.$error.maxlength">
+                                    Your email cannot be longer than 45 characters
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="invite-message"><i class="icon-user"></i> <b>Send a message</b></label>
+                            <textarea class="form-control" name ="message" id="invite-message" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.message"  type="text" required placeholder="Send a welcoming message."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" ng-disabled="invite_form.$invalid" class="btn pull-right">Send Invitation</button>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -29,27 +29,42 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/find.html";
             }
+        }).when('/inviteProfessor',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/inviteProfessor.html";
+            }
         }).when('/contactUs',//Redirect if root
         {
             templateUrl: function(){
                 return "./resources/pages/contactUs.html";
             }
-        })
-        .when('/faq',//Redirect if root
+        }).when('/faq',//Redirect if root
         {
             templateUrl: function(){
                 return "./resources/pages/faq.html";
             }
         })
-        .when('/admin',//Redirect if root
+        .when('/professorMonth',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/professorMonth.html";
+            }
+        }).when('/admin',//Redirect if root
         {
             templateUrl: function(){
                 return "./resources/pages/administratorPage.html";
             }
-        })
-        .when('/profile',//Redirect if root
+        }).when('/editProfile',//Redirect if root
         {
             templateUrl: function(){
+                return "./resources/pages/editProfile.html";
+            }
+        }).when('/profile',//Redirect if root
+        {
+            templateUrl: function(){
+                if(aap.user.isAdmin)
+                    return "./resources/pages/administratorPage.html";
                 return "./resources/pages/"+(aap.user.isProfessor?"professorProfile.html":"profile.html");
             }
         }).otherwise({
