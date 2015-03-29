@@ -50,11 +50,6 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/professorMonth.html";
             }
-        }).when('/viewProfile',//Redirect if root
-        {
-            templateUrl: function(){
-                return "./resources/pages/viewUserProfile.html";
-            }
         }).when('/admin',//Redirect if root
         {
             templateUrl: function(){
@@ -68,6 +63,8 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         }).when('/profile',//Redirect if root
         {
             templateUrl: function(){
+                if(aap.user.isAdmin)
+                    return "./resources/pages/administratorPage.html";
                 return "./resources/pages/"+(aap.user.isProfessor?"professorProfile.html":"profile.html");
             }
         }).otherwise({

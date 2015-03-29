@@ -111,7 +111,7 @@
                                 <input class="form-control" id="register-password2" ng-model="ctrl.repassword"  type="password"  placeholder="">
                             </div>
                             <div class="form-group checkbox">
-                                <label><input type="checkbox" value="">Professor</label>
+                                <label><input type="checkbox" ng-model ="ctrl.userType" value="">Professor</label>
                             </div>
                             <div class="form-group">
                                 <button type="submit" ng-disabled="signup_form.$invalid" class="btn pull-right">Register</button>

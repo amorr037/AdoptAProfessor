@@ -27,13 +27,14 @@ class AuthenticationManager {
             die("Unable to connect to database[" . $this->dbCnx->connect_error . "]");
     }
 
-    function registerUser($username, $userPwd, $email, $fname, $lname) {
+    function registerUser($username, $userPwd, $email, $fname, $lname, $usertype) {
         $pwdHash = password_hash($userPwd, PASSWORD_DEFAULT);
-        $stmt = $this->dbCnx->prepare("INSERT INTO users (username, password,email) VALUES (?, ?, ?)");
+        $stmt = $this->dbCnx->prepare
+        ("INSERT INTO users (username, password,email,firstname, lastname, usertype) VALUES (?, ?, ?, ?, ?,?)");
         if (!$stmt) {
             return "Unable to prepare insertion query";
         }
-        $stmt->bind_param("sss", $username, $pwdHash, $email, $fname, $lname);
+        $stmt->bind_param("ssssss", $username, $pwdHash, $email, $fname, $lname, $usertype);
         $res = $stmt->execute();
         $stmt->close();
         if (!$res)
@@ -125,6 +126,24 @@ class AuthenticationManager {
         }
         $res['errMsg'] = $result;
         return $res; 
+    }
+    function getRecentlyAdoptedProfessors($username) {
+        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null,'usertype' => 'STUDENT'];
+        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
+            $row = $result->fetch_assoc();
+            if($row){
+                $res['firstname']= $row['firstname'];
+                $res['lastname']= $row['lastname'];
+                $res['email']= $row['email'];
+                $res['usertype'] = $row['usertype'];
+                return $res;
+            }
+            $result->close();
+            $res['errMsg']="Username not found";
+            // return $res;
+        }
+        $res['errMsg'] = $result;
+        return $res;
     }
     function getProfessors() {
 //        $res = ["errMsg" => null, "username" => null, "title" => null, "website" => null,
