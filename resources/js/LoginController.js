@@ -3,14 +3,16 @@ aap.controller('LoginCtrl', ['DataRequest','$location','$localStorage', function
     this.user = aap.user;
     self.username = "";
     self.password = "";
+    self.usrErrorMsg=false;
     self.login = function(){
         DataRequest.login(self.username, self.password).then(function(data){
             console.log("Login Response");
             console.log(data);
             if(!data.sucess){
-                alert(data.msg);
+                self.usrErrorMsg=true;
                 return;
             }
+            self.usrErrorMsg=false;
             aap.user.apiKey = data.apiKey;
             aap.user.username = self.username;
             $localStorage.username = aap.user.username;

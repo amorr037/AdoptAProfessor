@@ -6,6 +6,7 @@
 			<h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
 			<h3 ng-bind="ctrl.user.email"></h3>
 			<h4>Student</h4>
+            <a ng-click="ctrl.editProfile()" href="" class="btn" width=2%>edit profile</a>
 		</div>
 		<div class="container col-md-4"></div>
 	</div>
@@ -62,26 +63,10 @@
 			<a href="" class="btn" ng-click = "ctrl.toggleShowHistory()" ng-bind="ctrl.historyBtnName"></a>
 		</div>
 	</div>
-
-
 	<div class="container" ng-show = "ctrl.showingHistory">
 		<br>
         <div class="post-coments">
             <ul class="post-comments">
-                <li>
-                    <div class="comment-wrapper">
-                        <div class="comment-author"><img src="resources/img/profile/Jason_liu.jpg" alt="User Name">Jason Liu</div>
-                        <p class="section-white text-center">
-                            "I was happy with his teaching approach. Although he aims for students above average. He gave 5 projects all after the midterm and they were iron hard. Still, you get the felling you learned a lot."
-                            <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
-                        </p>
-                        <!-- Comment Controls -->
-                        <div class="comment-actions">
-                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                            <button class="label label-danger">Delete</button>
-                        </div>
-                    </div>
-                </li>
                 <li>
                     <div class="comment-wrapper">
                         <div class="comment-author"><img src="resources/img/profile/Mark_Weiss.jpg" alt="User Name">Mark Weiss</div>
@@ -96,110 +81,7 @@
                         </div>
                     </div>
                 </li>
-                <li>
-                    <div class="comment-wrapper">
-                        <div class="comment-author"><img src="resources/img/profile/Greg_Shaw.jpg" alt="User Name">Greg Shaw</div>
-                        <p class="section-white text-center">
-                            "When it comes to good programming professors, this guy's the real deal. Behind his endless stream of dry jokes is a serious understanding of programming and an amazing ability to relay tough information in the best way possible. "
-                            <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
-                        </p>
-                        <!-- Comment Controls -->
-                        <div class="comment-actions">
-                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                            <button class="label label-danger">Delete</button>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
-		<!--<div class="row">-->
-			<!--<div class = "col-sm-12 col-md-8 col-md-offset-2">-->
-				<!--<h2></h2>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="row " >-->
-			<!--<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">-->
-				<!--<br>-->
-				<!--<div class="row">-->
-					<!--<div class="author-photo col-md-3">-->
-						<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Jason_liu.jpg)'></div>-->
-					<!--</div>-->
-					<!--<div class = "col-sm-12 col-md-9">-->
-						<!--<p class="quote">-->
-			                <!--"I was happy with his teaching approach. Although he aims for students above average. He gave 5 projects all after the midterm and they were iron hard. Still, you get the felling you learned a lot."-->
-			            <!--</p>-->
-					<!--</div>	-->
-				<!--</div>-->
-				<!--<div class="row">-->
-					<!--<div class="col-md-3 ">-->
-						<!--<span>Jason Liu</span><br>-->
-						<!--<span>21 Oct 2014</span>-->
-					<!--</div>-->
-					<!--<div class = "col-sm-3 col-md-9">-->
-						<!--<div class="author-photo">-->
-							<!--<img src="resources/img/uploaded/uploaded1.jpg" alt="Author 1">-->
-						<!--</div>-->
-					<!--</div>	-->
-				<!--</div>-->
-				<!--<br>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="row">-->
-			<!--<div class = "col-sm-12 col-md-8 col-md-offset-2">-->
-				<!--<h2></h2>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="row " >-->
-			<!--<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">-->
-				<!--<br>-->
-				<!--<div class="row">-->
-					<!--<div class="author-photo col-md-3">-->
-						<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Mark_Weiss.jpg)'></div>-->
-					<!--</div>-->
-					<!--<div class = "col-sm-12 col-md-9">-->
-						<!--<p class="quote">-->
-			                <!--" Dr Weiss is an expert on the subject and makes the time of this class worth it. "-->
-			            <!--</p>-->
-					<!--</div>	-->
-				<!--</div>-->
-				<!--<div class="row">-->
-					<!--<div class="col-md-3">-->
-						<!--<span>Mark Weiss</span><br>-->
-						<!--<span>21 Oct 2014</span>-->
-					<!--</div>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
-				<!--<div class="row">-->
-			<!--<div class = "col-sm-12 col-md-8 col-md-offset-2">-->
-				<!--<h2></h2>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="row " >-->
-			<!--<div class="col-sm-12 col-md-8 col-md-offset-2" style="background-color:rgba(0,0,0,0.1);">-->
-				<!--<br>-->
-				<!--<div class="row">-->
-					<!--<div class="author-photo col-md-3">-->
-						<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/Greg_Shaw.jpg)'></div>-->
-					<!--</div>-->
-					<!--<div class = "col-sm-12 col-md-9">-->
-						<!--<p class="quote">-->
-			                <!--"When it comes to good programming professors, this guy's the real deal. Behind his endless stream of dry jokes is a serious understanding of programming and an amazing ability to relay tough information in the best way possible. "-->
-			            <!--</p>-->
-					<!--</div>	-->
-				<!--</div>-->
-				<!--<div class="row">-->
-					<!--<div class="col-md-3">-->
-						<!--<span>Greg Shaw</span><br>-->
-						<!--<span>21 Oct 2014</span>-->
-					<!--</div>-->
-					<!--<div class = "col-sm-3 col-md-9">-->
-						<!--<div class="author-photo">-->
-							<!--<img src="resources/img/homepage-slider/slide1.png" alt="Author 1">-->
-						<!--</div>-->
-					<!--</div>	-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
 	</div>
 </div>

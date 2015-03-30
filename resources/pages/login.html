@@ -30,6 +30,9 @@
                         <div class="form-group">
                             <label for="login-password"><i class="icon-lock"></i> <b>Password</b></label>
                             <input class="form-control" id="login-password" ng-model="ctrl.password" type="password" placeholder="">
+                            <small class="error" style="color: red" ng-show="ctrl.usrErrorMsg">
+                                The username or password you entered is incorrect!
+                            </small>
                         </div>
                         <div class="form-group">
                             <label class="checkbox">
