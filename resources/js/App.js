@@ -51,3 +51,9 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
     };
 
 }]);
+
+aap.filter('slice', function() {
+    return function(arr, start, end) {
+        return (arr || []).slice(start, end);
+    };
+});

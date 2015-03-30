@@ -174,5 +174,68 @@ class AuthenticationManager {
 //        $res['errMsg'] = $result;
         return $res;
     }
-
+    function getProfessorComments($professorUsername){
+        $query = <<< _SQL_
+        SELECT a.comment_id as commentId,
+        a.text as content,
+        a.fromUserId as userId,
+        a.imageurl as imageurl,
+        a.time as time,
+        c.profileimg as profileimg,
+        c.username as username,
+        c.firstname as firstname,
+        c.lastname as lastname
+        FROM comments A, users B, users C
+        WHERE B.username = '$professorUsername'
+        and C.user_id = A.fromUserId
+        and A.toUserId = B.user_id
+        Order By a.time DESC
+_SQL_;
+        $res = ["errMsg" => null, 'comments'=>[]];
+        if ($result = $this->dbCnx->query($query)) {
+            while($row = $result->fetch_assoc()) {
+                $user = ['username'=>null,'firstname'=>null,'lastname'=>null,'profileimg'=>null];
+                if ($row) {
+                    $user['username'] = $row['username'];
+                    $user['firstname'] = $row['firstname'];
+                    $user['lastname'] = $row['lastname'];
+                    $user['profileimg'] = $row['profileimg'];
+                }
+                $comment = ['commentId'=>null,'content'=>null, 'imageurl'=>null, 'time'=>null, 'from'=>$user];
+                $comment['commentId'] = $row['commentId'];
+                $comment['content'] = $row['content'];
+                $comment['imageurl'] = $row['imageurl'];
+                $comment['time'] = $row['time'];
+                array_push($res['comments'],$comment);
+            }
+            $result->close();
+        }else $res['errMsg'] = "Error getting comments from the database";
+        return $res;
+    }
+    function getUserId($username)
+    {
+        $query = <<<_SQL_
+        SELECT user_id
+        from users
+        where username = '$username';
+_SQL_;
+        if ($result = $this->dbCnx->query($query)) {
+            if($row = $result->fetch_assoc()){
+                return $row['user_id'];
+            }
+        } else return null;
+    }
+    function reportComment($username,$commentid){
+        $userId = $this->getUserId($username);
+        if(!$userId){
+            return "Username not found";
+        }
+        $query = <<<_SQL_
+        INSERT into commentReports (commentId, reporterId)
+        VALUES ($commentid,$userId);
+_SQL_;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems reporting the comment.";
+    }
 }
