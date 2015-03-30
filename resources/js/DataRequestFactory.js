@@ -71,6 +71,13 @@ aap.factory('DataRequest', function($http) {
         checkUsername: function(username,password, email) {
             return self.makeRequest("resources/php/checkUsername.php", 
             "username="+username);
+        },
+        getProfessorComments: function(){
+            return self.makeRequest("resources/php/getProfessorComments.php","username="+aap.user.username);
+        },
+        reportComment: function(commentId){
+            return self.makeRequest("resources/php/reportComment.php",
+                "username="+aap.user.username+"&commentId="+commentId);
         }
     };
 });
