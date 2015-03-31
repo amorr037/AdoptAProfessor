@@ -127,24 +127,6 @@ class AuthenticationManager {
         $res['errMsg'] = $result;
         return $res; 
     }
-    function getRecentlyAdoptedProfessors($username) {
-        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null,'usertype' => 'STUDENT'];
-        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
-            $row = $result->fetch_assoc();
-            if($row){
-                $res['firstname']= $row['firstname'];
-                $res['lastname']= $row['lastname'];
-                $res['email']= $row['email'];
-                $res['usertype'] = $row['usertype'];
-                return $res;
-            }
-            $result->close();
-            $res['errMsg']="Username not found";
-            // return $res;
-        }
-        $res['errMsg'] = $result;
-        return $res;
-    }
     function getProfessors() {
 //        $res = ["errMsg" => null, "username" => null, "title" => null, "website" => null,
 //            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
@@ -176,20 +158,58 @@ class AuthenticationManager {
     }
     function getProfessorComments($professorUsername){
         $query = <<< _SQL_
-        SELECT a.comment_id as commentId,
-        a.text as content,
-        a.fromUserId as userId,
-        a.imageurl as imageurl,
-        a.time as time,
-        c.profileimg as profileimg,
-        c.username as username,
-        c.firstname as firstname,
-        c.lastname as lastname
+        SELECT A.comment_id as commentId,
+        A.text as content,
+        A.fromUserId as userId,
+        A.imageurl as imageurl,
+        A.time as time,
+        C.profileimg as profileimg,
+        C.username as username,
+        C.firstname as firstname,
+        C.lastname as lastname
         FROM comments A, users B, users C
         WHERE B.username = '$professorUsername'
         and C.user_id = A.fromUserId
         and A.toUserId = B.user_id
-        Order By a.time DESC
+        Order By A.time DESC
+_SQL_;
+        $res = ["errMsg" => null, 'comments'=>[]];
+        if ($result = $this->dbCnx->query($query)) {
+            while($row = $result->fetch_assoc()) {
+                $user = ['username'=>null,'firstname'=>null,'lastname'=>null,'profileimg'=>null];
+                if ($row) {
+                    $user['username'] = $row['username'];
+                    $user['firstname'] = $row['firstname'];
+                    $user['lastname'] = $row['lastname'];
+                    $user['profileimg'] = $row['profileimg'];
+                }
+                $comment = ['commentId'=>null,'content'=>null, 'imageurl'=>null, 'time'=>null, 'from'=>$user];
+                $comment['commentId'] = $row['commentId'];
+                $comment['content'] = $row['content'];
+                $comment['imageurl'] = $row['imageurl'];
+                $comment['time'] = $row['time'];
+                array_push($res['comments'],$comment);
+            }
+            $result->close();
+        }else $res['errMsg'] = "Error getting comments from the database";
+        return $res;
+    }
+    function getStudentComments($studentUsername){
+        $query = <<< _SQL_
+        SELECT A.comment_id as commentId,
+        A.text as content,
+        A.fromUserId as userId,
+        A.imageurl as imageurl,
+        A.time as time,
+        C.profileimg as profileimg,
+        C.username as username,
+        C.firstname as firstname,
+        C.lastname as lastname
+        FROM comments A, users B, users C
+        WHERE B.username = '$studentUsername'
+        and C.user_id = A.toUserId
+        and A.fromUserId = B.user_id
+        Order By A.time DESC
 _SQL_;
         $res = ["errMsg" => null, 'comments'=>[]];
         if ($result = $this->dbCnx->query($query)) {
