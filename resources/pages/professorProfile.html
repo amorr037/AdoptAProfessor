@@ -3,8 +3,8 @@
 		<div class="container col-md-4"></div>
 		<div class = "circular col-md-2" style = 'background-image: url("resources/img/profile/Masoud_milani.jpg")'></div>
 		<div class = "container col-md-4">
-			<h1 ng-bind="ctrl.user.firstname">Javier Carmona</h1>
-			<h3 ng-bind="ctrl.user.email">javier03@gmail.com</h3>
+			<h1 ng-bind="ctrl.user.firstname + ' ' + ctrl.user.lastname"></h1>
+			<h3 ng-bind="ctrl.user.email"></h3>
 			<h4>Professor <div class="app-btn app-{{ctrl.verified?'green':'red'}} small-text" style="text-align: center">{{ctrl.verified?'verified':'not-verified'}}</div></h4>
 			<a ng-click="ctrl.editProfile()" href="" class="btn" width=2%>edit profile</a>
 		</div>
