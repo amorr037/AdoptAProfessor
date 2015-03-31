@@ -15,10 +15,19 @@
                 <div class="basic-login">
                     <form name="edit_form" role="form" novalidate ng-submit="ctrl.edit()">
                         <div class="form-group">
-                                <div class = "circular center-block" style = 'background-image: url(resources/img/profile/user3.jpg)'></div>
+                            <div  class="author-photo  container text-center">
+                                <div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/user3.jpg)'></div>
+                                <div class = "container col-md-4">
+                                    <h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
+                                    <h3 ng-bind="ctrl.user.email"></h3>
+                                </div>
+                                <div class="container col-md-4"></div>
+                            </div>
+                            <div class="btn btn-sm pull-left" style="margin: 15px">Change Picture</div>
+                            <br><br><br>
                             <div class="form-group">
                                 <label for="edit-fname"><i class="icon-user"></i> <b>First Name</b></label>
-                                <input class="form-control" name ="fname" id="edit-fname" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.fname" ng-maxlength=30 ng-minlength=1 type="text" required placeholder="Dayan">
+                                <input class="form-control" name ="fname" id="edit-fname" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.fname" ng-maxlength=30 ng-minlength=1 type="text" required placeholder="">
                                 <!--<div class="error" style="color: red" -->
                                      <!--ng-show="edit_form.fname.$dirty && edit_form.fname.$invalid">-->
                                     <!--<small class="error" style="color: red" -->
@@ -29,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-lname"><i class="icon-user"></i> <b>Last Name</b></label>
-                                <input class="form-control" name ="lname" id="edit-lname" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.lname" ng-maxlength=30 ng-minlength=1 type="text" required placeholder="Yamin">
+                                <input class="form-control" name ="lname" id="edit-lname" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.lname" ng-maxlength=30 ng-minlength=1 type="text" required placeholder="">
                                 <!--<div class="error" style="color: red"-->
                                      <!--ng-show="edit_form.lname.$dirty && edit_form.lname.$invalid">-->
                                     <!--<small class="error" style="color: red" -->
@@ -41,7 +50,7 @@
 
                             <div class="form-group">
                                 <label for="edit-email"><i class="icon-user"></i> <b>Email</b></label>
-                                <input class="form-control" name="email" id="edit-email" ng-model="ctrl.email" ng-maxlength=20 ng-minlength=3 required type="email" placeholder="Dayan@AdoptAProf.com">
+                                <input class="form-control" name="email" id="edit-email" ng-model="ctrl.email" ng-maxlength=20 ng-minlength=3 required type="email" placeholder="">
                                 <!--<div class="error-container" -->
                                      <!--ng-show="edit_form.email.$dirty && edit_form.email.$invalid">-->
                                     <!--<small class="error" style="color: red" -->
@@ -58,24 +67,66 @@
                                     <!--</small>-->
                                 <!--</div>-->
                             </div>
-                            <div class="form-group">
-                                <label for="edit-password"><i class="icon-lock"></i> <b>old Password</b></label>
-                                <input class="form-control" id="edit-old-password" ng-model="ctrl.password"  type="password" placeholder="**********">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit-password"><i class="icon-lock"></i> <b>Password</b></label>
-                                <input class="form-control" id="edit-password" ng-model="ctrl.password"  type="password" placeholder="**********">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit-password2"><i class="icon-lock"></i> <b>Re-enter Password</b></label>
-                                <input class="form-control" id="edit-password2" ng-model="ctrl.repassword"  type="password"  placeholder="**********">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" ng-disabled="edit_form.$invalid" class="btn pull-right">Edit Profile!</button>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn pull-right">Submit</button>
                                 <div class="clearfix"></div>
                             </div>
+                            <br>
+                            <div class="row">
+                                <div class="container col-lg-12 text-center">
+                                    <button class="btn btn-sm center-block" ng-click = "ctrl.toggleShowHistory()" ng-bind="ctrl.historyBtnName"></button>
+                                </div>
+                            </div>
+                            <div class="container center-block col-lg-12">
+                                <div class="container col-lg-12 text-center" ng-show = "ctrl.showingHistory">
+                                    <!--<div class="app-btn app-blue center-block">-->
+                                        <br>
+                                        <form name="change_password_form" role="form" novalidate>
+                                            <div class="form-group">
+                                                <label for="edit-password"><i class="icon-lock"></i> <b>Old Password</b></label>
+                                                <input class="form-control text-center" id="edit-old-password" type="password" placeholder="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="edit-password"><i class="icon-lock"></i> <b>Password</b></label>
+                                                <input class="form-control text-center" id="edit-password" type="password" placeholder="">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="edit-password2"><i class="icon-lock"></i> <b>Re-enter Password</b></label>
+                                                <input class="form-control text-center" id="edit-password2" type="password"  placeholder="">
+                                            </div>
+                                        </form>
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn pull-right" ng-show = "ctrl.showingHistory">Submit New Password</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
                     </form>
                 </div>
+                <!--<br><br><br>-->
+                <!--<div class="container">-->
+                    <!--<div class="container text-center" ng-show = "ctrl.showingHistory">-->
+                        <!--<div class="container col-sm-offset-1 col-lg-3">-->
+                            <!--<br>-->
+                            <!--<form name="change_password_form" role="form" novalidate>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="edit-password"><i class="icon-lock"></i> <b>old Password</b></label>-->
+                                    <!--<input class="form-control text-center" id="edit-old-password" type="password" placeholder="">-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="edit-password"><i class="icon-lock"></i> <b>Password</b></label>-->
+                                    <!--<input class="form-control text-center" id="edit-password" type="password" placeholder="">-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="edit-password2"><i class="icon-lock"></i> <b>Re-enter Password</b></label>-->
+                                    <!--<input class="form-control text-center" id="edit-password2" type="password"  placeholder="">-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
