@@ -6,7 +6,7 @@
 			<h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
 			<h3 ng-bind="ctrl.user.email"></h3>
 			<h4>Student</h4>
-            <a ng-click="ctrl.editProfile()" href="" class="btn" width=2%>edit profile</a>
+            <a ng-click="ctrl.editProfile()" href="" class="btn" width=2%>Edit Profile</a>
 		</div>
 		<div class="container col-md-4"></div>
 	</div>
@@ -14,48 +14,49 @@
 		<h2>Recently Adopted Professors</h2>
 		<div class="row">
 			<!-- Testimonial -->
-			<div class="testimonial col-md-4 col-sm-6">
+			<div ng-repeat="comment in ctrl.comments | limitTo: 3" class="testimonial col-md-4 col-sm-6">
 				<!-- Author Photo -->
 				<div class="author-photo">
-					<img src="resources/img/profile/Nagarajan_Prabakar.jpg" alt="Author 1">
+                    <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}"/>
 				</div>
 				<div class="testimonial-bubble">
 					<blockquote>
 						<!-- Quote -->
 						<p class="quote">
-	                        "Excellent lecturer and very knowledgeable on the topics discussed. Extremely helpful and really cares about students learning. Assignments can be challenging, but very doable. Also, tests are challenging but if you did the assignments and study they are very manageable. Terrific professor, very respectful and encouraging!"
+                            {{comment.content}}
+                            <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
 	            		</p>
 	            	</blockquote>
 	            	<div class="sprite arrow-speech-bubble"></div>
 	            </div>
 	        </div>
 	        <!-- End Testimonial -->
-	        <div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Norman_Pestaina.jpg" alt="Author 2">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "Amazing Professor!!! Wish they were all like this! Must go to class, but his lectures make it worth going. Tests are tough because he makes you really apply what you've learned, but he absolutely will not ask you things that he didn't go over in class as well as make sure to tell you to study. Must study and do assignments! Take him always!"
-	            		</p>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
-			<div class="testimonial col-md-4 col-sm-6">
-				<div class="author-photo">
-					<img src="resources/img/profile/Masoud_milani.jpg" alt="Author 3">
-				</div>
-				<div class="testimonial-bubble">
-					<blockquote>
-						<p class="quote">
-	                        "He is a good instructor and puts things in perspectives. For a beginning class, it is refreshing to have an instructor that can explain at a level that makes it easy to understand."
-	            		</p>
-	            	</blockquote>
-	            	<div class="sprite arrow-speech-bubble"></div>
-	            </div>
-	        </div>
+	        <!--<div class="testimonial col-md-4 col-sm-6">-->
+				<!--<div class="author-photo">-->
+					<!--<img src="resources/img/profile/Norman_Pestaina.jpg" alt="Author 2">-->
+				<!--</div>-->
+				<!--<div class="testimonial-bubble">-->
+					<!--<blockquote>-->
+						<!--<p class="quote">-->
+	                        <!--"Amazing Professor!!! Wish they were all like this! Must go to class, but his lectures make it worth going. Tests are tough because he makes you really apply what you've learned, but he absolutely will not ask you things that he didn't go over in class as well as make sure to tell you to study. Must study and do assignments! Take him always!"-->
+	            		<!--</p>-->
+	            	<!--</blockquote>-->
+	            	<!--<div class="sprite arrow-speech-bubble"></div>-->
+	            <!--</div>-->
+	        <!--</div>-->
+			<!--<div class="testimonial col-md-4 col-sm-6">-->
+				<!--<div class="author-photo">-->
+					<!--<img src="resources/img/profile/Masoud_milani.jpg" alt="Author 3">-->
+				<!--</div>-->
+				<!--<div class="testimonial-bubble">-->
+					<!--<blockquote>-->
+						<!--<p class="quote">-->
+	                        <!--"He is a good instructor and puts things in perspectives. For a beginning class, it is refreshing to have an instructor that can explain at a level that makes it easy to understand."-->
+	            		<!--</p>-->
+	            	<!--</blockquote>-->
+	            	<!--<div class="sprite arrow-speech-bubble"></div>-->
+	            <!--</div>-->
+	        <!--</div>-->
 		</div>
 	</div>
 	<div class="row">
