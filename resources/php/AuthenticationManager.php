@@ -258,4 +258,13 @@ _SQL_;
             return null;
         } else return "We have encountered problems reporting the comment.";
     }
+    function deleteComment($commentid){
+        $query = <<<_SQL_
+        DELETE from comments
+        WHERE comment_id = '$commentid'
+_SQL_;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems deleting the comment.";
+    }
 }

@@ -30,33 +30,6 @@
 	            	<div class="sprite arrow-speech-bubble"></div>
 	            </div>
 	        </div>
-	        <!-- End Testimonial -->
-	        <!--<div class="testimonial col-md-4 col-sm-6">-->
-				<!--<div class="author-photo">-->
-					<!--<img src="resources/img/profile/Norman_Pestaina.jpg" alt="Author 2">-->
-				<!--</div>-->
-				<!--<div class="testimonial-bubble">-->
-					<!--<blockquote>-->
-						<!--<p class="quote">-->
-	                        <!--"Amazing Professor!!! Wish they were all like this! Must go to class, but his lectures make it worth going. Tests are tough because he makes you really apply what you've learned, but he absolutely will not ask you things that he didn't go over in class as well as make sure to tell you to study. Must study and do assignments! Take him always!"-->
-	            		<!--</p>-->
-	            	<!--</blockquote>-->
-	            	<!--<div class="sprite arrow-speech-bubble"></div>-->
-	            <!--</div>-->
-	        <!--</div>-->
-			<!--<div class="testimonial col-md-4 col-sm-6">-->
-				<!--<div class="author-photo">-->
-					<!--<img src="resources/img/profile/Masoud_milani.jpg" alt="Author 3">-->
-				<!--</div>-->
-				<!--<div class="testimonial-bubble">-->
-					<!--<blockquote>-->
-						<!--<p class="quote">-->
-	                        <!--"He is a good instructor and puts things in perspectives. For a beginning class, it is refreshing to have an instructor that can explain at a level that makes it easy to understand."-->
-	            		<!--</p>-->
-	            	<!--</blockquote>-->
-	            	<!--<div class="sprite arrow-speech-bubble"></div>-->
-	            <!--</div>-->
-	        <!--</div>-->
 		</div>
 	</div>
 	<div class="row">
@@ -78,7 +51,7 @@
                         <!-- Comment Controls -->
                         <div class="comment-actions">
                             <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                            <button class="label label-danger">Delete</button>
+                            <button ng-click="ctrl.delete(comment, $index)" class="label label-danger">Delete</button>
                         </div>
                     </div>
                 </li>
