@@ -50,6 +50,11 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/professorMonth.html";
             }
+        }).when('/forgotPassword',//Redirect if root
+        {
+            templateUrl: function(){
+                return "./resources/pages/forgotPassword.html";
+            }
         }).when('/admin',//Redirect if root
         {
             templateUrl: function(){

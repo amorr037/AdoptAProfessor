@@ -82,9 +82,14 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/reportComment.php",
                 "username="+aap.user.username+"&commentId="+commentId);
         },
-        deleteComment: function(commentId){
+        deleteComment: function(commentId) {
             return self.makeRequest("resources/php/deleteComment.php",
-                "commentId="+commentId);
+                "commentId=" + commentId);
+        },
+        updateUserInfo: function(firstName,lastName,email){
+            return self.makeRequest("resources/php/editProfile.php",
+                "username="+aap.user.username+"&firstname="+firstName+"&lastname="+lastName+"&email="+email);
+
         }
     };
 });

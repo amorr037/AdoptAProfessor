@@ -258,7 +258,8 @@ _SQL_;
             return null;
         } else return "We have encountered problems reporting the comment.";
     }
-    function deleteComment($commentid){
+    function deleteComment($commentid)
+    {
         $query = <<<_SQL_
         DELETE from comments
         WHERE comment_id = '$commentid'
@@ -266,5 +267,16 @@ _SQL_;
         if ($result = $this->dbCnx->query($query)) {
             return null;
         } else return "We have encountered problems deleting the comment.";
+    }
+    function updateUserInfo($userName,$firstName,$lastName,$email){
+        $query = <<<_SQL
+        UPDATE users
+        SET firstname='$firstName', lastname='$lastName', email='$email'
+        WHERE username = '$userName';
+_SQL;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems updating new information.";
+
     }
 }
