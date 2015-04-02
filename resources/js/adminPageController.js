@@ -1,36 +1,21 @@
-aap.controller('ProfileCtrl', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
-	var self = this;
-    this.user = aap.user;
-    self.showingHistory = false;
-    self.historyBtnName = "Show History"
+aap.controller('adminPageController', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
+    var self = this;
+    self.user = aap.user;
+    self.verified = true;
     self.comments = [];
     self.comments.showing=[];
-    self.toggleShowHistory=function(){
-        self.showingHistory = !self.showingHistory;
-        if(self.showingHistory) self.historyBtnName = "Hide History";
-        else  self.historyBtnName = "Show History";
-    }
+
     self.editProfile = function(){
         $location.path("/editProfile");
     };
-    self.delete = function(comment, idx) {
-        DataRequest.deleteComment(comment.commentId).then(function(data){
-            if(!data.sucess) {
+    self.report = function(comment) {
+        console.log("Reporting commentid "+comment.commentId);
+        DataRequest.reportComment(comment.commentId).then(function(data){
+            if(!data.sucess){
                 console.log(data.errMsg);
                 return;
             }
-            self.comments.splice((self.pagination.currPage-1)*self.pagination.commentsPerPage+idx,1);
-            self.comments.showing.splice(idx,1);
-            if(self.comments.showing.length==0){
-                var currPageIdx = self.pagination.pages.indexOf(self.pagination.currPage);
-                if(self.pagination.hasPrevious())
-                    self.pagination.previous();
-                else
-                    self.pagination.currPage=1;
-                if (currPageIdx > -1)
-                    self.pagination.pages.splice(currPageIdx, 1);
-                setupPagination();
-            }
+            comment.reported = true;
         });
     };
     self.dateToString = function (timestamp){
@@ -88,7 +73,7 @@ aap.controller('ProfileCtrl', ['DataRequest','$location','$timeout', function(Da
                 showing.push(comments[i]);
         }
     };
-    DataRequest.getStudentComments().then(function(data){
+    DataRequest.getProfessorComments().then(function(data){
         console.log(data);
         if(!data.sucess){
             console.log(data.errMsg);
@@ -101,12 +86,7 @@ aap.controller('ProfileCtrl', ['DataRequest','$location','$timeout', function(Da
                 self.pagination.pages.push(self.pagination.pages.length+1);
             }
         }
-        setupPagination();
-        //self.pagination.pagesAvailable = Math.ceil(self.comments.length/self.pagination.commentsPerPage);
-        //self.pagination.setShowing();
-    });
-    function setupPagination(){
         self.pagination.pagesAvailable = Math.ceil(self.comments.length/self.pagination.commentsPerPage);
         self.pagination.setShowing();
-    }
+    });
 }]);
