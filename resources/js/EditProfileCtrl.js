@@ -28,6 +28,7 @@ aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', functio
             //$location.path("/login");
         });
     };
-}]);/**
+}]);
+/**
  * Created by cruiz on 3/31/15.
  */

@@ -268,4 +268,45 @@ _SQL;
             return null;
         } else return "We have encountered problems updating new information.";
     }
+    function getUserEmail($username){
+        $res = ["errMsg" => null, "email" => null];
+        $stmt = $this->dbCnx->getProfileInfo($username);
+        if ($stmt['errMsg'] == null) {
+            $res['email'] = $stmt['email'];
+            return $res;
+        }
+        $res['errMsg'] = $stmt['errMsg'];
+        return $stmt['errMsg'];
+    }
+    function forgotPasswordRequest($email){
+        // Pear Mail Library
+        require_once "Mail.php";
+        $randomString = generateRandomString(7);
+        $pwdHash = password_hash($randomString, PASSWORD_DEFAULT);
+        $from = '<AdoptProfessor@gmail.com>';
+        $subject = 'ForgotPassword Request!';
+        $body = "A password has been generated for you.
+        \nPlease sign in with the following password {$pwdHash} and proceed to edit profile and change it.";
+
+        $headers = array(
+            'From' => $from,
+            'To' => $email,
+            'Subject' => $subject
+        );
+
+        $smtp = Mail::factory('smtp', array(
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => '465',
+            'auth' => true,
+            'username' => 'AdoptProfessor@gmail.com',
+            'password' => 'CodIng2014'
+        ));
+
+        $mail = $smtp->send($email, $headers, $body);
+
+        if (PEAR::isError($mail)) {
+            return  $mail->getMessage();
+        }
+        return NULL;
+    }
 }
