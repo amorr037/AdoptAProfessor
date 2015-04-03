@@ -1,41 +1,43 @@
 aap.controller('adminPageController', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
     var self = this;
     self.user = aap.user;
-    self.verified = true;
     self.comments = [];
     self.comments.showing=[];
-
-    self.editProfile = function(){
-        $location.path("/editProfile");
+    self.accountUsername = "";
+    self.userAccountInfo = {
+        "username" : "",
+        "lastname" : "",
+        "email" : "",
+        "usertype" : "",
+        "firstname" : ""
     };
-    self.report = function(comment) {
-        console.log("Reporting commentid "+comment.commentId);
-        DataRequest.reportComment(comment.commentId).then(function(data){
+    self.getUserAccount = function() {
+        console.log("Getting username account "+self.accountUsername);
+        DataRequest.getProfileInfo(self.accountUsername).then(function(data){
             if(!data.sucess){
                 console.log(data.errMsg);
                 return;
             }
-            comment.reported = true;
+            self.userAccountInfo["username"] = self.accountUsername;
+            self.userAccountInfo["firstname"]= data.info.firstname;
+            self.userAccountInfo["lastname"]= data.info.lastname;
+            self.userAccountInfo["email"] = data.info.email;
+            self.userAccountInfo["usertype"] = data.info.usertype;
         });
     };
-    self.dateToString = function (timestamp){
-        var date = new Date(timestamp);
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-        var militaryHour = date.getHours();
-        var hours = militaryHour;
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        var ampm = 'AM';
-        if(militaryHour>12){
-            ampm = 'PM';
-            hours = militaryHour % 12;
-        }
-        var hourStr = hours<10?'0'+hours:''+hours;
-        var minuteStr = minutes<10?'0'+minutes:''+minutes;
-        var secondStr = seconds<10?'0'+seconds:''+seconds;
-        return month+"/"+day+"/"+year+" - "+hourStr+":"+minuteStr+":"+secondStr+" "+ampm;
+    self.deactivateAccount = function() {
+        //console.log("Getting username account "+self.accountUsername);
+        //DataRequest.getProfileInfo(self.accountUsername).then(function(data){
+        //    if(!data.sucess){
+        //        console.log(data.errMsg);
+        //        return;
+        //    }
+        //    self.userAccountInfo["username"] = self.accountUsername;
+        //    self.userAccountInfo["firstname"]= data.info.firstname;
+        //    self.userAccountInfo["lastname"]= data.info.lastname;
+        //    self.userAccountInfo["email"] = data.info.email;
+        //    self.userAccountInfo["usertype"] = data.info.usertype;
+        //});
     };
     self.pagination = {
         pages:[1],
@@ -73,20 +75,4 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
                 showing.push(comments[i]);
         }
     };
-    DataRequest.getProfessorComments().then(function(data){
-        console.log(data);
-        if(!data.sucess){
-            console.log(data.errMsg);
-            return;
-        }
-        data = data.comments;
-        for(var i = 0 ; i < data.length;i++){
-            self.comments.push(data[i]);
-            if(self.comments.length>1 && (self.comments.length-1)%self.pagination.commentsPerPage==0){
-                self.pagination.pages.push(self.pagination.pages.length+1);
-            }
-        }
-        self.pagination.pagesAvailable = Math.ceil(self.comments.length/self.pagination.commentsPerPage);
-        self.pagination.setShowing();
-    });
 }]);

@@ -1,10 +1,10 @@
-<div class="section" ng-controller="ProfileCtrl as ctrl">
+<div class="section" ng-controller="adminPageController as ctrl">
     <div  class="author-photo  container">
         <div class="container col-md-4"></div>
         <div class = "circular col-md-2" style = 'background-image: url("resources/img/user2.jpg")'></div>
         <div class = "container col-md-4">
-            <h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
-            <h3 ng-bind="ctrl.user.email"></h3>
+            <!--<h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>-->
+            <!--<h3 ng-bind="ctrl.user.email"></h3>-->
             <h4>Administrator</h4>
         </div>
         <div class="container col-md-4"></div>
@@ -25,17 +25,17 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-6">
-                    <input type="text" ng-model="" class="form-control">
+                    <input  ng-model = "ctrl.accountUsername" type="text" ng-model="" class="form-control">
                 </div>
                 <div class="col-md-1">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button ng-click="ctrl.getUserAccount()" type="submit" class="btn btn-default">Submit</button>
                 </div>
                 <div class="col-md-2">
                 </div>
             </div>
         </div>
 
-        <div class="container">
+        <div ng-show ="false" class="container">
             <div class="container col-lg-1"></div>
             <h2 class="container col-lg-10">Account found!</h2>
             <center><table class="section-white" width=75% margin-left=5%>
@@ -45,19 +45,15 @@
                     <td><center>Last name</center></td>
                     <td><center>User type</center></td>
                     <td><center>email</center></td>
-                    <td><center>website</center></td>
-                    <td><center>title</center></td>
                     <td><center></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
                 <tr>
-                    <td><center>adopt1</center></td>
-                    <td><center>Carlos</center></td>
-                    <td><center>Ruiz</center></td>
-                    <td><center>STUDENT</center></td>
-                    <td><center>cruiz084@fiu.edu</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center>NULL</center></td>
+                    <td ng-bind = "ctrl.userAccountInfo['username']"><center>adopt1</center></td>
+                    <td ng-bind = "ctrl.userAccountInfo['firstname']"><center>Carlos</center></td>
+                    <td ng-bind = "ctrl.userAccountInfo['lastname']"><center>Ruiz</center></td>
+                    <td ng-bind = "ctrl.userAccountInfo['email']"><center>STUDENT</center></td>
+                    <td ng-bind = "ctrl.userAccountInfo['usertype']"><center>cruiz084@fiu.edu</center></td>
                     <td><center><div class=" btn btn-sm btn-red ">Deactivate</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
@@ -82,7 +78,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <input type="text" ng-model="" class="form-control">
+                    <input type="text"  class="form-control">
                 </div>
                 <div class="col-md-1">
                     <button type="submit" class="btn btn-default">Submit</button>
@@ -227,7 +223,7 @@
                     <div class="col-md-2">
                     </div>
                     <div class="col-md-6">
-                        <input type="text" ng-model="" class="form-control">
+                        <input type="text"  class="form-control">
                     </div>
                     <div class="col-md-1">
                         <button type="submit" class="btn btn-default">Submit</button>
