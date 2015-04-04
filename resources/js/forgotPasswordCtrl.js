@@ -7,9 +7,10 @@ aap.controller('forgotPasswordCtrl', ['DataRequest', function(DataRequest) {
         DataRequest.requestNewPassword(self.username).then(function(data){
             console.log(data);
             if(!data.sucess){
-                alert(data.msg);
+                alert("An error has occur!\nDisregard any possible received email!");
                 return;
             }
+            alert("An email has been sent to your email with a temporary password!");
         });
     };
 }]);

@@ -291,38 +291,34 @@ _SQL;
         $res['errMsg'] = $stmt['errMsg'];
         return $stmt['errMsg'];
     }
-    function sendNewGeneratedPassword($email){
-        // Pear Mail Library
-        require_once "Mail.php";
+    function sendNewGeneratedPassword($username, $email){
+            $tempPassword = $this->generateRandomString(6);
+            //Email information
+            $admin_email = "AdoptProfessor@gmail.com";
+            $email = $email;
+            $subject = "New Password Request!";
+            $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
 
-//        $randomString = generateRandomString(7);
-//        $pwdHash = password_hash($randomString, PASSWORD_DEFAULT);
-
-        $from = '<AdoptProfessor@gmail.com>';
-        $subject = 'ForgotPassword Request!';
-        $body = "A password has been generated for you.
-        \nPlease sign in with the following password pwdHash and proceed to edit profile and change it.";
-
-        $headers = array(
-            'From' => $from,
-            'To' => $email,
-            'Subject' => $subject
-        );
-
-        $smtp = Mail::factory('smtp', array(
-            'host' => 'ssl://smtp.gmail.com',
-            'port' => '465',
-            'auth' => true,
-            'username' => 'AdoptProfessor@gmail.com',
-            'password' => 'CodIng2014'
-        ));
-
-        $mail = $smtp->send($email, $headers, $body);
-
-        if (PEAR::isError($mail)) {
-            return  $mail->getMessage();
-        }
-        return NULL;
+            //send email
+            if(mail($admin_email, "$subject", $comment, "From:" . $email)){
+                $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
+                if (!$stmt) {
+                    $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
+                    return $res;
+                }
+                $pwdHash = password_hash($tempPassword, PASSWORD_DEFAULT);
+                $stmt->bind_param("ss", $pwdHash, $username);
+                $res = $stmt->execute();
+                $stmt->close();
+                if (!$res) {
+                    $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
+                    return $res;
+                }
+                $res['errMsg'] = null;
+                return $res;
+            }
+            $res['errMsg'] = "Error while sending email!";
+            return false;
     }
 
     function changePsswRequest($username, $oldPassword, $newPassword){
