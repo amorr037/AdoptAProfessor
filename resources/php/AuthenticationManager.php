@@ -114,6 +114,7 @@ class AuthenticationManager {
         if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
             $row = $result->fetch_assoc();
             if($row){
+                $res['errMsg']=null;
                 $res['firstname']= $row['firstname'];
                 $res['lastname']= $row['lastname']; 
                 $res['email']= $row['email']; 
@@ -122,7 +123,7 @@ class AuthenticationManager {
             }
             $result->close();
             $res['errMsg']="Username not found";
-            // return $res;
+             return $res;
         }
         $res['errMsg'] = $result;
         return $res; 
@@ -281,23 +282,26 @@ _SQL;
     }
     function getUserEmail($username){
         $res = ["errMsg" => null, "email" => null];
-        $stmt = $this->dbCnx->getProfileInfo($username);
+        $stmt = $this->getProfileInfo($username);
         if ($stmt['errMsg'] == null) {
+            $res['errMsg'] = null;
             $res['email'] = $stmt['email'];
             return $res;
         }
         $res['errMsg'] = $stmt['errMsg'];
         return $stmt['errMsg'];
     }
-    function forgotPasswordRequest($email){
+    function sendNewGeneratedPassword($email){
         // Pear Mail Library
         require_once "Mail.php";
-        $randomString = generateRandomString(7);
-        $pwdHash = password_hash($randomString, PASSWORD_DEFAULT);
+
+//        $randomString = generateRandomString(7);
+//        $pwdHash = password_hash($randomString, PASSWORD_DEFAULT);
+
         $from = '<AdoptProfessor@gmail.com>';
         $subject = 'ForgotPassword Request!';
         $body = "A password has been generated for you.
-        \nPlease sign in with the following password {$pwdHash} and proceed to edit profile and change it.";
+        \nPlease sign in with the following password pwdHash and proceed to edit profile and change it.";
 
         $headers = array(
             'From' => $from,
@@ -319,5 +323,38 @@ _SQL;
             return  $mail->getMessage();
         }
         return NULL;
+    }
+
+    function changePsswRequest($username, $oldPassword, $newPassword){
+        $stmt = $this->dbCnx->prepare("SELECT user_id, password FROM users WHERE username=?");
+        if (!$stmt) {
+            $res['errMsg'] = "Unable to prepare select query";
+            return $res;
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->bind_result($user_id, $pass);
+        if (!$stmt->fetch()) {
+            $res['errMsg'] = "UserName not found";
+            return $res;
+        }
+        if (!password_verify($oldPassword, $pass)) {
+            $res['errMsg'] = "Password incorrect";
+            return $res;
+        }
+        $stmt->close();
+        $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE user_id=?");
+        if (!$stmt) {
+            $res['errMsg'] = "Unable to prepare select query";
+            return $res;
+        }
+        $pwdHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt->bind_param("ss", $pwdHash, $user_id);
+        $res = $stmt->execute();
+        $stmt->close();
+        if (!$res) {
+            $res['errMsg'] = "Unable to change password";
+            return $res;
+        }
     }
 }

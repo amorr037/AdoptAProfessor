@@ -20,7 +20,7 @@ aap.factory('DataRequest', function($http) {
                 jsonResponse = JSON.parse(result.data);//try to parse the string into a javascript object (json)
             } catch (err) {//if could not parse the string
                 console.log("invalid json response:");//the server gave us something unexpected
-                console.log(result.data);//log the data
+                console.log(result.data+"\n");//log the data
                 jsonResponse = false;//specify invalid server response
             }
             return jsonResponse;
@@ -90,6 +90,14 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/editProfile.php",
                 "username="+aap.user.username+"&firstname="+firstName+"&lastname="+lastName+"&email="+email);
 
+        },
+        requestNewPassword: function(username){
+            return self.makeRequest("resources/php/requestNewPassword.php",
+                "username=" + username);
+        },
+        changePasswordRequest: function(oldpassword, newpasswrod){
+            return self.makeRequest("resources/php/changePasswordRequest.php",
+                "username="+aap.user.username+"&oldpassword="+oldpassword+"&newpasswrod="+newpasswrod);
         }
     };
 });

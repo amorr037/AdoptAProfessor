@@ -1,10 +1,15 @@
-aap.controller('forgotPasswordCtrl', ['DataRequest','$location','$localStorage', function(DataRequest) {
+aap.controller('forgotPasswordCtrl', ['DataRequest', function(DataRequest) {
     var self = this;
     this.user = aap.user;
     self.username = "";
-    self.password = "";
-    self.usrErrorMsg=false;
     self.requestNewPassword = function(){
-        console.log("Login Response");
+        console.log("check if username ["+self.username+"] is valid!");
+        DataRequest.requestNewPassword(self.username).then(function(data){
+            console.log(data);
+            if(!data.sucess){
+                alert(data.msg);
+                return;
+            }
+        });
     };
 }]);

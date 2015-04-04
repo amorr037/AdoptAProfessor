@@ -1,15 +1,16 @@
 <?php
+
 require_once('AuthenticationManager.php');
 require_once('RequestResponse.php');
+
 $params = $_GET?$_GET:$_POST;
 $username = $params['username'];
 $authmanager = new AuthenticationManager();
-$userExist = $authmanager->getUserEmail($username);
-if($userExist['errMsg'] != null){
-    die(json_encode ($userExist['errMsg']));
-}
-$passwordRequest = $authmanager->forgotPasswordRequest($userExist['email']);
-die(json_encode (new RequestResponse($passwordRequest==null,$passwordRequest)));
+$errMsg = $authmanager->getUserEmail($username);
+if($errMsg['errMsg'] != null) die(json_encode (new RequestResponse(false,$errMsg)));
+//die(json_encode (new RequestResponse(true,$errMsg)));
+$emailSentResponse = $authmanager->sendNewGeneratedPassword($userExist['email']);
+die(json_encode (new RequestResponse($passwordRequest==null,$emailSentResponse)));
 /**
  * Created by PhpStorm.
  * User: cruiz
