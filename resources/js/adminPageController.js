@@ -105,6 +105,19 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
             self.showReportedComments=true;
         });
     };
+    self.deleteCommentById = function() {
+        DataRequest.deleteComment(self.commentInfo.commentId).then(function (data) {
+            if (!data.sucess) {
+                console.log(data.errMsg);
+                return;
+            }
+            for(var i = 0 ; i < self.comments.length;i++) {
+                if(self.comments[i].commentId==self.commentInfo.commentId)
+                    self.comments.splice(i,1);
+            }
+            self.commentIdFound=false;
+        });
+    }
     self.delete = function(comment, idx) {
         console.log("deleting comment at index", idx);
         DataRequest.deleteComment(comment.commentId).then(function (data) {
@@ -112,6 +125,8 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
                 console.log(data.errMsg);
                 return;
             }
+            if(self.commentInfo.commentId==comment.commentId)
+                self.commentIdFound=false;
             self.comments.splice(idx, 1);
         });
     }

@@ -115,7 +115,7 @@
                     <td width="300"><center>{{ctrl.commentInfo.content}}</center></td>
                     <td><center><img width="50" height="50" ng-src="{{ctrl.commentInfo.imageurl==null?null:ctrl.commentInfo.imageurl}}"></center></td>
                     <td><center>{{ctrl.commentInfo.time}}</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                    <td><center><div ng-click ="ctrl.deleteCommentById()" class=" btn btn-sm btn-red ">Delete</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
             </table></center>
