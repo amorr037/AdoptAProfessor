@@ -114,6 +114,7 @@ class AuthenticationManager {
         if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
             $row = $result->fetch_assoc();
             if($row){
+                $res['errMsg']=null;
                 $res['firstname']= $row['firstname'];
                 $res['lastname']= $row['lastname']; 
                 $res['email']= $row['email']; 
@@ -122,7 +123,7 @@ class AuthenticationManager {
             }
             $result->close();
             $res['errMsg']="Username not found";
-            // return $res;
+             return $res;
         }
         $res['errMsg'] = $result;
         return $res; 
@@ -387,27 +388,101 @@ _SQL;
         $res['errMsg'] = $result;
         return $res;
     }
-    function getNotVerifiedProfessors(){
-            $query = <<<_SQL
+    function getNotVerifiedProfessors()
+    {
+        $query = <<<_SQL
             SELECT *
             FROM users
             WHERE usertype = 'PROFESSOR'
             AND status = 1;
 _SQL;
-            $res = ["errMsg" => null, 'accounts' => []];
-            if ($result = $this->dbCnx->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $account = ['userId' => null, 'firstname' => null, 'lastname' => null, 'username' => null, 'email' => null, 'usertype' => null];
-                    $account['userId'] = $row['user_id'];
-                    $account['firstname'] = $row['firstname'];
-                    $account['lastname'] = $row['lastname'];
-                    $account['username'] = $row['username'];
-                    $account['email'] = $row['email'];
-                    $account['usertype'] = $row['usertype'];
-                    array_push($res['accounts'], $account);
-                }
-                $result->close();
-            } else $res['errMsg'] = "Error getting professors from the database";
+        $res = ["errMsg" => null, 'accounts' => []];
+        if ($result = $this->dbCnx->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $account = ['userId' => null, 'firstname' => null, 'lastname' => null, 'username' => null, 'email' => null, 'usertype' => null];
+                $account['userId'] = $row['user_id'];
+                $account['firstname'] = $row['firstname'];
+                $account['lastname'] = $row['lastname'];
+                $account['username'] = $row['username'];
+                $account['email'] = $row['email'];
+                $account['usertype'] = $row['usertype'];
+                array_push($res['accounts'], $account);
+            }
+            $result->close();
+        } else $res['errMsg'] = "Error getting professors from the database";
         return $res;
+    }
+    function getUserEmail($username){
+        $res = ["errMsg" => null, "email" => null];
+        $stmt = $this->getProfileInfo($username);
+        if ($stmt['errMsg'] == null) {
+            $res['errMsg'] = null;
+            $res['email'] = $stmt['email'];
+            return $res;
+        }
+        $res['errMsg'] = $stmt['errMsg'];
+        return $stmt['errMsg'];
+    }
+    function sendNewGeneratedPassword($username, $email){
+            $tempPassword = $this->generateRandomString(6);
+            //Email information
+            $admin_email = "AdoptProfessor@gmail.com";
+            $email = $email;
+            $subject = "New Password Request!";
+            $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
+
+            //send email
+            if(mail($admin_email, "$subject", $comment, "From:" . $email)){
+                $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
+                if (!$stmt) {
+                    $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
+                    return $res;
+                }
+                $pwdHash = password_hash($tempPassword, PASSWORD_DEFAULT);
+                $stmt->bind_param("ss", $pwdHash, $username);
+                $res = $stmt->execute();
+                $stmt->close();
+                if (!$res) {
+                    $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
+                    return $res;
+                }
+                $res['errMsg'] = null;
+                return $res;
+            }
+            $res['errMsg'] = "Error while sending email!";
+            return false;
+    }
+
+    function changePsswRequest($username, $oldPassword, $newPassword){
+        $stmt = $this->dbCnx->prepare("SELECT user_id, password FROM users WHERE username=?");
+        if (!$stmt) {
+            $res['errMsg'] = "Unable to prepare select query";
+            return $res;
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->bind_result($user_id, $pass);
+        if (!$stmt->fetch()) {
+            $res['errMsg'] = "UserName not found";
+            return $res;
+        }
+        if (!password_verify($oldPassword, $pass)) {
+            $res['errMsg'] = "Password incorrect";
+            return $res;
+        }
+        $stmt->close();
+        $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE user_id=?");
+        if (!$stmt) {
+            $res['errMsg'] = "Unable to prepare select query";
+            return $res;
+        }
+        $pwdHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt->bind_param("ss", $pwdHash, $user_id);
+        $res = $stmt->execute();
+        $stmt->close();
+        if (!$res) {
+            $res['errMsg'] = "Unable to change password";
+            return $res;
+        }
     }
 }

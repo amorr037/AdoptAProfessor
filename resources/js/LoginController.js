@@ -33,4 +33,7 @@ aap.controller('LoginCtrl', ['DataRequest','$location','$localStorage', function
             $location.path("/profile");
         });
     }
+    self.forgotPasswordPage = function(){
+        $location.path("/forgotPassword");
+    }
 }]);
