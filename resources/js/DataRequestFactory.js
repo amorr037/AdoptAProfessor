@@ -90,6 +90,18 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/editProfile.php",
                 "username="+aap.user.username+"&firstname="+firstName+"&lastname="+lastName+"&email="+email);
 
+        },
+        getCommentById: function(commentId){
+            return self.makeRequest("resources/php/getCommentById.php", "commentId="+commentId);
+        },
+        getReportedComments: function(){
+            return self.makeRequest("resources/php/getReportedComments.php");
+        },
+        getProfessorProfileInfo: function(username){
+            return self.makeRequest("resources/php/getProfessorProfileInfo.php","username="+username);
+        },
+        getNotVerifiedProfessors: function(){
+            return self.makeRequest("resources/php/getNotVerifiedProfessors.php");
         }
     };
 });
