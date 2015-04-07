@@ -208,7 +208,7 @@
                         <td><center>{{ctrl.professorInfo.lastname}}</center></td>
                         <td><center>{{ctrl.professorInfo.usertype}}</center></td>
                         <td><center>{{ctrl.professorInfo.email}}</center></td>
-                        <td><center><div class=" btn btn-sm btn-green ">Verify</div></center></td>
+                        <td><center><div ng-click ="ctrl.verifyProfessorByUsername()" class=" btn btn-sm btn-green ">Verify</div></center></td>
                     </tr>
                     <tr style="height: 15px"></tr>
                 </table></center>
@@ -241,23 +241,10 @@
                     <td><center>{{professor.lastname}}</center></td>
                     <td><center>{{professor.usertype}}</center></td>
                     <td><center>{{professor.email}}</center></td>
-                    <td><center><div class=" btn btn-sm btn-green ">verify</div></center></td>
+                    <td><center><div ng-click="ctrl.verifyProfessor(professor, $index)" class=" btn btn-sm btn-green ">verify</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
             </table></center>
-
-            <!-- Pagination -->
-            <!--<div class="pagination-wrapper ">-->
-                <!--<ul class="pagination pagination-sm">-->
-                    <!--<li class="disabled"><a href="#">Previous</a></li>-->
-                    <!--<li class="active"><a href="#">1</a></li>-->
-                    <!--<li><a href="#">2</a></li>-->
-                    <!--<li><a href="#">3</a></li>-->
-                    <!--<li><a href="#">4</a></li>-->
-                    <!--<li><a href="#">5</a></li>-->
-                    <!--<li><a href="#">Next</a></li>-->
-                <!--</ul>-->
-            <!--</div>-->
         </div>
     </div>
 </div>

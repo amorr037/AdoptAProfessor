@@ -394,7 +394,7 @@ _SQL;
             SELECT *
             FROM users
             WHERE usertype = 'PROFESSOR'
-            AND status = 1;
+            AND status = 0;
 _SQL;
         $res = ["errMsg" => null, 'accounts' => []];
         if ($result = $this->dbCnx->query($query)) {

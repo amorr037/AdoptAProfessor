@@ -182,7 +182,7 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
     };
     self.verifyProfessor = function(professor, idx) {
         console.log("verifying professor at index", idx);
-        DataRequest.deleteComment(comment.commentId).then(function (data) {
+        DataRequest.verifyProfessor(professor.username).then(function (data) {
             if (!data.sucess) {
                 console.log(data.errMsg);
                 return;
@@ -190,6 +190,19 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
             if(self.professorInfo.username==professor.username)
                 self.showProfessor=false;
             self.professors.splice(idx, 1);
+        });
+    }
+    self.verifyProfessorByUsername = function() {
+        DataRequest.verifyProfessor(self.professorInfo.username).then(function (data) {
+            if (!data.sucess) {
+                console.log(data.errMsg);
+                return;
+            }
+            for(var i = 0 ; i < self.comments.length;i++) {
+                if(self.professors[i].username==self.professorInfo.username)
+                    self.professors.splice(i,1);
+            }
+            self.commentIdFound=false;
         });
     }
     self.dateToString = function (timestamp){
