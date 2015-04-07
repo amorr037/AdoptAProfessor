@@ -485,4 +485,15 @@ _SQL;
             return $res;
         }
     }
+    function verifyProfessor($userName){
+        $query = <<<_SQL
+        UPDATE users
+        SET status=1
+        WHERE username = '$userName';
+_SQL;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems updating professor status.";
+
+    }
 }

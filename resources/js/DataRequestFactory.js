@@ -110,6 +110,10 @@ aap.factory('DataRequest', function($http) {
         changePasswordRequest: function(oldpassword, newpasswrod){
             return self.makeRequest("resources/php/changePasswordRequest.php",
                 "username="+aap.user.username+"&oldpassword="+oldpassword+"&newpasswrod="+newpasswrod);
+        },
+        verifyProfessor: function(username){
+            return self.makeRequest("resources/php/verifyProfessor.php",
+                "username="+username);
         }
     };
 });

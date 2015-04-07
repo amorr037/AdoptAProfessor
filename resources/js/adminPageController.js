@@ -180,6 +180,18 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
             self.showNotVerifiedProfessors=true;
         });
     };
+    self.verifyProfessor = function(professor, idx) {
+        console.log("verifying professor at index", idx);
+        DataRequest.deleteComment(comment.commentId).then(function (data) {
+            if (!data.sucess) {
+                console.log(data.errMsg);
+                return;
+            }
+            if(self.professorInfo.username==professor.username)
+                self.showProfessor=false;
+            self.professors.splice(idx, 1);
+        });
+    }
     self.dateToString = function (timestamp){
         var date = new Date(timestamp);
         var year = date.getFullYear();
