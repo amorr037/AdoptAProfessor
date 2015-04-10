@@ -1,4 +1,4 @@
-aap.controller('visitorProfileController', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
+aap.controller('visitorProfileController', ['DataRequest','$location','$timeout','$scope', function(DataRequest,$location,$timeout, $scope) {
     var self = this;
     self.user = aap.user;
     self.verified = true;
@@ -101,9 +101,22 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
                 showing.push(comments[i]);
         }
     };
-    self.uploadImg = function(){
-        //$("#file1").trigger('click');
-        var ele = angular.element('#id');
+    $scope.showImage = function() {
+        console.log("select file");
+
+    }
+    $(function () {
+        $(":file").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+
+    function imageIsLoaded(e) {
+        $('#myImg').attr('src', e.target.result);
     };
     self.report = function(comment) {
         console.log("Reporting commentid "+comment.commentId);
