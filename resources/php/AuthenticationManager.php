@@ -427,7 +427,6 @@ _SQL;
             $tempPassword = $this->generateRandomString(6);
             //Email information
             $admin_email = "contact@adoptaprofessor.org";
-            $email = $email;
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
 
@@ -440,9 +439,9 @@ _SQL;
                 }
                 $pwdHash = password_hash($tempPassword, PASSWORD_DEFAULT);
                 $stmt->bind_param("ss", $pwdHash, $username);
-                $res = $stmt->execute();
+                $ress = $stmt->execute();
                 $stmt->close();
-                if (!$res) {
+                if (!$ress) {
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
                     return $res;
                 }
