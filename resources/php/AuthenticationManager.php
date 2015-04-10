@@ -431,7 +431,7 @@ _SQL;
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
 
             //send email
-            if(mail($admin_email, "$subject", $comment, "From:" . $email)){
+            if(mail($email, "$subject", $comment, "From:" . $admin_email)){
                 $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
                 if (!$stmt) {
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
