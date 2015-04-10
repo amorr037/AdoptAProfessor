@@ -1,152 +1,52 @@
-<div class="section" ng-controller="ProfileCtrl as ctrl">
+<div class="section" ng-controller="visitorProfileController as ctrl">
     <div  class="author-photo  container">
         <div class="container col-md-4"></div>
         <div class = "circular col-md-2" style = 'background-image: url("resources/img/profile/Masoud_milani.jpg")'></div>
         <div class = "container col-md-4">
-            <h1>Javier Carmona</h1>
-            <h3>javier03@gmail.com</h3>
-            <h4>Professor</h4>
-            <div class="col-lg-4 app-btn app-green" style="text-align: center">verified</div>
+            <h1 ng-bind="ctrl.profileFName + ' ' +ctrl.profileLName"></h1>
+            <h3 ng-bind="ctrl.profileEmail"></h3>
+            <h4 ng-bind="ctrl.profileType"></h4>
+            <div ng-show ="professorVerified" class="col-lg-4 app-btn app-green" style="text-align: center">verified</div>
         </div>
     </div>
-    <div class="container" hidden="hidden">
+    <div class="container" ng-show="!ctrl.professorProfile">
         <h2>Recently Adopted Professors</h2>
         <div class="row">
             <!-- Testimonial -->
-            <div class="testimonial col-md-4 col-sm-6">
+            <div ng-repeat="comment in ctrl.comments | limitTo: 3" class="testimonial col-md-4 col-sm-6">
                 <!-- Author Photo -->
                 <div class="author-photo">
-                    <img src="resources/img/profile/Nagarajan_Prabakar.jpg" alt="Author 1">
+                    <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}"/>
                 </div>
                 <div class="testimonial-bubble">
                     <blockquote>
                         <!-- Quote -->
                         <p class="quote">
-                            "Excellent lecturer and very knowledgeable on the topics discussed. Extremely helpful and really cares about students learning. Assignments can be challenging, but very doable. Also, tests are challenging but if you did the assignments and study they are very manageable. Terrific professor, very respectful and encouraging!"
+                            {{comment.content}}
+                            <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
                         </p>
                     </blockquote>
                     <div class="sprite arrow-speech-bubble"></div>
                 </div>
-            </div>
-            <!-- End Testimonial -->
-            <div class="testimonial col-md-4 col-sm-6">
-                <div class="author-photo">
-                    <img src="resources/img/profile/Norman_Pestaina.jpg" alt="Author 2">
-                </div>
-                <div class="testimonial-bubble">
-                    <blockquote>
-                        <p class="quote">
-                            "Amazing Professor!!! Wish they were all like this! Must go to class, but his lectures make it worth going. Tests are tough because he makes you really apply what you've learned, but he absolutely will not ask you things that he didn't go over in class as well as make sure to tell you to study. Must study and do assignments! Take him always!"
-                        </p>
-                    </blockquote>
-                    <div class="sprite arrow-speech-bubble"></div>
-                </div>
-            </div>
-            <div class="testimonial col-md-4 col-sm-6">
-                <div class="author-photo">
-                    <img src="resources/img/profile/Masoud_milani.jpg" alt="Author 3">
-                </div>
-                <div class="testimonial-bubble">
-                    <blockquote>
-                        <p class="quote">
-                            "He is a good instructor and puts things in perspectives. For a beginning class, it is refreshing to have an instructor that can explain at a level that makes it easy to understand."
-                        </p>
-                    </blockquote>
-                    <div class="sprite arrow-speech-bubble"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-offset-5 col-sm-2 text-center">
-                <a href="" class="btn" ng-click = "ctrl.toggleShowHistory()" ng-bind="ctrl.historyBtnName"></a>
-            </div>
-        </div>
-        <div class="container" ng-show = "ctrl.showingHistory">
-            <br>
-            <div class="post-coments">
-                <ul class="post-comments">
-                    <li>
-                        <div class="comment-wrapper">
-                            <div class="comment-author"><img src="resources/img/profile/Nagarajan_Prabakar.jpg" alt="User Name">Nagarajan Prabakar</div>
-                            <p class="section-white text-center">
-                                "I was happy with his teaching approach. Although he aims for students above average. He gave 5 projects all after the midterm and they were iron hard. Still, you get the felling you learned a lot."
-                                <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
-                            </p>
-                            <!-- Comment Controls -->
-                            <div class="comment-actions">
-                                <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                                <button class="label label-danger">Delete</button>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="comment-wrapper">
-                            <div class="comment-author"><img src="resources/img/profile/Norman_Pestaina.jpg" alt="User Name">Norman Pestaina</div>
-                            <p class="section-white text-center">
-                                " Pestaina is an expert on the subject and makes the time of this class worth it. "
-                                <br><img  width=225dpi height=250dpi src="resources/img/uploaded/dsBook.jpg"/>
-                            </p>
-                            <!-- Comment Controls -->
-                            <div class="comment-actions">
-                                <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                                <button class="label label-danger">Delete</button>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="comment-wrapper">
-                            <div class="comment-author"><img src="resources/img/profile/Masoud_milani.jpg" alt="User Name">Masoud Milani</div>
-                            <p class="section-white text-center">
-                                "When it comes to good programming professors, this guy's the real deal. Behind his endless stream of dry jokes is a serious understanding of programming and an amazing ability to relay tough information in the best way possible. "
-                                <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
-                            </p>
-                            <!-- Comment Controls -->
-                            <div class="comment-actions">
-                                <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                                <button class="label label-danger">Delete</button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
     <div class="container">
-        <h2>Comments (53)</h2>
-        <!-- Comments -->
+        <h2>Comments ({{ctrl.comments.length}})</h2>
+        <br>
         <div class="post-coments">
             <ul class="post-comments">
-                <li>
+                <li ng-repeat="comment in ctrl.comments.showing">
                     <div class="comment-wrapper">
-                        <div class="comment-author"><img src="resources/img/user1.jpg" alt="User Name">Mandiel Lastra</div>
+                        <div class="comment-author"><img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}</div>
                         <p class="section-white text-center">
-                            this teacher is the best among 20000 teacher in Florida. Just try to talk to him, he is helpful teacher.
-                            <br><img hidden="true" width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
+                            {{comment.content}}
+                            <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
                         </p>
                         <!-- Comment Controls -->
                         <div class="comment-actions">
-                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                            <!--<a href="#" data-toggle="tooltip" data-original-title="Vote Up" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>-->
-                            <!--<span class="label label-success">+15</span>-->
-                            <button class="label label-danger">Report</button>
-                            <!--<a href="#" class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon "></i> Report</a>-->
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="comment-wrapper">
-                        <div class="comment-author"><img src="resources/img/user2.jpg" alt="User Name">Ayme Morrina Lobato</div>
-                        <p class="section-white text-center">
-                            Really nice professor. Understanding and help students. I recommend him to anyone. Here is a very funny pic of him! haha enjoy!!
-                            <br><img  width=225dpi height=250dpi src="resources/img/crazyProfessor.jpg"/>
-                        </p>
-                        <!-- Comment Controls -->
-                        <div class="comment-actions">
-                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
-                            <!--<a href="#" data-toggle="tooltip" data-original-title="Vote Up" class="show-tooltip"><i class="glyphicon glyphicon-thumbs-up"></i></a>-->
-                            <!--<span class="label label-success">+15</span>-->
-                            <button class="label label-danger">Report</button>
-                            <!--<a href="#" class="btn btn-micro btn-grey comment-reply-btn"><i class="glyphicon "></i> Report</a>-->
+                            <span class="comment-date">{{ctrl.dateToString(comment.time)}}</span>
+                            <button ng-hide="comment.reported" ng-click="ctrl.report(comment)" class="label label-danger">Report</button>
                         </div>
                     </div>
                 </li>
@@ -155,17 +55,15 @@
         <!-- Pagination -->
         <div class="pagination-wrapper ">
             <ul class="pagination pagination-sm">
-                <li class="disabled"><a href="#">Previous</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">Next</a></li>
+                <li ng-click="ctrl.pagination.previous()" class="{{ctrl.pagination.hasPrevious()?'':'disabled'}}"><a href="">Previous</a></li>
+                <li ng-repeat="page in ctrl.pagination.pages" class="{{ctrl.pagination.currPage===page?'active':''}}">
+                    <a href="" ng-click="ctrl.pagination.setPage(page)">{{page}}</a>
+                </li>
+                <li ng-click="ctrl.pagination.next()" class="{{ctrl.pagination.hasNext()?'':'disabled'}}"><a href="">Next</a></li>
             </ul>
         </div>
     </div>
-    <div class="container">
+    <div class="container" ng-show="ctrl.professorProfile">
         <div class="section">
             <div class="container">
                 <div class="row">
@@ -182,7 +80,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <button type="submit" class="btn btn-sm btn-grey pull-left">attach image</button>
+                                        <span class="btn btn-default btn-file">Attach Image <input type="file"></span>
                                     </div>
                                     <div class="col-sm-6">
                                         <button type="submit" class="btn pull-right">add</button>
@@ -196,5 +94,4 @@
             </div>
         </div>
     </div>
-
 </div>

@@ -426,7 +426,7 @@ _SQL;
     function sendNewGeneratedPassword($username, $email){
             $tempPassword = $this->generateRandomString(6);
             //Email information
-            $admin_email = "AdoptProfessor@gmail.com";
+            $admin_email = "contact@adoptaprofessor.org";
             $email = $email;
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
