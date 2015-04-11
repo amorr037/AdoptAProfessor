@@ -81,10 +81,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <span class="btn btn-default btn-file">Attach Image <input type="file" accept=".png,.jpg" onchange="angular.element(this).scope().showImage()"></span>
+                                        <span class="btn btn-default btn-file">Attach Image <input ng-file-select="onFileSelect($files)" type="file" accept=".png,.jpg"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button type="submit" class="btn pull-right">add</button>
+                                        <button type="submit" ng-click="ctrl.uploadImg()" class="btn pull-right">add</button>
                                     </div>
                                 </div>
                             </form>

@@ -17,7 +17,7 @@
 			<ul class="post-comments">
                 <li ng-repeat="comment in ctrl.comments.showing">
                     <div class="comment-wrapper">
-                        <div class="comment-author"><img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}</div>
+                        <div class="comment-author"><a href="{{'#/viewProfile?user='+comment.from.username}}"><img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name"/>{{comment.from.firstname + " "+comment.from.lastname}}</a></div>
                         <p class="section-white text-center">
                             {{comment.content}}
                             <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>

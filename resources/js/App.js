@@ -1,5 +1,5 @@
 //Initialize the panthertext front end app
-var aap = angular.module("aap", ['ngRoute','ngStorage']);
+var aap = angular.module("aap", ['ngRoute','ngStorage','angularFileUpload']);
 aap.user = new User();
 function User(){
     var self = this;

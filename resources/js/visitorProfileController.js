@@ -1,11 +1,11 @@
-aap.controller('visitorProfileController', ['DataRequest','$location','$timeout','$scope', function(DataRequest,$location,$timeout, $scope) {
+aap.controller('visitorProfileController', ['DataRequest','$location','$timeout','$scope','$upload','$routeParams', function(DataRequest,$location,$timeout,$scope,$upload,$routeParams) {
     var self = this;
     self.user = aap.user;
     self.verified = true;
     self.comments = [];
     self.comments.showing=[];
-
-    self.profileUsername ="manny";
+    self.file = null;
+    self.profileUsername = $routeParams.user;
     self.profileFName="";
     self.profileLName="";
     self.profileType="";
@@ -27,7 +27,24 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
         getComments();
 
     });
-
+    $scope.onFileSelect = function($files) {
+        if ($files && $files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL($files[0]);
+            self.file = $files[0];
+            console.log(self.file);
+        }
+    };
+    self.uploadImg = function(){
+        $upload.upload({
+            url: "resources/php/uploadImg.php",
+            file: self.file
+        }).success(function(data, status, headers, config) {
+            // file is uploaded successfully
+            console.log(data);
+        });
+    }
     function getComments(){
         if(self.professorProfile){
             DataRequest.getProfessorComments(self.profileUsername).then(function(data){
@@ -101,19 +118,15 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
                 showing.push(comments[i]);
         }
     };
-    $scope.showImage = function() {
-        console.log("select file");
-
-    }
-    $(function () {
-        $(":file").change(function () {
-            if (this.files && this.files[0]) {
-                var reader = new FileReader();
-                reader.onload = imageIsLoaded;
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    });
+    //$(function () {
+    //    $(":file").change(function () {
+    //        if (this.files && this.files[0]) {
+    //            var reader = new FileReader();
+    //            reader.onload = imageIsLoaded;
+    //            reader.readAsDataURL(this.files[0]);
+    //        }
+    //    });
+    //});
 
     function imageIsLoaded(e) {
         $('#myImg').attr('src', e.target.result);

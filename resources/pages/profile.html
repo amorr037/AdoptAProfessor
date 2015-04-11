@@ -46,7 +46,7 @@
                         <div class="comment-author"><img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}</div>
                         <p class="section-white text-center">
                             {{comment.content}}
-                            <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
+                            <br><a href="#/"><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/></a>
                         </p>
                         <!-- Comment Controls -->
                         <div class="comment-actions">
