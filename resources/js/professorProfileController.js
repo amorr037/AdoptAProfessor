@@ -5,6 +5,8 @@ aap.controller('ProfessorProfileCtrl', ['DataRequest','$location','$timeout', fu
     self.comments = [];
     self.comments.showing=[];
     console.log(self.user.profileImgPath);
+    self.profileImg="";
+    self.profileImg=self.user.profileImgPath==null?'resources/img/profile/blank-profile.png':self.user.profileImgPath;
 
     self.editProfile = function(){
         $location.path("/editProfile");

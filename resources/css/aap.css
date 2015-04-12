@@ -15,7 +15,9 @@
   -webkit-transition:all linear 0.5s;
   transition:all linear 0.5s;
 }
-
+.comment-content{
+    border: 1px solid #ffffff !important;
+}
 .sample-show-hide.ng-hide {
   opacity:0;
 }

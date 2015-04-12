@@ -1,4 +1,4 @@
-aap.controller('visitorProfileController', ['DataRequest','$location','$timeout','$scope','$upload','$routeParams', function(DataRequest,$location,$timeout,$scope,$upload,$routeParams) {
+aap.controller('visitorProfileController', ['DataRequest','$location','$timeout','$scope','$upload','$routeParams','$sce', function(DataRequest,$location,$timeout,$scope,$upload,$routeParams,$sce) {
     var self = this;
     self.user = aap.user;
     self.comments = [];
@@ -15,6 +15,7 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
     self.addedComment="";
     self.emptyErrorMsg=false;
     self.showImg=false;
+    self.profileImg="";
 
     DataRequest.getProfileInfo(self.profileUsername).then(function(data){
         if(!data.sucess){
@@ -29,6 +30,7 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
         self.profileImgPath = data.info.profileImgPath;
         self.professorProfile=(data.info.usertype=="PROFESSOR");
         getComments();
+        getProfileImg();
 
     });
     $scope.onFileSelect = function($files) {
@@ -40,6 +42,10 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
             self.showImg=true;
         }
     };
+   function getProfileImg(){
+        self.profileImg = self.profileImgPath==null?'resources/img/profile/blank-profile.png':self.profileImgPath
+       console.log(self.profileImg);
+    }
     self.uploadImg = function(){
         if(self.file===null&&self.addedComment==="")
             self.emptyErrorMsg=true;
@@ -89,6 +95,8 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
     function setupComments(data){
         data = data.comments;
         for(var i = 0 ; i < data.length;i++){
+            //var comment = data[i];
+            //comment.content= $sce.trustAsHtml(comment.content);
             self.comments.push(data[i]);
             if(self.comments.length>1 && (self.comments.length-1)%self.pagination.commentsPerPage==0){
                 self.pagination.pages.push(self.pagination.pages.length+1);
