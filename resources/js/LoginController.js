@@ -27,6 +27,8 @@ aap.controller('LoginCtrl', ['DataRequest','$location','$localStorage', function
             $localStorage.firstname = self.user.firstname = data.info.firstname;
             $localStorage.lastname = self.user.lastname = data.info.lastname;
             $localStorage.email = self.user.email = data.info.email;
+            $localStorage.status=self.user.status = data.info.status;
+            $localStorage.profileImgPath=self.user.profileImgPath = data.info.profileImgPath;
             $localStorage.isProfessor = self.user.isProfessor = data.info.usertype == "PROFESSOR";
             $localStorage.isAdmin = self.user.isAdmin = data.info.usertype == "ADMINISTRATOR";
             console.log(aap.user);

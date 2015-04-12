@@ -136,8 +136,14 @@
 }
 .myTextArea {
     /*width: 300px;*/
-    height: 200px;
+    /*height: 200px;*/
+
     border: 1px solid #ccc;
     background-color: #ffffff ;
-    overflow: auto;
+}
+
+.myTextArea .content{
+    width: 100%;
+
+    border: 1px solid #ffffff;
 }

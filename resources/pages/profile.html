@@ -1,8 +1,11 @@
 <div class="section" ng-controller="ProfileCtrl as ctrl">
 	<div  class="author-photo  container">
 		<div class="container col-md-4"></div>
-		<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/user3.jpg)'></div>
-		<div class = "container col-md-4">
+		<!--<div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/user3.jpg)'></div>-->
+        <div class="comment-author col-md-2">
+            <img ng-src="{{ctrl.user.profileImgPath==null?'resources/img/profile/blank-profile.png':ctrl.user.profileImgPath}}" alt="User Name"/>{{comment.from.firstname + " "+comment.from.lastname}}
+        </div>
+        <div class = "container col-md-4">
 			<h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
 			<h3 ng-bind="ctrl.user.email"></h3>
 			<h4>Student</h4>
@@ -17,7 +20,9 @@
 			<div ng-repeat="comment in ctrl.comments | limitTo: 3" class="testimonial col-md-4 col-sm-6">
 				<!-- Author Photo -->
 				<div class="author-photo">
-                    <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}"/>
+                    <a href="{{(ctrl.user.username==comment.from.username)?'#/profile':'#/viewProfile?user='+comment.from.username}}">
+                        <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}"/>
+                    </a>
 				</div>
 				<div class="testimonial-bubble">
 					<blockquote>
@@ -43,7 +48,11 @@
             <ul class="post-comments">
                 <li ng-repeat="comment in ctrl.comments.showing">
                     <div class="comment-wrapper">
-                        <div class="comment-author"><img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}</div>
+                        <div class="comment-author" >
+                            <a href="{{(ctrl.user.username==comment.from.username)?'#/profile':'#/viewProfile?user='+comment.from.username}}">
+                                <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}
+                            </a>
+                        </div>
                         <p class="section-white text-center">
                             {{comment.content}}
                             <br><a href="#/"><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/></a>

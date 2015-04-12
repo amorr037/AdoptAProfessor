@@ -1,7 +1,6 @@
 aap.controller('visitorProfileController', ['DataRequest','$location','$timeout','$scope','$upload','$routeParams', function(DataRequest,$location,$timeout,$scope,$upload,$routeParams) {
     var self = this;
     self.user = aap.user;
-    self.verified = true;
     self.comments = [];
     self.comments.showing=[];
     self.file = null;
@@ -10,11 +9,14 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
     self.profileLName="";
     self.profileType="";
     self.profileEmail="";
-    self.professorVerified=false;
+    self.profileImgPath="";
+    self.professorVerified=0;
     self.professorProfile=false;
+    self.addedComment="";
+    self.emptyErrorMsg=false;
+    self.showImg=false;
 
     DataRequest.getProfileInfo(self.profileUsername).then(function(data){
-        console.log(data);
         if(!data.sucess){
             console.log(data.errMsg);
             return;
@@ -23,6 +25,8 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
         self.profileLName=data.info.lastname;
         self.profileEmail=data.info.email;
         self.profileType=data.info.usertype;
+        self.professorVerified=data.info.status;
+        self.profileImgPath = data.info.profileImgPath;
         self.professorProfile=(data.info.usertype=="PROFESSOR");
         getComments();
 
@@ -33,18 +37,29 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
             reader.onload = imageIsLoaded;
             reader.readAsDataURL($files[0]);
             self.file = $files[0];
-            console.log(self.file);
+            self.showImg=true;
         }
     };
     self.uploadImg = function(){
-        $upload.upload({
-            url: "resources/php/uploadImg.php",
-            file: self.file
-        }).success(function(data, status, headers, config) {
-            // file is uploaded successfully
-            console.log(data);
-        });
+        if(self.file===null&&self.addedComment==="")
+            self.emptyErrorMsg=true;
+       else{
+            self.emptyErrorMsg=false;
+           $upload.upload({
+               url: "resources/php/uploadImg.php",
+               data:  {text: self.addedComment,from:self.user.username,to:self.profileUsername},
+               file: self.file
+           }).success(function(data) {
+               self.addedComment="";
+               self.showImg=false;
+               //console.log(data);
+           });
+       }
     }
+    function imageIsLoaded(e) {
+        $('#myImg').attr('src', e.target.result);
+        //self.showImg=true;
+    };
     function getComments(){
         if(self.professorProfile){
             DataRequest.getProfessorComments(self.profileUsername).then(function(data){
@@ -117,19 +132,6 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
             for(var i = start; i<comments.length && i < start+self.pagination.commentsPerPage;i++)
                 showing.push(comments[i]);
         }
-    };
-    //$(function () {
-    //    $(":file").change(function () {
-    //        if (this.files && this.files[0]) {
-    //            var reader = new FileReader();
-    //            reader.onload = imageIsLoaded;
-    //            reader.readAsDataURL(this.files[0]);
-    //        }
-    //    });
-    //});
-
-    function imageIsLoaded(e) {
-        $('#myImg').attr('src', e.target.result);
     };
     self.report = function(comment) {
         console.log("Reporting commentid "+comment.commentId);

@@ -32,8 +32,10 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 	this.user.firstname = $localStorage.firstname;
 	this.user.lastname = $localStorage.lastname;
 	this.user.email = $localStorage.email;
+    this.user.status=$localStorage.status;
     this.user.isProfessor = $localStorage.isProfessor;
     this.user.isAdmin = $localStorage.isAdmin;
+    this.user.profileImgPath = $localStorage.profileImgPath;
 	this.logout = function(){
 		self.user.clear();
 		delete $localStorage.username;
@@ -43,6 +45,8 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 		delete $localStorage.firstname;
 		delete $localStorage.lastname;
 		delete $localStorage.email;
+        delete $localStorage.status;
+        delete $localStorage.profileImgPath;
 		$location.path("/home");
 	};
 
@@ -55,5 +59,27 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 aap.filter('slice', function() {
     return function(arr, start, end) {
         return (arr || []).slice(start, end);
+    };
+});
+
+aap.directive('contenteditable', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            // view -> model
+            elm.bind('blur', function() {
+                scope.$apply(function() {
+                    ctrl.$setViewValue(elm.html());
+                });
+            });
+
+            // model -> view
+            ctrl.$render = function() {
+                elm.html(ctrl.$viewValue);
+            };
+
+            // load init value from DOM
+            ctrl.$setViewValue(elm.html());
+        }
     };
 });
