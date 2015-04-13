@@ -89,4 +89,5 @@ aap.controller('ProfessorProfileCtrl', ['DataRequest','$location','$timeout', fu
         self.pagination.pagesAvailable = Math.ceil(self.comments.length/self.pagination.commentsPerPage);
         self.pagination.setShowing();
     });
+
 }]);

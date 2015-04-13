@@ -75,8 +75,14 @@ aap.factory('DataRequest', function($http) {
         getProfessorComments: function(){
             return self.makeRequest("resources/php/getProfessorComments.php","username="+aap.user.username);
         },
+        getProfessorComments: function(username){
+            return self.makeRequest("resources/php/getProfessorComments.php","username="+username);
+        },
         getStudentComments: function(){
             return self.makeRequest("resources/php/getStudentComments.php","username="+aap.user.username);
+        },
+        getStudentComments: function(username){
+            return self.makeRequest("resources/php/getStudentComments.php","username="+username);
         },
         reportComment: function(commentId){
             return self.makeRequest("resources/php/reportComment.php",
@@ -91,6 +97,18 @@ aap.factory('DataRequest', function($http) {
                 "username="+aap.user.username+"&firstname="+firstName+"&lastname="+lastName+"&email="+email);
 
         },
+        getCommentById: function(commentId){
+            return self.makeRequest("resources/php/getCommentById.php", "commentId="+commentId);
+        },
+        getReportedComments: function(){
+            return self.makeRequest("resources/php/getReportedComments.php");
+        },
+        getProfessorProfileInfo: function(username){
+            return self.makeRequest("resources/php/getProfessorProfileInfo.php","username="+username);
+        },
+        getNotVerifiedProfessors: function(){
+            return self.makeRequest("resources/php/getNotVerifiedProfessors.php");
+        },
         requestNewPassword: function(username){
             return self.makeRequest("resources/php/requestNewPassword.php",
                 "username=" + username);
@@ -98,6 +116,10 @@ aap.factory('DataRequest', function($http) {
         changePasswordRequest: function(oldpassword, newpasswrod){
             return self.makeRequest("resources/php/changePasswordRequest.php",
                 "username="+aap.user.username+"&oldpassword="+oldpassword+"&newpasswrod="+newpasswrod);
+        },
+        verifyProfessor: function(username){
+            return self.makeRequest("resources/php/verifyProfessor.php",
+                "username="+username);
         }
     };
 });

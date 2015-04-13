@@ -259,15 +259,25 @@ _SQL_;
             return null;
         } else return "We have encountered problems reporting the comment.";
     }
-    function deleteComment($commentid)
-    {
-        $query = <<<_SQL_
+    function deleteComment($commentid){
+        if($this->deleteFromReportedComments($commentid)!=null){
+            $query = <<<_SQL_
         DELETE from comments
         WHERE comment_id = '$commentid'
 _SQL_;
+            if ($result = $this->dbCnx->query($query)) {
+                return null;
+            }else return "We have encountered problems deleting the comment.";
+        }else "We have encountered problems deleting the comment.";
+    }
+    function deleteFromReportedComments($commentid){
+        $query = <<<_SQL_
+        DELETE from commentReports
+        WHERE comment_id = '$commentid'
+_SQL_;
         if ($result = $this->dbCnx->query($query)) {
-            return null;
-        } else return "We have encountered problems deleting the comment.";
+                return null;
+        }else return "We have encountered problems deleting the comment.";
     }
     function updateUserInfo($userName,$firstName,$lastName,$email){
         $query = <<<_SQL
@@ -279,6 +289,128 @@ _SQL;
             return null;
         } else return "We have encountered problems updating new information.";
 
+    }
+    function getComment($commentId){
+        $query = <<<_SQL
+        SELECT *
+        FROM comments
+        WHERE comment_id = '$commentId';
+_SQL;
+        $res = ["errMsg" => null, 'comments'=>[]];
+        if ($result = $this->dbCnx->query($query)) {
+            while($row = $result->fetch_assoc()) {
+                $comment = ['commentId'=>null,'content'=>null, 'imageurl'=>null, 'time'=>null, 'from'=>null, 'to'=>null];
+                $comment['commentId'] = $row['comment_id'];
+                $comment['content'] = $row['text'];
+                $comment['imageurl'] = $row['imageurl'];
+                $comment['from'] =$row['fromUserId'];
+                $comment['to'] = $row['toUserId'];
+                $comment['time'] = $row['time'];
+                array_push($res['comments'],$comment);
+            }
+            $result->close();
+        } else $res['errMsg'] = "Error getting comments from the database";
+        return $res;
+    }
+    function getReportedCommentsId(){
+        $query = <<<_SQL
+        SELECT commentId
+        FROM commentReports;
+_SQL;
+        $res = ["errMsg" => null, 'comments'=>[]];
+        if ($result = $this->dbCnx->query($query)) {
+            while($row = $result->fetch_assoc()) {
+                array_push($res['comments'],$row['commentId']);
+            }
+            $result->close();
+        }
+        else $res['errMsg'] = "Error getting comments from the database";
+        return $res;
+    }
+
+    function getReportedCommentsInfo(){
+        $commentsId = $this->getReportedCommentsId();
+        $res = ["errMsg" => null, 'comments'=>[]];
+        if(sizeof($commentsId['comments'])==0){
+            return $res;
+        }
+        else {
+            $inClause = $this->formatInClause($this->getReportedCommentsId());
+            $query = <<<_SQL
+            SELECT *
+            FROM comments
+            WHERE comment_id IN ('$inClause');
+_SQL;
+            $res = ["errMsg" => null, 'comments' => []];
+            if ($result = $this->dbCnx->query($query)) {
+                while ($row = $result->fetch_assoc()) {
+                    $comment = ['commentId' => null, 'content' => null, 'imageurl' => null, 'time' => null, 'from' => null, 'to' => null];
+                    $comment['commentId'] = $row['comment_id'];
+                    $comment['content'] = $row['text'];
+                    $comment['imageurl'] = $row['imageurl'];
+                    $comment['from'] = $row['fromUserId'];
+                    $comment['to'] = $row['toUserId'];
+                    $comment['time'] = $row['time'];
+                    array_push($res['comments'], $comment);
+                }
+                $result->close();
+            } else $res['errMsg'] = "Error getting comments from the database";
+        }
+        return $res;
+    }
+    function formatInClause($array){
+        $reportedIds = $array['comments'];
+        $inClause = "";
+        $first = true;
+        foreach ($reportedIds as $value) {
+            $inClause= $first? $inClause .$value:  $inClause ."'" .',' ."'" .$value;
+            $first=false;
+        }
+        return $inClause;
+    }
+    function getProfessorProfileInfo($username) {
+        $res = ["errMsg" => null, "username"=>null,"firstname" => null, "lastname" => null, "email" => null,'usertype' => null, 'status'=>null];
+        if ($result = $this->dbCnx->query("SELECT username,firstname, lastname, email, usertype, status FROM users WHERE username = '$username' AND usertype='PROFESSOR' AND status=1")) {
+            $row = $result->fetch_assoc();
+            if($row){
+                $res['username']= $row['username'];
+                $res['firstname']= $row['firstname'];
+                $res['lastname']= $row['lastname'];
+                $res['email']= $row['email'];
+                $res['usertype'] = $row['usertype'];
+                $res['status'] = $row['status'];
+                return $res;
+            }
+            $result->close();
+            $res['errMsg']="Professor not found";
+            // return $res;
+        }
+        $res['errMsg'] = $result;
+        return $res;
+    }
+    function getNotVerifiedProfessors()
+    {
+        $query = <<<_SQL
+            SELECT *
+            FROM users
+            WHERE usertype = 'PROFESSOR'
+            AND status = 0;
+_SQL;
+        $res = ["errMsg" => null, 'accounts' => []];
+        if ($result = $this->dbCnx->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $account = ['userId' => null, 'firstname' => null, 'lastname' => null, 'username' => null, 'email' => null, 'usertype' => null];
+                $account['userId'] = $row['user_id'];
+                $account['firstname'] = $row['firstname'];
+                $account['lastname'] = $row['lastname'];
+                $account['username'] = $row['username'];
+                $account['email'] = $row['email'];
+                $account['usertype'] = $row['usertype'];
+                array_push($res['accounts'], $account);
+            }
+            $result->close();
+        } else $res['errMsg'] = "Error getting professors from the database";
+        return $res;
     }
     function getUserEmail($username){
         $res = ["errMsg" => null, "email" => null];
@@ -294,13 +426,12 @@ _SQL;
     function sendNewGeneratedPassword($username, $email){
             $tempPassword = $this->generateRandomString(6);
             //Email information
-            $admin_email = "AdoptProfessor@gmail.com";
-            $email = $email;
+            $admin_email = "contact@adoptaprofessor.org";
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
 
             //send email
-            if(mail($admin_email, "$subject", $comment, "From:" . $email)){
+            if(mail($email, "$subject", $comment, "From:" . $admin_email)){
                 $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
                 if (!$stmt) {
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
@@ -308,9 +439,9 @@ _SQL;
                 }
                 $pwdHash = password_hash($tempPassword, PASSWORD_DEFAULT);
                 $stmt->bind_param("ss", $pwdHash, $username);
-                $res = $stmt->execute();
+                $ress = $stmt->execute();
                 $stmt->close();
-                if (!$res) {
+                if (!$ress) {
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
                     return $res;
                 }
@@ -352,5 +483,16 @@ _SQL;
             $res['errMsg'] = "Unable to change password";
             return $res;
         }
+    }
+    function verifyProfessor($userName){
+        $query = <<<_SQL
+        UPDATE users
+        SET status=1
+        WHERE username = '$userName';
+_SQL;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems updating professor status.";
+
     }
 }

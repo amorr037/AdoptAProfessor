@@ -50,7 +50,7 @@
                         </p>
                         <!-- Comment Controls -->
                         <div class="comment-actions">
-                            <span class="comment-date">June 10th, 2013 3:16 pm</span>
+                            <span class="comment-date">{{ctrl.dateToString(comment.time)}}</span>
                             <button ng-click="ctrl.delete(comment, $index)" class="label label-danger">Delete</button>
                         </div>
                     </div>

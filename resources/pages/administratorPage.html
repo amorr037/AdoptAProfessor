@@ -1,10 +1,10 @@
-<div class="section" ng-controller="ProfileCtrl as ctrl">
+<div class="section" ng-controller="adminPageController as ctrl">
     <div  class="author-photo  container">
         <div class="container col-md-4"></div>
         <div class = "circular col-md-2" style = 'background-image: url("resources/img/user2.jpg")'></div>
         <div class = "container col-md-4">
-            <h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
-            <h3 ng-bind="ctrl.user.email"></h3>
+            <!--<h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>-->
+            <!--<h3 ng-bind="ctrl.user.email"></h3>-->
             <h4>Administrator</h4>
         </div>
         <div class="container col-md-4"></div>
@@ -25,19 +25,22 @@
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-6">
-                    <input type="text" ng-model="" class="form-control">
+                    <input  ng-model = "ctrl.accountUsername" type="text" ng-model="" class="form-control">
                 </div>
                 <div class="col-md-1">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button ng-click="ctrl.getUserAccount()" type="submit" class="btn btn-default">Submit</button>
                 </div>
+                <small class="error" style="color: red" ng-show="ctrl.accountNotFound">
+                    Account Not Found!
+                </small>
                 <div class="col-md-2">
                 </div>
             </div>
         </div>
 
-        <div class="container">
+        <div ng-show ="ctrl.showAccount" class="container">
             <div class="container col-lg-1"></div>
-            <h2 class="container col-lg-10">Account found!</h2>
+            <br>
             <center><table class="section-white" width=75% margin-left=5%>
                 <tr class="app-blue" style="height: 40px">
                     <td><center>Username</center></td>
@@ -45,19 +48,15 @@
                     <td><center>Last name</center></td>
                     <td><center>User type</center></td>
                     <td><center>email</center></td>
-                    <td><center>website</center></td>
-                    <td><center>title</center></td>
                     <td><center></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
                 <tr>
-                    <td><center>adopt1</center></td>
-                    <td><center>Carlos</center></td>
-                    <td><center>Ruiz</center></td>
-                    <td><center>STUDENT</center></td>
-                    <td><center>cruiz084@fiu.edu</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center>NULL</center></td>
+                    <td><center>{{ctrl.userAccountInfo['username']}}</center></td>
+                    <td><center>{{ctrl.userAccountInfo['firstname']}}</center></td>
+                    <td><center>{{ctrl.userAccountInfo['lastname']}}</center></td>
+                    <td><center>{{ctrl.userAccountInfo['usertype']}}</center></td>
+                    <td><center>{{ctrl.userAccountInfo['email']}}</center></td>
                     <td><center><div class=" btn btn-sm btn-red ">Deactivate</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
@@ -67,6 +66,7 @@
         <div class="container"></div>
         <br><br><br><br>
     </div>
+
     <div class="container col-lg-1"></div>
     <h2 class="container col-lg-10">Manage Comments</h2>
     <div>
@@ -82,18 +82,21 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <input type="text" ng-model="" class="form-control">
+                    <input ng-model="ctrl.getCommentId" type="text"  class="form-control">
                 </div>
                 <div class="col-md-1">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button ng-click="ctrl.getCommentById()" type="submit" class="btn btn-default">Submit</button>
                 </div>
+                <small class="error" style="color: red" ng-show="ctrl.commentNotFound">
+                    Comment Not Found!
+                </small>
                 <div class="col-md-2">
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div ng-show ="ctrl.commentIdFound" class="container">
             <div class="container col-lg-1"></div>
-            <h2 class="container col-lg-10">Comment found!</h2>
+            <br>
             <center><table class="section-white" width=75% margin-left=5%>
                 <tr class="app-blue" style="height: 40px">
                     <td><center>Comment id</center></td>
@@ -101,38 +104,38 @@
                     <td><center>Receiver id</center></td>
                     <td><center>Comment data</center></td>
                     <td><center>Image data</center></td>
-                    <td><center>date</center></td>
+                    <td><center>Date</center></td>
                     <td><center></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
                 <tr>
-                    <td><center>453498</center></td>
-                    <td><center>647323</center></td>
-                    <td><center>675383</center></td>
-                    <td width="300"><center>Hello little guy!</center></td>
-                    <td><center><img width="50" height="50" src="resources/img/user1.jpg"></center></td>
-                    <td><center>04/20/2015</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                    <td><center>{{ctrl.commentInfo.commentId}}</center></td>
+                    <td><center>{{ctrl.commentInfo.from}}</center></td>
+                    <td><center>{{ctrl.commentInfo.to}}</center></td>
+                    <td width="300"><center>{{ctrl.commentInfo.content}}</center></td>
+                    <td><center><img width="50" height="50" ng-src="{{ctrl.commentInfo.imageurl==null?null:ctrl.commentInfo.imageurl}}"></center></td>
+                    <td><center>{{ctrl.commentInfo.time}}</center></td>
+                    <td><center><div ng-click ="ctrl.deleteCommentById()" class=" btn btn-sm btn-red ">Delete</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
             </table></center>
         </div>
 
-        <br><br><br><br>
+        <br><br>
         <div class="container"></div>
     </div>
 
-    <br><br><br><br>
+    <br><br>
     <div class="container">
         <div class="row">
             <div class="col-sm-offset-5 col-sm-2 text-center">
-                <a href="" class="btn">Reported comments</a>
+                <a href="" ng-click="ctrl.getReportedComments()" class="btn">Reported comments</a>
             </div>
         </div>
 
-        <div class="container">
+        <div ng-show="ctrl.showReportedComments" class="container">
             <div class="container col-lg-1"></div>
-            <h2 class="container col-lg-10">Comments (5)</h2>
+            <br>
             <center><table class="section-white" width=75% margin-left=5%>
                 <tr class="app-blue" style="height: 40px">
                     <td><center>Comment id</center></td>
@@ -144,102 +147,51 @@
                     <td><center></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>453498</center></td>
-                    <td><center>647323</center></td>
-                    <td><center>675383</center></td>
-                    <td width="300"><center>Hello little guy!</center></td>
+                <tr ng-repeat="comment in ctrl.comments">
+                    <td><center>{{comment.commentId}}</center></td>
+                    <td><center>{{comment.from}}</center></td>
+                    <td><center>{{comment.to}}</center></td>
+                    <td width="300"><center>{{comment.content}}</center></td>
                     <td><center><img width="50" height="50" src="resources/img/user1.jpg"></center></td>
-                    <td><center>04/20/2015</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
-                </tr>
-                <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>432453</center></td>
-                    <td><center>234234</center></td>
-                    <td><center>534234</center></td>
-                    <td width="300"><center>I ain't doing no homework!</center></td>
-                    <td><center><img width="50" height="50" src="resources/img/portfolio5.jpg"></center></td>
-                    <td><center>03/10/2015</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
-                </tr>
-                <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>112345</center></td>
-                    <td><center>565475</center></td>
-                    <td><center>967564</center></td>
-                    <td width="300"><center></center></td>
-                    <td><center><img width="50" height="50" src="resources/img/portfolio2.jpg"></center></td>
-                    <td><center>02/25/2015</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
-                </tr>
-                <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>342256</center></td>
-                    <td><center>753424</center></td>
-                    <td><center>723853</center></td>
-                    <td width="300"><center>Tengo hambre. Me voy para la casa porque no tengo ganas de hacer nada .</center></td>
-                    <td><center><img hidden="hidden" width="50" height="50" src=""></center></td>
-                    <td><center>04/20/2015</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
-                </tr>
-                <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>734522</center></td>
-                    <td><center>746573</center></td>
-                    <td><center>883663</center></td>
-                    <td width="300"><center>1 2 3 4 5 6 7 8 9 10 I hate this professor!</center></td>
-                    <td><center><img  hidden="hidden" width="50" height="50" src="resources/img/user1.jpg"></center></td>
-                    <td><center>04/20/2015</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Delete</div></center></td>
+                    <td><center>{{ctrl.dateToString(comment.time)}}</center></td>
+                    <td><center><div ng-click="ctrl.delete(comment, $index)" class=" btn btn-sm btn-red ">Delete</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
             </table></center>
-
-            <!-- Pagination -->
-            <div class="pagination-wrapper ">
-                <ul class="pagination pagination-sm">
-                    <li class="disabled"><a href="#">Previous</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
-            </div>
         </div>
     </div>
-    <br><br><br><br>
-    <div class="container">
-        <h2 class="container col-lg-10">Verify Professors</h2>
+    <br><br>
+
+    <div class="container col-lg-1"></div>
+    <h2 class="container col-lg-10">Verify Professors</h2>
+    <div>
         <div class="container">
-            <div class="container">
-                <br><br>
-                <div class="row">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Find professor by username</h3>
-                    </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-2">
                 </div>
-                <div class="row">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" ng-model="" class="form-control">
-                    </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </div>
-                    <div class="col-md-2">
-                    </div>
+                <div class="col-md-6">
+                    <h3>Get Professor by Username</h3>
                 </div>
             </div>
-
-            <div class="container">
-                <div class="container col-lg-1"></div>
-                <h2 class="container col-lg-10">Professor found!</h2>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
+                    <input ng-model="ctrl.professorUsername" type="text"  class="form-control">
+                </div>
+                <div class="col-md-1">
+                    <button ng-click="ctrl.getProfessorByUsername()" type="submit" class="btn btn-default">Submit</button>
+                </div>
+                <small class="error" style="color: red" ng-show="ctrl.professorNotFound">
+                    Professor Not Found!
+                </small>
+                <div class="col-md-2">
+                </div>
+            </div>
+        </div>
+        <div ng-show ="ctrl.showProfessor" class="container">
+            <div class="container col-lg-1"></div>
+            <br>
                 <center><table class="section-white" width=75% margin-left=5%>
                     <tr class="app-blue" style="height: 40px">
                         <td><center>Username</center></td>
@@ -247,35 +199,30 @@
                         <td><center>Last name</center></td>
                         <td><center>User type</center></td>
                         <td><center>email</center></td>
-                        <td><center>website</center></td>
-                        <td><center>title</center></td>
-                        <td><center></center></td>
+                        <td><center>vefify</center></td>
                     </tr>
                     <tr style="height: 15px"></tr>
                     <tr>
-                        <td><center>adopt1</center></td>
-                        <td><center>Carlos</center></td>
-                        <td><center>Ruiz</center></td>
-                        <td><center>STUDENT</center></td>
-                        <td><center>cruiz084@fiu.edu</center></td>
-                        <td><center>NULL</center></td>
-                        <td><center>NULL</center></td>
-                        <td><center><div class=" btn btn-sm btn-green ">VERIFIED</div></center></td>
+                        <td><center>{{ctrl.professorInfo.username}}</center></td>
+                        <td><center>{{ctrl.professorInfo.firstname}}</center></td>
+                        <td><center>{{ctrl.professorInfo.lastname}}</center></td>
+                        <td><center>{{ctrl.professorInfo.usertype}}</center></td>
+                        <td><center>{{ctrl.professorInfo.email}}</center></td>
+                        <td><center><div ng-click ="ctrl.verifyProfessorByUsername()" class=" btn btn-sm btn-green ">Verify</div></center></td>
                     </tr>
                     <tr style="height: 15px"></tr>
                 </table></center>
             </div>
-
             <div class="container"></div>
-            <br><br><br><br>
+            <br><br>
         </div>
 
         <div class="row">
             <div class="col-sm-offset-5 col-sm-2 text-center">
-                <a href="" class="btn">Not verified professors</a>
+                <a href="" ng-click="ctrl.getNotVerifiedProfessors()"class="btn">Not verified professors</a>
             </div>
         </div>
-        <div class="container">
+        <div ng-show="ctrl.showNotVerifiedProfessors" class="container">
             <div class="container col-lg-1"></div>
             <br>
             <center><table class="section-white" width=75% margin-left=5%>
@@ -285,57 +232,19 @@
                     <td><center>Last name</center></td>
                     <td><center>User type</center></td>
                     <td><center>email</center></td>
-                    <td><center>website</center></td>
-                    <td><center>title</center></td>
-                    <td><center></center></td>
+                    <td><center>verify</center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>adopt1</center></td>
-                    <td><center>Jason</center></td>
-                    <td><center>Perez</center></td>
-                    <td><center>PROFESSOR</center></td>
-                    <td><center>jason084@fiu.edu</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center><div class=" btn btn-sm btn-green ">VERIFIED</div></center></td>
+                <tr ng-repeat="professor in ctrl.professors">
+                    <td><center>{{professor.username}}</center></td>
+                    <td><center>{{professor.firstname}}</center></td>
+                    <td><center>{{professor.lastname}}</center></td>
+                    <td><center>{{professor.usertype}}</center></td>
+                    <td><center>{{professor.email}}</center></td>
+                    <td><center><div ng-click="ctrl.verifyProfessor(professor, $index)" class=" btn btn-sm btn-green ">verify</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>adopt1</center></td>
-                    <td><center>Juan</center></td>
-                    <td><center>Martinez</center></td>
-                    <td><center>PROFESSOR</center></td>
-                    <td><center>juan084@fiu.edu</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center><div class=" btn btn-sm btn-green ">VERIFIED</div></center></td>
-                </tr>
-                <tr style="height: 15px"></tr>
-                <tr>
-                    <td><center>adopt1</center></td>
-                    <td><center>Navlaka</center></td>
-                    <td><center>Garcia</center></td>
-                    <td><center>PROFESSOR</center></td>
-                    <td><center>nav084@fiu.edu</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center>NULL</center></td>
-                    <td><center><div class=" btn btn-sm btn-green ">VERIFIED</div></center></td>
-                </tr>
             </table></center>
-
-            <!-- Pagination -->
-            <div class="pagination-wrapper ">
-                <ul class="pagination pagination-sm">
-                    <li class="disabled"><a href="#">Previous</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>
