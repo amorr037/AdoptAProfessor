@@ -58,13 +58,13 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
            }).success(function(data) {
                self.addedComment="";
                self.showImg=false;
+                getComments();
                //console.log(data);
            });
        }
     }
     function imageIsLoaded(e) {
         $('#myImg').attr('src', e.target.result);
-        //self.showImg=true;
     };
     function getComments(){
         if(self.professorProfile){
@@ -93,6 +93,7 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
         self.pagination.setShowing();
     }
     function setupComments(data){
+        self.comments.splice(0,self.comments.length);
         data = data.comments;
         for(var i = 0 ; i < data.length;i++){
             //var comment = data[i];
