@@ -429,12 +429,11 @@ _SQL;
             $tempPassword = $this->generateRandomString(6);
             //Email information
             $admin_email = "contact@adoptaprofessor.org";
-            $email = $email;
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
 
             //send email
-            if(mail($admin_email, "$subject", $comment, "From:" . $email)){
+            if(mail($email, "$subject", $comment, "From:" . $admin_email)){
                 $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
                 if (!$stmt) {
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
@@ -442,9 +441,9 @@ _SQL;
                 }
                 $pwdHash = password_hash($tempPassword, PASSWORD_DEFAULT);
                 $stmt->bind_param("ss", $pwdHash, $username);
-                $res = $stmt->execute();
+                $ress = $stmt->execute();
                 $stmt->close();
-                if (!$res) {
+                if (!$ress) {
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
                     return $res;
                 }
