@@ -111,7 +111,7 @@ class AuthenticationManager {
     }
     function getProfileInfo($username) {
         $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null,'usertype' => 'STUDENT'];
-        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype FROM users WHERE username = '$username'")) {
+        if ($result = $this->dbCnx->query("SELECT firstname, lastname, email, usertype, status, profileimg  FROM users WHERE username = '$username'")) {
             $row = $result->fetch_assoc();
             if($row){
                 $res['errMsg']=null;
@@ -119,6 +119,8 @@ class AuthenticationManager {
                 $res['lastname']= $row['lastname']; 
                 $res['email']= $row['email']; 
                 $res['usertype'] = $row['usertype'];
+                $res['status'] = $row['status'];
+                $res['profileImgPath'] = $row['profileimg'];
                 return $res;             
             }
             $result->close();
@@ -494,5 +496,21 @@ _SQL;
             return null;
         } else return "We have encountered problems updating professor status.";
 
+    }
+    function insertComment($from, $to, $text, $imgUrl) {
+        $img = $imgUrl==null?'null':"'$imgUrl'";
+        echo $imgUrl;
+        $query = <<<_SQL
+        INSERT INTO comments (text, fromUserId, toUserId, imageurl)
+        VALUES ('$text',(SELECT user_id
+                        FROM users
+                        WHERE username='$from'), (SELECT user_id
+                                                    FROM users
+                                                    WHERE username='$to'), $img);
+_SQL;
+        var_dump($query);
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems inserting the comments.";
     }
 }

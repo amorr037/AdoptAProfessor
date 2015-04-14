@@ -1,10 +1,11 @@
 aap.controller('ProfileCtrl', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
 	var self = this;
-    this.user = aap.user;
+    self.user = aap.user;
     self.showingHistory = false;
     self.historyBtnName = "Show History"
     self.comments = [];
     self.comments.showing=[];
+    self.profileImg=self.user.profileImgPath==null?'resources/img/profile/blank-profile.png':self.user.profileImgPath;
     self.toggleShowHistory=function(){
         self.showingHistory = !self.showingHistory;
         if(self.showingHistory) self.historyBtnName = "Hide History";

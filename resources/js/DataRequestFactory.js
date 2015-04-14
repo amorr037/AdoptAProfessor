@@ -72,16 +72,12 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/checkUsername.php", 
             "username="+username);
         },
-        getProfessorComments: function(){
-            return self.makeRequest("resources/php/getProfessorComments.php","username="+aap.user.username);
-        },
         getProfessorComments: function(username){
+            if(!username) username = aap.user.username;
             return self.makeRequest("resources/php/getProfessorComments.php","username="+username);
         },
-        getStudentComments: function(){
-            return self.makeRequest("resources/php/getStudentComments.php","username="+aap.user.username);
-        },
         getStudentComments: function(username){
+            if(!username) username = aap.user.username;
             return self.makeRequest("resources/php/getStudentComments.php","username="+username);
         },
         reportComment: function(commentId){

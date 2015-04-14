@@ -1,12 +1,13 @@
 <div class="section" ng-controller="visitorProfileController as ctrl">
     <div  class="author-photo  container">
         <div class="container col-md-4"></div>
-        <div class = "circular col-md-2" style = 'background-image: url("resources/img/profile/Masoud_milani.jpg")'></div>
+        <div class = "circular col-md-2" style = 'background-image: url("{{ctrl.profileImg}}")'></div>
         <div class = "container col-md-4">
             <h1 ng-bind="ctrl.profileFName + ' ' +ctrl.profileLName"></h1>
             <h3 ng-bind="ctrl.profileEmail"></h3>
             <h4 ng-bind="ctrl.profileType"></h4>
-            <div ng-show ="professorVerified" class="col-lg-4 app-btn app-green" style="text-align: center">verified</div>
+            <h4>Professor <div class="app-btn app-{{ctrl.professorVerified==1?'green':'red'}} small-text" style="text-align: center">{{ctrl.professorVerified==1?'verified':'not-verified'}}</div></h4>
+            <!--<div ng-show ="professorVerified" class="col-lg-4 app-btn app-green" style="text-align: center">verified</div>-->
         </div>
     </div>
     <div class="container" ng-show="!ctrl.professorProfile">
@@ -16,7 +17,10 @@
             <div ng-repeat="comment in ctrl.comments | limitTo: 3" class="testimonial col-md-4 col-sm-6">
                 <!-- Author Photo -->
                 <div class="author-photo">
-                    <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}"/>
+                    <a href="{{(ctrl.user.username==comment.from.username)?'#/profile':'#/viewProfile?user='+comment.from.username}}">
+                        <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}">
+                        <div>{{comment.from.firstname + " "+comment.from.lastname}}</div>
+                    </a>
                 </div>
                 <div class="testimonial-bubble">
                     <blockquote>
@@ -38,11 +42,16 @@
             <ul class="post-comments">
                 <li ng-repeat="comment in ctrl.comments.showing">
                     <div class="comment-wrapper">
-                        <div class="comment-author"><img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}</div>
-                        <p class="section-white text-center">
-                            {{comment.content}}
+                        <div class="comment-author">
+                            <a href="{{(ctrl.user.username==comment.from.username)?'#/profile':'#/viewProfile?user='+comment.from.username}}">
+                                <img ng-src="{{comment.from.profileimg==null?'resources/img/profile/blank-profile.png':comment.from.profileimg}}" alt="User Name">{{comment.from.firstname + " "+comment.from.lastname}}
+                            </a>
+                        </div>
+                        <div class="myTextArea text-center">
+                            <p ng-bind-html="comment.content" class="text-center comment-content">
+                            </p>
                             <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
-                        </p>
+                        </div>
                         <!-- Comment Controls -->
                         <div class="comment-actions">
                             <span class="comment-date">{{ctrl.dateToString(comment.time)}}</span>
@@ -74,16 +83,20 @@
                             <form class="form-horizontal" role="form">
                                 <div class="form-group">
                                     <!--<label for="contact-message" class="col-sm-3 control-label"><b></b></label>-->
-                                    <div class="col-sm-12">
-                                        <textarea class="form-control" rows="5" id="contact-message"></textarea>
+                                    <div class="col-sm-12 myTextArea">
+                                        <div class="content col-sm-12" contentEditable="true" ng-model="ctrl.addedComment"></div>
+                                        <img ng-show="ctrl.showImg" src="" id="myImg" />
                                     </div>
+                                    <small class="error" style="color: red" ng-show="ctrl.emptyErrorMsg">
+                                        Please enter a comment and/or image!
+                                    </small>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <span class="btn btn-default btn-file">Attach Image <input type="file"></span>
+                                        <span class="btn btn-default btn-file">Attach Image <input ng-file-select="onFileSelect($files)" type="file" accept=".png,.jpg"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <button type="submit" class="btn pull-right">add</button>
+                                        <button type="submit" ng-click="ctrl.uploadImg()" class="btn pull-right">add</button>
                                     </div>
                                 </div>
                             </form>
