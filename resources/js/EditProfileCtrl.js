@@ -1,4 +1,4 @@
-aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$localStorage', function(DataRequest,$location,$timeout,$localStorage) {
+aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$localStorage','$scope', '$upload', function(DataRequest,$location,$timeout,$localStorage,$scope, $upload) {
     var self = this;
     this.user = aap.user;
     self.fname = this.user.firstname;
@@ -8,12 +8,34 @@ aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$local
     self.reNewPassword="";
     self.email = this.user.email;
     self.showingHistory = false;
-    self.historyBtnName = "Change Password"
+    self.showingApplyImg = false;
+    self.profileImg = null;
+    self.historyBtnName = "Change Password";
+    getProfileImg();
     self.toggleShowHistory=function(){
         console.log(self.showingHistory);
         self.showingHistory = !self.showingHistory;
         if(self.showingHistory) this.historyBtnName = "Cancel Password Change";
         else  this.historyBtnName = "Change Password";
+    }
+    function getProfileImg(){
+        DataRequest.downloadPrfImg(aap.user.username).then(function(data){
+            if(!data.success()){
+                console.log(data);
+                self.profileImg = NULL;
+            }
+            console.log(data);
+            self.profileImg = data;
+        });
+        if(self.profileImg==null){
+            $('#profileImg').attr('style', "background-image: url(resources/img/profile/blank-profile.png)");
+            self.profileImg = 'resources/img/profile/blank-profile.png';
+        }else{
+            $('#profileImg').attr('style', "background-image: url("+self.profileImg+")");
+            self.profileImg = self.profileImgPath;
+        }
+        //self.profileImg = self.profileImgPath==null?'resources/img/profile/blank-profile.png':self.profileImgPath
+        console.log(self.profileImg);
     }
     self.updateUserInfo = function(){
         DataRequest.updateUserInfo(self.fname, self.lname,self.email).then(function(data){
@@ -56,6 +78,28 @@ aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$local
             self.reNewPassword="";
         });
     };
+    $scope.onFileSelect = function($files) {
+        if ($files && $files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL($files[0]);
+            self.file = $files[0];
+            console.log(self.file);
+            self.showingApplyImg = true;
+        }
+    };
+    function imageIsLoaded(e) {
+        $('#profileImg').attr('style', "background-image: url("+e.target.result+")");
+    };
+    self.uploadPrfImg = function(){
+        $upload.upload({
+            url: "resources/php/uploadPrfImg.php",
+            data:  {username: aap.user.username},
+            file: self.file
+        }).success(function(data) {
+            alert("Profile image changed!");
+        });
+    }
 }]);
 /**
  * Created by cruiz on 3/31/15.

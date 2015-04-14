@@ -513,4 +513,28 @@ _SQL;
             return null;
         } else return "We have encountered problems inserting the comments.";
     }
+    function updatePrfImg($username, $imgUrl){
+//        echo $username;
+        $stmt = $this->dbCnx->prepare("UPDATE pictures SET path=? WHERE user_id=(SELECT user_id FROM users WHERE username=?)");
+        $stmt->bind_param("ss", $imgUrl, $username);
+        $res = $stmt->execute();
+        $stmt->close();
+        if(!$res)
+            return "There was an error updating profile image!";
+        return NULL;
+    }
+    function getProfileImg($username){
+        $stmt = $this->dbCnx->prepare("SELECT path FROM pictures WHERE user_id=(SELECT user_id FROM users WHERE username=?)");
+        $stmt->bind_param("s", $username);
+        $res = $stmt->execute();
+        $stmt->close();
+        if(!$res)
+            return $res['msg'] = "There was an error getting profile image!";
+        $row = $res->fetch_assoc();
+        if($row){
+            $res['msg'] = $row['path'];
+            return $res;
+        }
+        return $res['msg'] = "There was an error getting profile image!";
+    }
 }

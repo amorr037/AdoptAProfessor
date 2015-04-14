@@ -116,6 +116,11 @@ aap.factory('DataRequest', function($http) {
         verifyProfessor: function(username){
             return self.makeRequest("resources/php/verifyProfessor.php",
                 "username="+username);
+        },
+        downloadPrfImg: function(username){
+            return self.makeRequest("resources/php/getProfileImg.php",
+                "username="+username);
         }
+
     };
 });
