@@ -135,21 +135,21 @@ class AuthenticationManager {
 //            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
 //            "user_id" => null ];
         if ($result = $this->dbCnx->query(
-            "SELECT firstname, lastname, users.user_id, title, website, email, path
+            "SELECT firstname, lastname, username, title, website, email, path
             FROM users
-            LEFT JOIN pictures
-            ON users.user_id=pictures.user_id")) {
+            LEFT JOIN pictures ON users.user_id = pictures.user_id
+            WHERE users.usertype =  'PROFESSOR'")) {
 
             $i = 0;
 
             while ($row = $result->fetch_assoc()) {
                 $res[$i]['title']= $row['title'];
                 $res[$i]['email']= $row['email'];
+                $res[$i]['username']= $row['username'];
                 $res[$i]['website']= $row['website'];
                 $res[$i]['path']= $row['path'];
                 $res[$i]['lastname']= $row['lastname'];
                 $res[$i]['firstname']= $row['firstname'];
-                $res[$i]['user_id'] = $row['user_id'];
                 $i++;
             }
             $result->close();
