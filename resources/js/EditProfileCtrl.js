@@ -74,15 +74,15 @@ aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$local
     };
     self.uploadPrfImg = function(){
         var d = new Date();
-        self.file.name = d.getTime()+self.file.name;
+        $date = d.getTime();
         $upload.upload({
             url: "resources/php/uploadPrfImg.php",
-            data:  {username: aap.user.username},
+            data:  {username: aap.user.username, date: $date},
             file: self.file
         }).success(function(data) {
             alert("Profile image changed!");
-            console.log("resources/img/profile/"+self.file.name);
-            self.profileImg = aap.user.profileImgPath = $localStorage.profileImgPath = "resources/img/profile/"+self.file.name;
+            console.log("resources/img/profile/"+$date+"_"+self.file.name);
+            self.profileImg = aap.user.profileImgPath = $localStorage.profileImgPath = "resources/img/profile/"+$date+"_"+self.file.name;
         });
     }
 }]);
