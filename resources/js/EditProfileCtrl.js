@@ -9,33 +9,14 @@ aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$local
     self.email = this.user.email;
     self.showingHistory = false;
     self.showingApplyImg = false;
-    self.profileImg = null;
     self.historyBtnName = "Change Password";
-    getProfileImg();
+    self.profileImg = null;
+    self.profileImg=self.user.profileImgPath==null?'resources/img/profile/blank-profile.png':self.user.profileImgPath;
     self.toggleShowHistory=function(){
         console.log(self.showingHistory);
         self.showingHistory = !self.showingHistory;
         if(self.showingHistory) this.historyBtnName = "Cancel Password Change";
         else  this.historyBtnName = "Change Password";
-    }
-    function getProfileImg(){
-        DataRequest.downloadPrfImg(aap.user.username).then(function(data){
-            if(!data.success()){
-                console.log(data);
-                self.profileImg = NULL;
-            }
-            console.log(data);
-            self.profileImg = data;
-        });
-        if(self.profileImg==null){
-            $('#profileImg').attr('style', "background-image: url(resources/img/profile/blank-profile.png)");
-            self.profileImg = 'resources/img/profile/blank-profile.png';
-        }else{
-            $('#profileImg').attr('style', "background-image: url("+self.profileImg+")");
-            self.profileImg = self.profileImgPath;
-        }
-        //self.profileImg = self.profileImgPath==null?'resources/img/profile/blank-profile.png':self.profileImgPath
-        console.log(self.profileImg);
     }
     self.updateUserInfo = function(){
         DataRequest.updateUserInfo(self.fname, self.lname,self.email).then(function(data){
@@ -92,12 +73,16 @@ aap.controller('EditProfileCtrl', ['DataRequest','$location','$timeout', '$local
         $('#profileImg').attr('style', "background-image: url("+e.target.result+")");
     };
     self.uploadPrfImg = function(){
+        var d = new Date();
+        self.file.name = d.getTime()+self.file.name;
         $upload.upload({
             url: "resources/php/uploadPrfImg.php",
             data:  {username: aap.user.username},
             file: self.file
         }).success(function(data) {
             alert("Profile image changed!");
+            console.log("resources/img/profile/"+self.file.name);
+            self.profileImg = aap.user.profileImgPath = $localStorage.profileImgPath = "resources/img/profile/"+self.file.name;
         });
     }
 }]);
