@@ -16,24 +16,21 @@
                 <div class="basic-login container">
                     <form name="signup_form" role="form" novalidate ng-submit="ctrl.updateUserInfo()">
                         <div class="form-group">
+                            <div  class="container col-md-4"></div>
                             <div  class="author-photo  container text-center">
-                                <div id="profileImg" class = "circular col-md-2 col-lg-push-4"  style ='background-image: url("{{ctrl.profileImg}}")'></div>
+                                <div id="profileImg" class = "circular col-md-4"  style ='background-image: url("{{ctrl.profileImg}}")'></div>
                                 <!--<img class = "circular col-lg-2" src="resources/img/profile/user3.jpg">-->
                                 <div class = "container col-md-4 col-lg-push-4">
                                     <h1 ng-bind="ctrl.user.firstname + ' ' +ctrl.user.lastname"></h1>
                                     <h3 ng-bind="ctrl.user.email"></h3>
                                 </div>
-                                <div class="container col-md-4"></div>
                             </div>
-                            <!--<div class="btn btn-sm pull-left" ng-click="" style="margin: 15px">Change Picture</div>-->
-                            <!--<div class="col-sm-2 col-lg-push-4">-->
-                                <!--<span class="btn btn-sm btn-file" style="margin: 2px">Change Picture<input ng-file-select="onFileSelect($files)" type="file" accept=".png,.jpg"></span>-->
-                            <!--</div>-->
-                            <div class="form-group col-sm-2 col-lg-push-4">
-                                <div class="col-sm-6 col-md-pull-1" style="margin-top: 2px">
+                            <div  class="container col-sm-4"></div>
+                            <div class="form-group col-sm-2">
+                                <div class="col-sm-6 col-md-pull-3" style="margin-top: 2px">
                                     <span class="btn btn-sm btn-file" style="margin-bottom: 2px">Change Picture<input ng-file-select="onFileSelect($files)" type="file" accept=".png,.jpg"></span>
                                 </div>
-                                <div class="col-sm-8 col-md-pull-1" ng-show="ctrl.showingApplyImg">
+                                <div class="col-sm-8 col-md-pull-3" ng-show="ctrl.showingApplyImg">
                                     <button type="submit" ng-click="ctrl.uploadPrfImg()" class="btn btn-sm" style="margin-left: 8px">Apply Image</button>
                                 </div>
                             </div>
@@ -98,31 +95,27 @@
                             </div>
                             <br>
                             <div class="row">
-                                <div class="container col-lg-12 text-center">
+                                <div class="container col-md-12  text-center">
                                     <button class="btn btn-sm center-block" ng-click = "ctrl.toggleShowHistory()" ng-bind="ctrl.historyBtnName"></button>
                                 </div>
                             </div>
-                            <div class="container center-block col-lg-12">
-                                <div class="container col-lg-12 text-center" ng-show = "ctrl.showingHistory">
-                                    <!--<div class="app-btn app-blue center-block">-->
-                                        <br>
-                                        <form name="change_password_form" role="form" novalidate>
-                                            <div class="form-group container col-md-4">
-                                                <label for="edit-password"><i class="icon-lock"></i> <b>Old Password</b></label>
-                                                <input class="form-control text-center" ng-model="ctrl.oldpassword" id="edit-old-password" type="password">
-                                            </div>
-                                            <div class="form-group container col-md-4">
-                                                <label for="edit-password"><i class="icon-lock"></i> <b>Password</b></label>
-                                                <input class="form-control text-center" ng-model="ctrl.newpassword" id="edit-password" type="password">
-                                            </div>
-                                            <div class="form-group container col-md-4">
-                                                <label for="edit-password2"><i class="icon-lock"></i> <b>Re-enter Password</b></label>
-                                                <input class="form-control text-center" ng-model="ctrl.reNewPassword" id="edit-password2" type="password">
-                                            </div>
-                                        </form>
-                                    <!--</div>-->
+                            <br>
+                                <div class="container col-md-12 text-center" ng-show = "ctrl.showingHistory">
+                                    <form name="change_password_form" role="form" novalidate>
+                                        <div class="form-group container col-md-4">
+                                            <label for="edit-password"><i class="icon-lock"></i> <b>Old Password</b></label>
+                                            <input class="form-control text-center" ng-model="ctrl.oldpassword" id="edit-old-password" type="password">
+                                        </div>
+                                        <div class="form-group container col-md-4">
+                                            <label for="edit-password"><i class="icon-lock"></i> <b>Password</b></label>
+                                            <input class="form-control text-center" ng-model="ctrl.newpassword" id="edit-password" type="password">
+                                        </div>
+                                        <div class="form-group container col-md-4">
+                                            <label for="edit-password2"><i class="icon-lock"></i> <b>Re-enter Password</b></label>
+                                            <input class="form-control text-center" ng-model="ctrl.reNewPassword" id="edit-password2" type="password">
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
                             <div class="form-group text-center" ng-show = "ctrl.showingHistory">
                                 <button type="submit" ng-click="ctrl.changePasswordRequest()" class="btn pull-right">Submit New Password</button>
                                 <div class="clearfix"></div>
