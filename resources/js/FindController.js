@@ -2,6 +2,27 @@ aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
     var self = this;
     self.professors = [];
     self.professors.showing=[];
+    self.user = aap.user;
+
+
+    self.search = function() {
+        DataRequest.getProfessors().then(function(data){
+            if(!data.sucess) {
+                console.log(data);
+                return;
+            }
+
+            console.log(data);
+            data = $filter('filter')(data, { shape: "circle", color: "red"});
+            for(var i = 0 ; i < data.length;i++){
+                self.professors.push(data[i]);
+                if(self.professors.length>1 && (self.professors.length-1)%self.pagination.professorsPerPage==0){
+                    self.pagination.pages.push(self.pagination.pages.length+1);
+                }
+            }
+            setupPagination();
+        });
+    };
 
     self.pagination = {
         pages:[1],
@@ -33,7 +54,7 @@ aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
         setShowing: function(){
             var professors = self.professors;
             var showing = self.professors.showing;
-            console.log(professors);
+
             showing.splice(0,showing.length);
             var start = (self.pagination.currPage-1)*self.pagination.professorsPerPage;
             for(var i = start; i<professors.length && i < start+self.pagination.professorsPerPage;i++)
@@ -42,7 +63,6 @@ aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
     };
 
     DataRequest.getProfessors().then(function(data){
-        console.log(data);
         if(!data){
             console.log(data);
             return;
@@ -54,7 +74,6 @@ aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
                 self.pagination.pages.push(self.pagination.pages.length+1);
             }
         }
-        console.log(self.professors);
         setupPagination();
 
     });
