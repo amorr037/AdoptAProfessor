@@ -1,18 +1,11 @@
-aap.controller('FindCtrl', ['$scope', '$http', function($scope, $http) {
-
-    $http.get('./resources/php/find.php').
-        success(function(data) {
-            console.log(data);
-            $scope.professors = data;
-
-        }).
-        error(function(data) {
-            console.log(data + "error");
-        });
+aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
+    var self = this;
+    self.professors = [];
+    self.professors.showing=[];
 
     self.pagination = {
         pages:[1],
-        commentsPerPage:1,
+        professorsPerPage:5,
         currPage:1,
         pagesAvailable:1,
         next:function(){
@@ -38,12 +31,35 @@ aap.controller('FindCtrl', ['$scope', '$http', function($scope, $http) {
             self.pagination.setShowing();
         },
         setShowing: function(){
-            var comments = self.data;
-            var showing = self.data.showing;
+            var professors = self.professors;
+            var showing = self.professors.showing;
+            console.log(professors);
             showing.splice(0,showing.length);
-            var start = (self.pagination.currPage-1)*self.pagination.commentsPerPage;
-            for(var i = start; i<comments.length && i < start+self.pagination.commentsPerPage;i++)
-                showing.push(comments[i]);
+            var start = (self.pagination.currPage-1)*self.pagination.professorsPerPage;
+            for(var i = start; i<professors.length && i < start+self.pagination.professorsPerPage;i++)
+                showing.push(professors[i]);
         }
     };
+
+    DataRequest.getProfessors().then(function(data){
+        console.log(data);
+        if(!data){
+            console.log(data);
+            return;
+        }
+
+        for(var i = 0 ; i < data.length;i++){
+            self.professors.push(data[i]);
+            if(self.professors.length>1 && (self.professors.length-1)%self.pagination.professorsPerPage==0){
+                self.pagination.pages.push(self.pagination.pages.length+1);
+            }
+        }
+        console.log(self.professors);
+        setupPagination();
+
+    });
+    function setupPagination(){
+        self.pagination.pagesAvailable = Math.ceil(self.professors.length/self.pagination.professorsPerPage);
+        self.pagination.setShowing();
+    }
 }])
