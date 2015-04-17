@@ -13,38 +13,65 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <input type="text" class="form-control" placeholder="Search Professor" ng-model="query">
-                <!--<button type="submit" ng-click="search()">Login</button>-->
                 <br>
                 <ul id="findprofessor" ng-repeat="prof in ctrl.professors.showing">
-                <!--<ul id="findprofessor" ng-repeat="prof in professors | filter:query | limitTo: 5| limitTo: -5">-->
-                    <!--<div ng-show="prof.length > 0" class="container-fluid">-->
+                    <div ng-show="isLoggedIn" class="container-fluid">
                         <div class="row">
                             <div ng-if="prof.path !== null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}"></div>
                             <div ng-if="prof.path === null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}">
-                                <div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/blank-profile.png)'></div>
-                                <!--<img ng-src={{prof.path}}>-->
+                            <div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/blank-profile.png)'></div>
                             </div>
                             <div class="col-md-9 col-md-offset-1">
                                 <a href="#/viewProfile?user={{prof.username}}" class="list-group-item">Name: {{prof.firstname}}</a>
-                                <!--<a href="#/viewProfile?user={{prof.username}}" ng-click="$rootScope.user_id = {{prof.user_id}}" class="list-group-item">Name: {{prof.firstname}}</a>-->
                                 <a href="#/viewProfile?user={{prof.username}}" class="list-group-item">Last Name: {{prof.lastname}}</a>
                                 <a href="#/viewProfile?user={{prof.username}}" class="list-group-item">E-mail: {{prof.email}}</a>
                             </div>
                         </div>
-                    <!--</div>-->
-                <!--</ul>-->
-                    <div ng-show="prof === null" class="container-fluid">
+                </div>
+
+
+                    <div ng-show="!isLoggedIn" class="container-fluid">
+                        <div class="row">
+                            <div ng-if="prof.path !== null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}"></div>
+                            <div ng-if="prof.path === null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}">
+                            <div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/blank-profile.png)'></div>
+                            </div>
+                            <div class="col-md-9 col-md-offset-1">
+                                <li class="list-group-item">Name: {{prof.firstname}}</li>
+                                <li class="list-group-item">Last Name: {{prof.lastname}}</li>
+                                <li class="list-group-item">E-mail: {{prof.email}}</li>
+                            </div>
+                        </div>
+
+                </div>
+                </ul>
+                <div ng-show="ctrl.professors.showing.length == 0" class="container-fluid">
+                    <div ng-show="!isLoggedIn" class="container-fluid">
                         <div class="row">
                             <div class="col-md-12 well">
                                 <div class="text-center">
                                     <h3>Did not find your favorite professor?</h3>
                                 </div>
-                                    <p class="text-center"><a href="index.html#/inviteProfessor">Click here</a> to send and invitation your favorite professor!</p>
+                                <p class="text-center"><a href="index.html#/register">Click here</a> to register then send an invitation your favorite professor!</p>
                             </div>
                         </div>
                     </div>
-                </ul>
+
+
+                    <div ng-show="isLoggedIn" class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 well">
+                                <div class="text-center">
+                                    <h3>Did not find your favorite professor?</h3>
+                                </div>
+                                <p class="text-center"><a href="index.html#/inviteProfessor">Click here</a> to send an invitation your favorite professor!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <!-- Pagination -->
+
+            <div ng-show="ctrl.professors.showing.length > 0" class="container-fluid">
                 <div class="pagination-wrapper ">
                     <ul class="pagination pagination-sm">
                         <li ng-click="ctrl.pagination.previous()" class="{{ctrl.pagination.hasPrevious()?'':'disabled'}}"><a href="">Previous</a></li>
@@ -54,6 +81,7 @@
                         <li ng-click="ctrl.pagination.next()" class="{{ctrl.pagination.hasNext()?'':'disabled'}}"><a href="">Next</a></li>
                     </ul>
                 </div>
+            </div>
             </div>
         </div>
     </div>

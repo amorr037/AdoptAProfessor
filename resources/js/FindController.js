@@ -1,10 +1,15 @@
-aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', function(DataRequest, $scope, $filter) {
+aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', '$localStorage', function(DataRequest, $scope, $filter) {
     var self = this;
     self.professors = [];
     self.professors.showing=[];
     self.user = aap.user;
 
+    //$scope.user = self.user.username;
+    $scope.isLoggedIn = isLoggedIn();
 
+    function isLoggedIn(){
+        return !angular.isUndefined(self.user.username);
+    }
     $scope.$watch('query', function(val) {
         DataRequest.getProfessors().then(function(data){
             if(!data) {
