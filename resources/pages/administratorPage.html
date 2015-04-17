@@ -57,7 +57,7 @@
                     <td><center>{{ctrl.userAccountInfo['lastname']}}</center></td>
                     <td><center>{{ctrl.userAccountInfo['usertype']}}</center></td>
                     <td><center>{{ctrl.userAccountInfo['email']}}</center></td>
-                    <td><center><div class=" btn btn-sm btn-red ">Deactivate</div></center></td>
+                    <td><center><div ng-click="ctrl.deleteUser(ctrl.userAccountInfo['username'])" class=" btn btn-sm btn-red ">Deactivate</div></center></td>
                 </tr>
                 <tr style="height: 15px"></tr>
             </table></center>
