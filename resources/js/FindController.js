@@ -1,19 +1,27 @@
-aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
+aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', function(DataRequest, $scope, $filter) {
     var self = this;
     self.professors = [];
     self.professors.showing=[];
     self.user = aap.user;
 
 
-    self.search = function() {
+    $scope.$watch('query', function(val) {
         DataRequest.getProfessors().then(function(data){
-            if(!data.sucess) {
+            if(!data) {
                 console.log(data);
                 return;
             }
+            //reset data
+            self.professors = [];
+            self.professors.showing=[];
 
-            console.log(data);
-            data = $filter('filter')(data, { shape: "circle", color: "red"});
+            //reset pagination
+            self.pagination.pages=[1];
+            self.pagination.professorsPerPage = 5;
+            self.pagination.currPage =1;
+            self.pagination.pagesAvailable =1;
+
+            data = $filter('filter')(data, val);
             for(var i = 0 ; i < data.length;i++){
                 self.professors.push(data[i]);
                 if(self.professors.length>1 && (self.professors.length-1)%self.pagination.professorsPerPage==0){
@@ -22,7 +30,7 @@ aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
             }
             setupPagination();
         });
-    };
+    });
 
     self.pagination = {
         pages:[1],
@@ -62,21 +70,6 @@ aap.controller('FindCtrl', ['DataRequest', function(DataRequest) {
         }
     };
 
-    DataRequest.getProfessors().then(function(data){
-        if(!data){
-            console.log(data);
-            return;
-        }
-
-        for(var i = 0 ; i < data.length;i++){
-            self.professors.push(data[i]);
-            if(self.professors.length>1 && (self.professors.length-1)%self.pagination.professorsPerPage==0){
-                self.pagination.pages.push(self.pagination.pages.length+1);
-            }
-        }
-        setupPagination();
-
-    });
     function setupPagination(){
         self.pagination.pagesAvailable = Math.ceil(self.professors.length/self.pagination.professorsPerPage);
         self.pagination.setShowing();
