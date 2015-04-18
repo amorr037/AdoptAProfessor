@@ -8,14 +8,13 @@
     </div>
 </div>
 
-<div class="section" ng-controller="ProfileCtrl as ctrl">
+<div class="section" ng-controller="ProfessorMonthCtrl as ctrl">
     <div class="author-photo  container">
         <div class="container col-md-4"></div>
-        <div class="circular col-md-4" style='background-image: url(resources/img/profile/Masoud_milani.jpg)'></div>
+        <div class="circular col-md-4" style='background-image: url("{{ctrl.profileImg}}")'></div>
         <div class="container col-md-4">
-            <h1>Masoud Milani</h1>
-
-            <h3>milani@cis.fiu.edu</h3>
+            <h1 ng-bind="ctrl.user.firstname + ' ' + ctrl.user.lastname"></h1>
+            <h3 ng-bind="ctrl.user.email"></h3>
             <h4>Professor of the month!</h4>
         </div>
     </div>
