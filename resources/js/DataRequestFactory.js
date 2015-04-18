@@ -116,6 +116,9 @@ aap.factory('DataRequest', function($http) {
         verifyProfessor: function(username){
             return self.makeRequest("resources/php/verifyProfessor.php",
                 "username="+username);
+        },
+        deleteUser: function(username){
+            return self.makeRequest("resources/php/deleteUser.php","username="+username);
         }
     };
 });

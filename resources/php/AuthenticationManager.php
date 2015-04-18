@@ -508,7 +508,6 @@ _SQL;
                                                     FROM users
                                                     WHERE username='$to'), $img);
 _SQL;
-        var_dump($query);
         if ($result = $this->dbCnx->query($query)) {
             return null;
         } else return "We have encountered problems inserting the comments.";
@@ -521,5 +520,14 @@ _SQL;
         if(!$res)
             return "There was an error updating profile image!";
         return NULL;
+    }
+
+    function deleteUser($username){
+        $query = <<<_SQL
+        DELETE FROM users WHERE username = '$username'
+_SQL;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems deleting user.";
     }
 }

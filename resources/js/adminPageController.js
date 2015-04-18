@@ -90,6 +90,17 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
             }
         });
     };
+    self.deleteUser = function(username){
+        console.log("Deleting: "+ username);
+        DataRequest.deleteUser(username).then(function(data){
+            console.log(data);
+            if(data.success){
+                alert(data.errMsg);
+                return;
+            }
+            self.showAccount = false;
+        });
+    }
     self.getReportedComments = function() {
         self.comments=[];
         DataRequest.getReportedComments().then(function(data){
