@@ -12,10 +12,12 @@ aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', '$localStorage',
     }
     $scope.$watch('query', function(val) {
         DataRequest.getProfessors().then(function(data){
+            console.log(data);
             if(!data) {
                 console.log(data);
                 return;
             }
+
             //reset data
             self.professors = [];
             self.professors.showing=[];
