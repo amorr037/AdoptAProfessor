@@ -4,12 +4,12 @@ require_once('AuthenticationManager.php');
 require_once('RequestResponse.php');
 
 $params = $_GET?$_GET:$_POST;
-$username = $params['username'];
+$email = $params['email'];
+$subject = $params['subject'];
 $authmanager = new AuthenticationManager();
-$errMsg = $authmanager->getUserEmail($username);
 if($errMsg['errMsg'] != null) die(json_encode (new RequestResponse(false,$errMsg)));
 //die(json_encode (new RequestResponse(true,$errMsg)));
-$emailSentResponse = $authmanager->sendNewInvitation($errMsg['email'], $email, $subject);
+$emailSentResponse = $authmanager->sendNewInvitation($email, $subject);
 if($emailSentResponse['errMsg'] != null)
 {
     $emailSentResponse['errMsg'] = "Unable to send email at this time!";
