@@ -137,7 +137,6 @@ class AuthenticationManager {
         if ($result = $this->dbCnx->query(
             "SELECT firstname, lastname, username, email, profileimg
             FROM users
-            LEFT JOIN pictures ON users.user_id = pictures.user_id
             WHERE users.usertype =  'PROFESSOR'")) {
 
             $i = 0;
