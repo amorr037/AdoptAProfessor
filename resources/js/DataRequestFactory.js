@@ -76,6 +76,9 @@ aap.factory('DataRequest', function($http) {
             if(!username) username = aap.user.username;
             return self.makeRequest("resources/php/getProfessorComments.php","username="+username);
         },
+        getProfessors: function(){
+            return self.makeRequest("resources/php/find.php");
+        },
         getStudentComments: function(username){
             if(!username) username = aap.user.username;
             return self.makeRequest("resources/php/getStudentComments.php","username="+username);
@@ -108,6 +111,10 @@ aap.factory('DataRequest', function($http) {
         requestNewPassword: function(username){
             return self.makeRequest("resources/php/requestNewPassword.php",
                 "username=" + username);
+        },
+        inviteNewProfessor: function(username, email, message){
+            return self.makeRequest("resources/php/inviteNewProfessor.php",
+                "username=" + username, "email=" + email, 'message=' +message);
         },
         changePasswordRequest: function(oldpassword, newpasswrod){
             return self.makeRequest("resources/php/changePasswordRequest.php",
