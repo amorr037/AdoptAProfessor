@@ -17,8 +17,8 @@
                 <ul id="findprofessor" ng-repeat="prof in ctrl.professors.showing">
                     <div ng-show="isLoggedIn" class="container-fluid">
                         <div class="row">
-                            <div ng-if="prof.path !== null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}"></div>
-                            <div ng-if="prof.path === null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}">
+                            <div ng-if="prof.profileimg !== null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.profileimg}})'}"></div>
+                            <div ng-if="prof.profileimg === null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.profileimg}})'}">
                             <div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/blank-profile.png)'></div>
                             </div>
                             <div class="col-md-9 col-md-offset-1">
@@ -32,8 +32,8 @@
 
                     <div ng-show="!isLoggedIn" class="container-fluid">
                         <div class="row">
-                            <div ng-if="prof.path !== null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}"></div>
-                            <div ng-if="prof.path === null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.path}})'}">
+                            <div ng-if="prof.profileimg !== null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.profileimg}})'}"></div>
+                            <div ng-if="prof.profileimg === null" class="circular col-md-2" ng-style="{'background-image':'url({{prof.profileimg}})'}">
                             <div class = "circular col-md-2" style = 'background-image: url(resources/img/profile/blank-profile.png)'></div>
                             </div>
                             <div class="col-md-9 col-md-offset-1">
