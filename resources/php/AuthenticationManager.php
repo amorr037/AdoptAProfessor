@@ -137,10 +137,9 @@ class AuthenticationManager {
         if ($result = $this->dbCnx->query(
             "SELECT firstname, lastname, username, email, profileimg
             FROM users
-            WHERE users.usertype =  'PROFESSOR'")) {
+            WHERE users.usertype = 'PROFESSOR'")) {
 
             $i = 0;
-
             while ($row = $result->fetch_assoc()) {
                 $res[$i]['email']= $row['email'];
                 $res[$i]['username']= $row['username'];
@@ -150,10 +149,10 @@ class AuthenticationManager {
                 $i++;
             }
             $result->close();
-            $res['errMsg']="There was an error.";
-             return $res;
+//            $res['errMsg']="Tehre was an error.";
+//             return $res;
         }
-        $res['errMsg'] = $result;
+//        $res['errMsg'] = $result;
         return $res;
     }
     function getProfessorComments($professorUsername){
