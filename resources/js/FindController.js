@@ -12,7 +12,7 @@ aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', '$localStorage',
     }
     $scope.$watch('query', function(val) {
         DataRequest.getProfessors().then(function(data){
-            console.log(data);
+            //console.log(data);
             if(!data) {
                 console.log(data);
                 return;
@@ -28,6 +28,8 @@ aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', '$localStorage',
             self.pagination.currPage =1;
             self.pagination.pagesAvailable =1;
 
+            console.log(data);
+            console.log(self.professors);
             data = $filter('filter')(data, val);
             for(var i = 0 ; i < data.length;i++){
                 self.professors.push(data[i]);
