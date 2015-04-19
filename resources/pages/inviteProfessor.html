@@ -13,10 +13,10 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="basic-login">
-                    <form name="invite_form" role="form" novalidate ng-submit="ctrl.invite()">
+                    <form name="invite_form" role="form" novalidate ng-submit="ctrl.inviteNewProfessor()">
                         <div class="form-group">
-                            <label for="invite-email"><i class="icon-user"></i> <b>Professor's ".edu" Email</b></label>
-                            <input class="form-control" name="email" id="invite-email" ng-model="ctrl.email" ng-maxlength=20 ng-minlength=3 required type="email" placeholder="">
+                            <label for="email"><i class="icon-user"></i> <b>Professor's ".edu" Email</b></label>
+                            <input class="form-control" name="email" id="email" ng-model="ctrl.email" ng-maxlength=20 ng-minlength=3 required type="email" placeholder="">
                             <div class="error-container" ng-show = "invite_form.email.$dirty && invite_form.email.$invalid">
                                 <small class="error " style="color: red"
                                        ng-show="invite_form.email.$error.required">
@@ -37,8 +37,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="invite-message"><i class="icon-user"></i> <b>Send a message</b></label>
-                            <textarea class="form-control" name ="message" id="invite-message" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.message"  type="text" required placeholder="Send a welcoming message."></textarea>
+                            <label for="subject"><i class="icon-user"></i> <b>Send a message</b></label>
+                            <textarea class="form-control" name ="subject" id="subject" ng-keyup="ctrl.keyPressed()" ng-model="ctrl.subject"  type="text" required placeholder="Send a welcoming message."></textarea>
                         </div>
                         <div class="form-group">
                             <button type="submit" ng-disabled="invite_form.$invalid" class="btn pull-right">Send Invitation</button>

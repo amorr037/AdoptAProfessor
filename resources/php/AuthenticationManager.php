@@ -453,6 +453,19 @@ _SQL;
             $res['errMsg'] = "Error while sending email!";
             return false;
     }
+    function sendNewInvitation($emailFrom, $emailTo, $message){
+            //Email information
+            $subject = "You have a new invitation from one of your great students!";
+            $message = $message;
+
+            //send email
+            if(mail($emailTo, "$subject", $message, "From:" . $emailFrom)){
+                $res['errMsg'] = null;
+                return $res;
+            }
+            $res['errMsg'] = "Error while sending email!";
+            return false;
+    }
 
     function changePsswRequest($username, $oldPassword, $newPassword){
         $stmt = $this->dbCnx->prepare("SELECT user_id, password FROM users WHERE username=?");
