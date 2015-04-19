@@ -30,6 +30,7 @@ aap.controller('FindCtrl', ['DataRequest', '$scope', '$filter', '$localStorage',
 
             data = $filter('filter')(data, val);
             for(var i = 0 ; i < data.length;i++){
+                console.log("inside loop");
                 self.professors.push(data[i]);
                 if(self.professors.length>1 && (self.professors.length-1)%self.pagination.professorsPerPage==0){
                     self.pagination.pages.push(self.pagination.pages.length+1);
