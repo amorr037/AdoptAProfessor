@@ -135,7 +135,7 @@ class AuthenticationManager {
 //            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
 //            "user_id" => null ];
         if ($result = $this->dbCnx->query(
-            "SELECT firstname, lastname, username, title, website, email, path
+            "SELECT firstname, lastname, username, email, profileimg
             FROM users
             LEFT JOIN pictures ON users.user_id = pictures.user_id
             WHERE users.usertype =  'PROFESSOR'")) {
@@ -146,8 +146,7 @@ class AuthenticationManager {
                 $res[$i]['title']= $row['title'];
                 $res[$i]['email']= $row['email'];
                 $res[$i]['username']= $row['username'];
-                $res[$i]['website']= $row['website'];
-                $res[$i]['path']= $row['path'];
+                $res[$i]['profileimg']= $row['profileimg'];
                 $res[$i]['lastname']= $row['lastname'];
                 $res[$i]['firstname']= $row['firstname'];
                 $i++;
