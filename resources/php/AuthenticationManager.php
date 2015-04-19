@@ -142,7 +142,6 @@ class AuthenticationManager {
             $i = 0;
 
             while ($row = $result->fetch_assoc()) {
-                $res[$i]['title']= $row['title'];
                 $res[$i]['email']= $row['email'];
                 $res[$i]['username']= $row['username'];
                 $res[$i]['profileimg']= $row['profileimg'];
