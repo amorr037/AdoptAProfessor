@@ -153,10 +153,10 @@ class AuthenticationManager {
                 $i++;
             }
             $result->close();
-//            $res['errMsg']="Username not found";
-            // return $res;
+            $res['errMsg']="There was an error.";
+             return $res;
         }
-//        $res['errMsg'] = $result;
+        $res['errMsg'] = $result;
         return $res;
     }
     function getProfessorComments($professorUsername){
@@ -521,26 +521,9 @@ _SQL;
                                                     FROM users
                                                     WHERE username='$to'), $img);
 _SQL;
+        var_dump($query);
         if ($result = $this->dbCnx->query($query)) {
             return null;
         } else return "We have encountered problems inserting the comments.";
-    }
-    function updatePrfImg($username, $imgUrl){
-        $stmt = $this->dbCnx->prepare("UPDATE users SET profileimg=? WHERE username=?");
-        $stmt->bind_param("ss", $imgUrl, $username);
-        $res = $stmt->execute();
-        $stmt->close();
-        if(!$res)
-            return "There was an error updating profile image!";
-        return NULL;
-    }
-
-    function deleteUser($username){
-        $query = <<<_SQL
-        DELETE FROM users WHERE username = '$username'
-_SQL;
-        if ($result = $this->dbCnx->query($query)) {
-            return null;
-        } else return "We have encountered problems deleting user.";
     }
 }
