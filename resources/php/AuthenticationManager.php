@@ -421,6 +421,15 @@ _SQL;
         $res['errMsg'] = $stmt['errMsg'];
         return $stmt['errMsg'];
     }
+    function updatePrfImg($username, $imgUrl){
+        $stmt = $this->dbCnx->prepare("UPDATE users SET profileimg=? WHERE username=?");
+        $stmt->bind_param("ss", $imgUrl, $username);
+        $res = $stmt->execute();
+        $stmt->close();
+        if(!$res)
+            return "There was an error updating profile image!";
+        return NULL;
+    }
     function sendNewGeneratedPassword($username, $email){
             $tempPassword = $this->generateRandomString(6);
             //Email information
