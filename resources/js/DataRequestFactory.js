@@ -119,6 +119,9 @@ aap.factory('DataRequest', function($http) {
         },
         deleteUser: function(username){
             return self.makeRequest("resources/php/deleteUser.php","username="+username);
+        },
+        getProfessorOfPreviousMonth: function(){
+            return self.makeRequest("resources/php/getProfessorOfPreviousMonth.php");
         }
     };
 });

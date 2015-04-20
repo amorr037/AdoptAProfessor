@@ -12,26 +12,26 @@
     <div class="author-photo  container">
         <div class="container col-md-4"></div>
         <div class="circular col-md-4" style='background-image: url("{{ctrl.profileImg}}")'></div>
-        <div class="container col-md-4">
-            <h1 ng-bind="ctrl.user.firstname + ' ' + ctrl.user.lastname"></h1>
-            <h3 ng-bind="ctrl.user.email"></h3>
+        <div class="container col-md-6">
+            <h1 ng-bind="ctrl.firstname + ' ' + ctrl.lastname"></h1>
+            <h3 ng-bind="ctrl.email"></h3>
             <h4>Professor of the month!</h4>
         </div>
     </div>
     <div class="container">
         <div class="row">
             <!-- Testimonial -->
-            <p class="text-center"><h2>Thank you, <b>Masoud Milani!</b></h2></p>
+            <p class="text-center"><h2>Thank you, <b  ng-bind="ctrl.firstname + ' ' + ctrl.lastname">!</b></h2></p>
             <div class="testimonial col-md-12">
                 <div class="testimonial-bubble">
                     <blockquote>
                         <!-- Quote -->
-                        <p class="quote">
-                            "Excellent lecturer and very knowledgeable on the topics discussed. Extremely helpful and
-                            really cares about students learning. Assignments can be challenging, but very doable. Also,
-                            tests are challenging but if you did the assignments and study they are very manageable.
-                            Terrific professor, very respectful and encouraging!"
-                        </p>
+                        <!--<p class="quote text-center" ng-bind="ctrl.latestComment"></p>-->
+                        <div class="quote text-center">
+                            <p ng-bind="ctrl.latestComment" class="text-center comment-content">
+                            </p>
+                            <br><img ng-show="ctrl.commentimg!=null" width=225dpi height=250dpi ng-src="{{ctrl.commentimg==null?'':ctrl.commentimg}}"/>
+                        </div>
                     </blockquote>
                     <div class="sprite arrow-speech-bubble"></div>
                 </div>
