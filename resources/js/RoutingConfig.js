@@ -39,13 +39,7 @@ aap.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
             templateUrl: function(){
                 return "./resources/pages/contactUs.html";
             }
-        }).when('/faq',//Redirect if root
-        {
-            templateUrl: function(){
-                return "./resources/pages/faq.html";
-            }
-        })
-        .when('/professorMonth',//Redirect if root
+        }).when('/professorMonth',//Redirect if root
         {
             templateUrl: function(){
                 return "./resources/pages/professorMonth.html";

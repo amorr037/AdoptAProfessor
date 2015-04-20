@@ -430,14 +430,24 @@ _SQL;
             return "There was an error updating profile image!";
         return NULL;
     }
+    function sendContactUsEmail($email, $name, $comment){
+        $admin_email = "contact@adoptaprofessor.org";
+        $subject = "Adopt a Professor Email From " . $name . "( " . $email . ")";
+        $comment = $comment;
+        $admin_personal_email = "jcarm010@fiu.edu";
+        //send email
+        if(mail($admin_personal_email, "$subject", $comment, "From:" . $admin_email)){
+          $res['errMsg'] = null;
+        }else
+            $res['errMsg'] = "Error while sending email!";
+        return $res;
+    }
     function sendNewGeneratedPassword($username, $email){
             $tempPassword = $this->generateRandomString(6);
             //Email information
             $admin_email = "contact@adoptaprofessor.org";
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
-        echo("in genereting pwd");
-        echo($email);
             //send email
             if(mail($email, "$subject", $comment, "From:" . $admin_email)){
                 $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
