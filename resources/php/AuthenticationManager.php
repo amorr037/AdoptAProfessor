@@ -427,7 +427,8 @@ _SQL;
             $admin_email = "contact@adoptaprofessor.org";
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
-
+        echo("in genereting pwd");
+        echo($email);
             //send email
             if(mail($email, "$subject", $comment, "From:" . $admin_email)){
                 $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
