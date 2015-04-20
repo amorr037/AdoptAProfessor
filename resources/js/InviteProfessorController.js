@@ -1,19 +1,18 @@
-aap.controller('InviteProfessorCtrl', ['DataRequest','$location','$timeout', function(DataRequest,$location,$timeout) {
+aap.controller('InviteProfessorCtrl', ['DataRequest', function(DataRequest) {
     var self = this;
     this.user = aap.user;
-    self.message = "";
+    self.username = self.user.username;
     self.email = "";
-    self.usrErrorMsg=false;
-    self.invite = function(){
-        DataRequest.invite(self.message, self.email).then(function(data){
-            console.log("Invite Response");
+    self.message = "";
+    self.inviteNewProfessor = function(){
+        DataRequest.inviteNewProfessor(self.email, self.message).then(function(data){
+
             console.log(data);
-            //if(!data.sucess){
-            //    alert(data.msg);
-            //    return;
-            //}
-            //alert("Successfully registered. You can login now");
-            //$location.path("/login");
+            if(!data.sucess){
+                alert("An error has occur!\nDisregard any possible received email!");
+                return;
+            }
+            alert("An email has been sent to your new professor!");
         });
     };
 }]);

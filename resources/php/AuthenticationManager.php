@@ -135,26 +135,22 @@ class AuthenticationManager {
 //            "email" => null, "firstname" => null, "lastname" => null, "path" => null,
 //            "user_id" => null ];
         if ($result = $this->dbCnx->query(
-            "SELECT firstname, lastname, users.user_id, title, website, email, path
+            "SELECT firstname, lastname, username, email, profileimg
             FROM users
-            LEFT JOIN pictures
-            ON users.user_id=pictures.user_id")) {
+            WHERE users.usertype = 'PROFESSOR'")) {
 
             $i = 0;
-
             while ($row = $result->fetch_assoc()) {
-                $res[$i]['title']= $row['title'];
                 $res[$i]['email']= $row['email'];
-                $res[$i]['website']= $row['website'];
-                $res[$i]['path']= $row['path'];
+                $res[$i]['username']= $row['username'];
+                $res[$i]['profileimg']= $row['profileimg'];
                 $res[$i]['lastname']= $row['lastname'];
                 $res[$i]['firstname']= $row['firstname'];
-                $res[$i]['user_id'] = $row['user_id'];
                 $i++;
             }
             $result->close();
-//            $res['errMsg']="Username not found";
-            // return $res;
+//            $res['errMsg']="Tehre was an error.";
+//             return $res;
         }
 //        $res['errMsg'] = $result;
         return $res;
@@ -426,13 +422,32 @@ _SQL;
         $res['errMsg'] = $stmt['errMsg'];
         return $stmt['errMsg'];
     }
+    function updatePrfImg($username, $imgUrl){
+        $stmt = $this->dbCnx->prepare("UPDATE users SET profileimg=? WHERE username=?");
+        $stmt->bind_param("ss", $imgUrl, $username);
+        $res = $stmt->execute();
+        $stmt->close();
+        if(!$res)
+            return "There was an error updating profile image!";
+        return NULL;
+    }
+    function sendContactUsEmail($email, $name, $comment){
+        $admin_email = "contact@adoptaprofessor.org";
+        $subject = "Adopt a Professor Email From " . $name . "( " . $email . ")";
+        $comment = $comment;
+        $admin_personal_email = "adoptProfessor@gmail.com";
+        if(mail($admin_personal_email, "$subject", $comment, "From:" . $admin_email)){
+          $res['errMsg'] = null;
+        }else
+            $res['errMsg'] = "Error while sending email!";
+        return $res;
+    }
     function sendNewGeneratedPassword($username, $email){
             $tempPassword = $this->generateRandomString(6);
             //Email information
             $admin_email = "contact@adoptaprofessor.org";
             $subject = "New Password Request!";
             $comment = "Here is your temporary password: ". $tempPassword ."\nPlease log in to your account and change it.";
-
             //send email
             if(mail($email, "$subject", $comment, "From:" . $admin_email)){
                 $stmt = $this->dbCnx->prepare(" UPDATE users SET password=? WHERE username=?");
@@ -448,6 +463,20 @@ _SQL;
                     $res['errMsg'] = "Error while saving new password. Please Disregard any email received!";
                     return $res;
                 }
+                $res['errMsg'] = null;
+                return $res;
+            }
+            $res['errMsg'] = "Error while sending email!";
+            return false;
+    }
+    function sendNewInvitation($emailTo, $message){
+            //Email information
+            $admin_email = "contact@adoptaprofessor.org";
+            $subject = "You have a new invitation from one of your great students!";
+            $message = $message;
+
+            //send email
+            if(mail($emailTo, "$subject", $message, "From:" . $admin_email)){
                 $res['errMsg'] = null;
                 return $res;
             }
@@ -509,20 +538,11 @@ _SQL;
                                                     FROM users
                                                     WHERE username='$to'), $img);
 _SQL;
+        var_dump($query);
         if ($result = $this->dbCnx->query($query)) {
             return null;
         } else return "We have encountered problems inserting the comments.";
     }
-    function updatePrfImg($username, $imgUrl){
-        $stmt = $this->dbCnx->prepare("UPDATE users SET profileimg=? WHERE username=?");
-        $stmt->bind_param("ss", $imgUrl, $username);
-        $res = $stmt->execute();
-        $stmt->close();
-        if(!$res)
-            return "There was an error updating profile image!";
-        return NULL;
-    }
-
     function deleteUser($username){
         $query = <<<_SQL
         DELETE FROM users WHERE username = '$username'
@@ -534,29 +554,6 @@ _SQL;
 
     function getProfessorOfPreviousMonth($startDate, $endDate){
         $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null, 'profileimg'=>null, "lastComment" => null, "img" => null];
-//        if ($result = $this->dbCnx->query("SELECT firstname , lastname , email , profileimg
-//                                        FROM users JOIN ((SELECT PrfWComments.toUserId AS user_id_selected
-//                                                      FROM (SELECT toUserId , count(comment_id) AS totalComments
-//                                                              FROM comments
-//                                                              WHERE comments.time >= '$startDate'
-//                                                              AND comments.time < '$endDate'
-//                                                              GROUP BY toUserId
-//                                                              ORDER BY totalComments DESC) AS PrfWComments
-//                                                      LIMIT 1)) AS Result
-//                                        WHERE user_id = Result.user_id_selected")) {
-//            $row = $result->fetch_assoc();
-//            if($row){
-//                $res['errMsg']=null;
-//                $res['firstname']= $row['firstname'];
-//                $res['lastname']= $row['lastname'];
-//                $res['email']= $row['email'];
-//                $res['profileimg']= $row['profileimg'];
-//                return $res;
-//            }
-//            $result->close();
-//            $res['errMsg']="Error getting professor of the month!";
-//            return $res;
-//        }
         if ($result = $this->dbCnx->query("SELECT firstname , lastname , email , profileimg , comments.text as lastComment, comments.imageurl as img
                                             FROM users, comments, ((SELECT PrfWComments.toUserId AS user_id_selected, PrfWComments.latestComment AS comment_id
                                                                     FROM (SELECT toUserId , text , Max( comment_id ) AS latestComment, count(comment_id) AS totalComments

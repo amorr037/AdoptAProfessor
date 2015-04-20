@@ -76,6 +76,9 @@ aap.factory('DataRequest', function($http) {
             if(!username) username = aap.user.username;
             return self.makeRequest("resources/php/getProfessorComments.php","username="+username);
         },
+        getProfessors: function(){
+            return self.makeRequest("resources/php/find.php");
+        },
         getStudentComments: function(username){
             if(!username) username = aap.user.username;
             return self.makeRequest("resources/php/getStudentComments.php","username="+username);
@@ -109,6 +112,10 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/requestNewPassword.php",
                 "username=" + username);
         },
+        inviteNewProfessor: function(email, message){
+            return self.makeRequest("resources/php/inviteNewProfessor.php",
+                 "email=" + email, 'message=' +message);
+        },
         changePasswordRequest: function(oldpassword, newpasswrod){
             return self.makeRequest("resources/php/changePasswordRequest.php",
                 "username="+aap.user.username+"&oldpassword="+oldpassword+"&newpasswrod="+newpasswrod);
@@ -120,8 +127,11 @@ aap.factory('DataRequest', function($http) {
         deleteUser: function(username){
             return self.makeRequest("resources/php/deleteUser.php","username="+username);
         },
-        getProfessorOfPreviousMonth: function(){
+        getProfessorOfPreviousMonth: function() {
             return self.makeRequest("resources/php/getProfessorOfPreviousMonth.php");
+        },
+        contactUs: function(email, name, comment){
+            return self.makeRequest("resources/php/contactUs.php","email="+email+"&name="+name+"&comment="+comment);
         }
     };
 });
