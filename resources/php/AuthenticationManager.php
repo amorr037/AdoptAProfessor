@@ -434,8 +434,7 @@ _SQL;
         $admin_email = "contact@adoptaprofessor.org";
         $subject = "Adopt a Professor Email From " . $name . "( " . $email . ")";
         $comment = $comment;
-        $admin_personal_email = "jcarm010@fiu.edu";
-        //send email
+        $admin_personal_email = "adoptProfessor@gmail.com";
         if(mail($admin_personal_email, "$subject", $comment, "From:" . $admin_email)){
           $res['errMsg'] = null;
         }else
