@@ -5,7 +5,7 @@ aap.controller('InviteProfessorCtrl', ['DataRequest', function(DataRequest) {
     self.email = "";
     self.message = "";
     self.inviteNewProfessor = function(){
-        DataRequest.inviteNewProfessor(self.username, self.email, self.message).then(function(data){
+        DataRequest.inviteNewProfessor(self.email, self.message).then(function(data){
 
             console.log(data);
             if(!data.sucess){

@@ -112,9 +112,9 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/requestNewPassword.php",
                 "username=" + username);
         },
-        inviteNewProfessor: function(username, email, message){
+        inviteNewProfessor: function(email, message){
             return self.makeRequest("resources/php/inviteNewProfessor.php",
-                "username=" + username, "email=" + email, 'message=' +message);
+                 "email=" + email, 'message=' +message);
         },
         changePasswordRequest: function(oldpassword, newpasswrod){
             return self.makeRequest("resources/php/changePasswordRequest.php",
