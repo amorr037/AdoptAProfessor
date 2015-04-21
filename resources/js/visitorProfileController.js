@@ -60,6 +60,7 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
            }).success(function(data) {
                self.addedComment="";
                self.showImg=false;
+               self.file=null;
                 getComments();
                //console.log(data);
            });
