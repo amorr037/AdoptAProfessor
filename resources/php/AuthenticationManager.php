@@ -469,14 +469,14 @@ _SQL;
             $res['errMsg'] = "Error while sending email!";
             return false;
     }
-    function sendNewInvitation($emailTo, $message){
+    function sendNewInvitation($emailTo, $message, $fName, $lName){
             //Email information
             $admin_email = "contact@adoptaprofessor.org";
-            $subject = "You have a new invitation from one of your great students!";
-            $message = $message;
-
+            $subject = "You have an invitation to join Adopt A Professor website";
+            $content = "Student " . $fName ." " .$lName . "wants to invite you to join the Adopt a Professor
+            family: \r\n" . $message ."\r\n Please click the following link to register\r\n" . "http://adoptaprofessor.org/index.html#/register";
             //send email
-            if(mail($emailTo, "$subject", $message, "From:" . $admin_email)){
+            if(mail($emailTo, "$subject", $content, "From:" . $admin_email)){
                 $res['errMsg'] = null;
                 return $res;
             }

@@ -77,7 +77,7 @@ aap.factory('DataRequest', function($http) {
             return self.makeRequest("resources/php/getProfessorComments.php","username="+username);
         },
         getProfessors: function(){
-            return self.makeRequest("resources/php/find.php");
+            return self.makeRequest("resources/php/find.php","firstname="+aap.user.firstname+"&lastname="+aap.user.lastname);
         },
         getStudentComments: function(username){
             if(!username) username = aap.user.username;
