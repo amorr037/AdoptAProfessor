@@ -368,7 +368,7 @@ _SQL;
     }
     function getProfessorProfileInfo($username) {
         $res = ["errMsg" => null, "username"=>null,"firstname" => null, "lastname" => null, "email" => null,'usertype' => null, 'status'=>null];
-        if ($result = $this->dbCnx->query("SELECT username,firstname, lastname, email, profileimg, usertype, status FROM users WHERE username = '$username' AND usertype='PROFESSOR' AND status=1")) {
+        if ($result = $this->dbCnx->query("SELECT username,firstname, lastname, email, profileimg, usertype, status FROM users WHERE username = '$username' AND usertype='PROFESSOR' AND status=0")) {
             $row = $result->fetch_assoc();
             if($row){
                 $res['username']= $row['username'];
