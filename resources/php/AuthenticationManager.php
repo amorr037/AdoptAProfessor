@@ -472,6 +472,7 @@ _SQL;
     function sendNewInvitation($emailTo, $message, $fName, $lName){
             //Email information
             $admin_email = "contact@adoptaprofessor.org";
+        echo $fName;
             $subject = "You have an invitation to join Adopt A Professor website";
             $content = "Student " . $fName ." " .$lName . "wants to invite you to join the Adopt a Professor
             family: \r\n" . $message ."\r\n Please click the following link to register\r\n" . "http://adoptaprofessor.org/index.html#/register";

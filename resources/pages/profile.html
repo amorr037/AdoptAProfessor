@@ -23,8 +23,8 @@
 				</div>
 				<div class="testimonial-bubble">
 					<blockquote>
-                        <div class="text-center">
-                            <p ng-bind-html="comment.content" class="quote"></p>
+                        <div style=" overflow:hidden; text-overflow: ellipsis" class="text-center">
+                            <p  ng-bind-html="comment.content" class="quote"></p>
                             <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
                         </div>
 						<!-- Quote -->
