@@ -3,6 +3,7 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
     self.user = aap.user;
     //account section variables
     self.accountUsername = "";
+    self.profileImg=self.user.profileImgPath==null?'resources/img/profile/blank-profile.png':self.user.profileImgPath;
     self.userAccountInfo = {
         "username" : "",
         "lastname" : "",
