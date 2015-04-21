@@ -47,10 +47,12 @@ aap.controller('visitorProfileController', ['DataRequest','$location','$timeout'
        console.log(self.profileImg);
     }
     self.uploadImg = function(){
-        if(self.file===null&&self.addedComment==="")
+        //console.log(self.addedComment);
+        if(self.file===null && self.addedComment==="")
             self.emptyErrorMsg=true;
        else{
             self.emptyErrorMsg=false;
+            console.log(self.addedComment);
            $upload.upload({
                url: "resources/php/uploadImg.php",
                data:  {text: self.addedComment,from:self.user.username,to:self.profileUsername},

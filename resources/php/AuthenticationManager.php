@@ -531,9 +531,11 @@ _SQL;
     function insertComment($from, $to, $text, $imgUrl) {
         $img = $imgUrl==null?'null':"'$imgUrl'";
         echo $imgUrl;
+        $fixedText = str_replace("'", "", $text);
+        echo $fixedText;
         $query = <<<_SQL
         INSERT INTO comments (text, fromUserId, toUserId, imageurl)
-        VALUES ('$text',(SELECT user_id
+        VALUES ('$fixedText',(SELECT user_id
                         FROM users
                         WHERE username='$from'), (SELECT user_id
                                                     FROM users
