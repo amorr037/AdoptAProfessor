@@ -125,7 +125,7 @@ aap.factory('DataRequest', function($http) {
                 "username="+username);
         },
         deleteUser: function(username){
-            return self.makeRequest("resources/php/deleteUser.php","username="+username);
+            return self.makeRequest("resources/php/DeleteUser.php","username="+username);
         },
         getProfessorOfPreviousMonth: function() {
             return self.makeRequest("resources/php/getProfessorOfPreviousMonth.php");
