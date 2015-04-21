@@ -37,6 +37,7 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
     this.user.isAdmin = $localStorage.isAdmin;
     this.user.profileImgPath = $localStorage.profileImgPath;
 	this.logout = function(){
+        console.log("calling logout");
 		self.user.clear();
 		delete $localStorage.username;
 		delete $localStorage.apiKey;
@@ -47,6 +48,15 @@ aap.controller('NavCtrl', ["$localStorage","$location",function($localStorage,$l
 		delete $localStorage.email;
         delete $localStorage.status;
         delete $localStorage.profileImgPath;
+        delete aap.user.username;
+        delete aap.user.apiKey;
+        delete aap.user.isProfessor;
+        delete aap.user.isAdmin;
+        delete aap.user.firstname;
+        delete aap.user.lastname;
+        delete aap.user.email;
+        delete aap.user.status;
+        delete aap.user.profileImgPath;
 		$location.path("/home");
 	};
 

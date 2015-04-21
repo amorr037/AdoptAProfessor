@@ -8,6 +8,8 @@ aap.controller('ProfessorMonthCtrl', ['DataRequest','$location','$timeout', func
     self.latestComment = null;
     self.email = null;
     self.commentimg = null;
+    self.showProfessor = false;
+    self.showNoProfessorMessage = false;
     self.profileImg="resources/img/profile/blank-profile.png";
     console.log("Making Request");
     DataRequest.getProfessorOfPreviousMonth().then(function(data){
@@ -22,6 +24,14 @@ aap.controller('ProfessorMonthCtrl', ['DataRequest','$location','$timeout', func
         self.email = data.info.email;
         self.updatePrfImg(data.info.profileimg);
         self.getLatestComment(data.info.lastComment, data.info.img);
+        if(self.firstname == null){
+            self.showNoProfessorMessage = true;
+            self.showProfessor = false;
+        }else{
+
+            self.showProfessor = true;
+            self.showNoProfessorMessage = false;
+        }
     });
     self.updatePrfImg = function(img){
         self.profileImg = (img != null)?img:'resources/img/profile/blank-profile.png';
