@@ -11,7 +11,8 @@ $lname = $params['lastname'];
 $authmanager = new AuthenticationManager();
 if($errMsg['errMsg'] != null) die(json_encode (new RequestResponse(false,$errMsg)));
 //die(json_encode (new RequestResponse(true,$errMsg)));
-$emailSentResponse = $authmanager->sendNewInvitation($email, $message,$fname, $lname);
+$emailSentResponse = $authmanager->sendNewInvitation($email, $message, $fname, $lname);
+echo $message;
 if($emailSentResponse['errMsg'] != null)
 {
     $emailSentResponse['errMsg'] = "Unable to send email at this time!";
