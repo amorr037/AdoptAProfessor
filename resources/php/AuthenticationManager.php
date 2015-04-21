@@ -368,13 +368,14 @@ _SQL;
     }
     function getProfessorProfileInfo($username) {
         $res = ["errMsg" => null, "username"=>null,"firstname" => null, "lastname" => null, "email" => null,'usertype' => null, 'status'=>null];
-        if ($result = $this->dbCnx->query("SELECT username,firstname, lastname, email, usertype, status FROM users WHERE username = '$username' AND usertype='PROFESSOR' AND status=1")) {
+        if ($result = $this->dbCnx->query("SELECT username,firstname, lastname, email, profileimg, usertype, status FROM users WHERE username = '$username' AND usertype='PROFESSOR' AND status=1")) {
             $row = $result->fetch_assoc();
             if($row){
                 $res['username']= $row['username'];
                 $res['firstname']= $row['firstname'];
                 $res['lastname']= $row['lastname'];
                 $res['email']= $row['email'];
+                $res['profileimg']= $row['profileimg'];
                 $res['usertype'] = $row['usertype'];
                 $res['status'] = $row['status'];
                 return $res;
@@ -434,8 +435,7 @@ _SQL;
         $admin_email = "contact@adoptaprofessor.org";
         $subject = "Adopt a Professor Email From " . $name . "( " . $email . ")";
         $comment = $comment;
-        $admin_personal_email = "jcarm010@fiu.edu";
-        //send email
+        $admin_personal_email = "adoptProfessor@gmail.com";
         if(mail($admin_personal_email, "$subject", $comment, "From:" . $admin_email)){
           $res['errMsg'] = null;
         }else
@@ -543,5 +543,43 @@ _SQL;
         if ($result = $this->dbCnx->query($query)) {
             return null;
         } else return "We have encountered problems inserting the comments.";
+    }
+    function deleteUser($username){
+        $query = <<<_SQL
+        DELETE FROM users WHERE username = '$username'
+_SQL;
+        if ($result = $this->dbCnx->query($query)) {
+            return null;
+        } else return "We have encountered problems deleting user.";
+    }
+
+    function getProfessorOfPreviousMonth($startDate, $endDate){
+        $res = ["errMsg" => null, "firstname" => null, "lastname" => null, "email" => null, 'profileimg'=>null, "lastComment" => null, "img" => null];
+        if ($result = $this->dbCnx->query("SELECT firstname , lastname , email , profileimg , comments.text as lastComment, comments.imageurl as img
+                                            FROM users, comments, ((SELECT PrfWComments.toUserId AS user_id_selected, PrfWComments.latestComment AS comment_id
+                                                                    FROM (SELECT toUserId , text , Max( comment_id ) AS latestComment, count(comment_id) AS totalComments
+                                                                            FROM comments
+                                                                            WHERE comments.time >= '$startDate'
+                                                                            AND comments.time < '$endDate'
+                                                                            GROUP BY toUserId
+                                                                            ORDER BY totalComments DESC) AS PrfWComments
+                                                                            LIMIT 1)) AS Result
+                                            WHERE users.user_id = Result.user_id_selected
+                                            AND comments.comment_id = Result.comment_id")) {
+            $row = $result->fetch_assoc();
+            if($row){
+                $res['errMsg']=null;
+                $res['firstname']= $row['firstname'];
+                $res['lastname']= $row['lastname'];
+                $res['email']= $row['email'];
+                $res['profileimg']= $row['profileimg'];
+                $res['lastComment']= $row['lastComment'];
+                $res['img']= $row['img'];
+                return $res;
+            }
+            $result->close();
+            $res['errMsg']="Error getting professor of the month!";
+            return $res;
+        }
     }
 }

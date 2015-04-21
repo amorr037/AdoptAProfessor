@@ -27,11 +27,6 @@
                             </p>
                             <br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>
                         </div>
-                        <!--<p class="section-white text-center">-->
-                            <!--{{comment.content}}-->
-                            <!--<br><img ng-show="comment.imageurl!=null" width=225dpi height=250dpi ng-src="{{comment.imageurl==null?'resources/img/user2.jpg':comment.imageurl}}"/>-->
-                        <!--</p>-->
-                        <!-- Comment Controls -->
                         <div class="comment-actions">
                             <span class="comment-date">{{ctrl.dateToString(comment.time)}}</span>
                             <button ng-hide="comment.reported" ng-click="ctrl.report(comment)" class="label label-danger">Report</button>
