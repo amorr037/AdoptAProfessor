@@ -15,8 +15,6 @@ aap.controller('ProfessorMonthCtrl', ['DataRequest','$location','$timeout', func
     DataRequest.getProfessorOfPreviousMonth().then(function(data){
         if(!data.sucess){
             console.log(data.errMsg);
-            self.showNoProfessorMessage = true;
-            self.showProfessor = false;
             return;
         }
         console.log(data.info);
@@ -26,7 +24,14 @@ aap.controller('ProfessorMonthCtrl', ['DataRequest','$location','$timeout', func
         self.email = data.info.email;
         self.updatePrfImg(data.info.profileimg);
         self.getLatestComment(data.info.lastComment, data.info.img);
-        self.showProfessor = true;
+        if(self.firstname == null){
+            self.showNoProfessorMessage = true;
+            self.showProfessor = false;
+        }else{
+
+            self.showProfessor = true;
+            self.showNoProfessorMessage = false;
+        }
     });
     self.updatePrfImg = function(img){
         self.profileImg = (img != null)?img:'resources/img/profile/blank-profile.png';
