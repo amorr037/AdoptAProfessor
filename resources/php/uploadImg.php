@@ -1,7 +1,7 @@
 <?php
 require_once('AuthenticationManager.php');
 require_once('RequestResponse.php');
-var_dump($_POST);
+echo "upload image php";
 $data = $_POST["data"];
 $theData = json_decode($data);
 $text = $theData->text;
@@ -19,7 +19,6 @@ if(isset($_FILES['file'])){
     $authmanager = new AuthenticationManager();
     $errMsg = $authmanager->insertComment($from, $to, $text, "resources/img/uploaded/$file_name");
     echo (json_encode (new RequestResponse($errMsg==null,$errMsg)));
-//    echo json_encode(array("success" => true, "path" => "resources/img/uploaded/$file_name"));
 }
 else{
     $authmanager = new AuthenticationManager();
