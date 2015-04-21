@@ -68,7 +68,7 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
         "to" : "",
         "time" : "",
         "content" : "",
-        "imageurl":""
+        "imageUrl":""
     };
     self.getCommentById = function() {
         DataRequest.getCommentById(self.getCommentId).then(function(data){
@@ -88,6 +88,7 @@ aap.controller('adminPageController', ['DataRequest','$location','$timeout', fun
                 self.commentInfo.time = self.dateToString(data[0].time);
                 self.commentInfo.content = data[0].content;
                 self.commentInfo.imageUrl = data[0].imageurl;
+                console.log(self.commentInfo.imageUrl);
             }
         });
     };
